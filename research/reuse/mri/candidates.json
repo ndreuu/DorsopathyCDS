@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-09",
+  "timezone": "Europe/Istanbul",
+  "scope": "research_only_no_implementation",
+  "runtime_smoke_performed": false,
+  "selection": "parent importer + full TSS step2 + parent geometry/renderer; optional SpinoSarc native axial measurements; SpineNet conditional category PoC; train T10 binary bulging",
+  "provenance": {
+    "parent": {
+      "path": "/Users/andrew/.codex/worktrees/7179/med diploma",
+      "head": "10cbe9ff46787f695312ebd434c3554dc05147f4"
+    },
+    "spinosarc_fork": {
+      "path": "/Users/andrew/Projects/SpinoSarc",
+      "head": "85ca482e5b19310f139401575dc33e968135fcc6",
+      "upstream_revision": "63b7405d1276740dfde75e00d1e7ad58da6c10fd"
+    },
+    "method": "GitHub API main metadata + primary README/license/source/paper/provider pages; local source/manifests read-only; no checkpoints downloaded or rehashed",
+    "small_api_metadata_verified_at": "2026-10-09",
+    "hash_semantics": "checkpoint hashes below copied from existing manifest, not independently reverified in this audit"
+  },
+  "candidates": [
+    {
+      "id": "totalspineseg",
+      "url": "https://github.com/neuropoly/totalspineseg",
+      "upstream_main_commit": "4502d41bcb4a12e44f4be666411461ca81b02d89",
+      "local_package": "20260730",
+      "weights_release": "r20260730",
+      "status": "local_env_and_recorded_assets_available_fresh_inference_unchecked",
+      "input": "3D NIfTI; varied contrasts/planes; import DICOM/MHA separately",
+      "output": [
+        "step2_output labeled vertebrae/disc/cord/canal masks",
+        "level prediction"
+      ],
+      "side": null,
+      "pathology_categories": false,
+      "code_license": "LGPL-3.0",
+      "weights_license": "not_separately_verified",
+      "license_url": "https://github.com/neuropoly/totalspineseg/blob/main/LICENSE",
+      "device": [
+        "cpu",
+        "cuda",
+        "local experimental mps_cpu_mixed adapter"
+      ],
+      "runtime_full_step2_seconds": null,
+      "training_provenance": [
+        "SPIDER",
+        "internal whole-spine",
+        "Spine Generic",
+        "additional sacrum sources"
+      ],
+      "all_training_images_public": false,
+      "manifest_path": "parent:var/totalspineseg/manifest.json",
+      "checkpoint_sha256_recorded": {
+        "step1": "174566a0d729639e375b2bcb4d834eaee58f8fc321bcf5302ab652489538aace",
+        "step2": "35fe49c6a8f6b700c9cbb2110985f4ecccc74b74fca630c9c37e5c653578f84c"
+      },
+      "archives": [
+        {
+          "url": "https://github.com/neuropoly/totalspineseg/releases/download/r20260730/Dataset101_TotalSpineSeg_step1_r20260730.zip",
+          "recorded_sha256": "781f81e8c94feccd3cef17d819ba5c293b506e9b1f2b106fc5e31b9dd85887b0"
+        },
+        {
+          "url": "https://github.com/neuropoly/totalspineseg/releases/download/r20260730/Dataset102_TotalSpineSeg_step2_r20260730.zip",
+          "recorded_sha256": "494c640ab8cb25475bd0fc4338c0931d37079af9dd19403879335c3908c06b46"
+        }
+      ],
+      "entrypoint": "totalspineseg INPUT OUTPUT --data-dir DATA --device cpu --keep-only step2_output",
+      "limitations": [
+        "not pathology mask/classifier",
+        "canal is not independently validated dural sac",
+        "SPIDER pretrained exposure",
+        "step1 does not produce full disc masks"
+      ]
+    },
+    {
+      "id": "spinosarc",
+      "url": "https://github.com/neuromath/SpinoSarc",
+      "upstream_main_commit": "63b7405d1276740dfde75e00d1e7ad58da6c10fd",
+      "status": "fork_sources_env_cache_available",
+      "code_license": "MIT",
+      "license_url": "https://github.com/neuromath/SpinoSarc/blob/main/LICENSE",
+      "weights_license": {
+        "TSS": "unverified separately",
+        "MuscleMap_abdomen_v0.0": "MIT per local Zenodo metadata and LICENSE; live record failed to open"
+      },
+      "input": [
+        "DICOM folder or NIfTI",
+        "sagittal for TSS",
+        "native axial for CSA/muscles"
+      ],
+      "output": [
+        "predicted levels",
+        "canal CSA mm2",
+        "8 bilateral muscle classes CSA",
+        "intensity FF proxy",
+        "JSON/PNG/PDF/Excel"
+      ],
+      "pathology_categories": false,
+      "devices": [
+        "Apple Silicon MPS",
+        "CPU fallback"
+      ],
+      "recorded_step1_seconds": 64.3820447921753,
+      "recorded_step1_returncode": -15,
+      "teardown_recovered": true,
+      "fresh_full_pipeline_seconds": null,
+      "musclemap": {
+        "source": "https://zenodo.org/records/19631081",
+        "version": "0.0",
+        "source_revision": "d11df779a4e146e7e913b89cb202fc06a6e2ef6a",
+        "checkpoint_recorded_sha256": "75043856e3bdb52640558dcd0c071130f2bf1a59199eccb37c8efd614041f5c9",
+        "manifest_path": "parent:var/spinosarc/musclemap/manifest.json",
+        "training_data_public_status": "unknown"
+      },
+      "entrypoints": [
+        "python3 demo/scripts/run_spinosarc.py",
+        "python3 demo/scripts/run_spinosarc.py --example",
+        "python3 demo/scripts/analyze_spinosarc_example.py",
+        "python3 demo/scripts/render_spinosarc_example.py --findings FINDINGS.json --output OUT.png"
+      ],
+      "export": [
+        "process-result.json",
+        "findings.json",
+        "muscle_frames mask paths",
+        "multi_level_measurements"
+      ],
+      "limitations": [
+        "run --example is cache/replay",
+        "analyze_example reuses matching TSS cache but infers muscles",
+        "step1_canal is not separate dural sac",
+        "flags are thresholds not stenosis grades",
+        "FF proxy is not PDFF",
+        "native series registration needs review"
+      ]
+    },
+    {
+      "id": "spinereport",
+      "url": "https://github.com/ivadomed/SpineReport",
+      "upstream_main_commit": "657eada6a161566d83c176b6f9601db37f48ebde",
+      "status": "upstream_source_verified_not_installed_or_run",
+      "code_license": "LGPL-3.0",
+      "weights_license": "no own weights; upstream TSS rights inherited",
+      "input": "BIDS-named NIfTI and TSS isotropic output + control/test groups",
+      "output": [
+        "CSV",
+        "PNG",
+        "canal area AP/RL",
+        "disc volume median_thickness",
+        "foramen morphometry"
+      ],
+      "pathology_categories": false,
+      "device": "CPU measurements; TSS upstream runtime",
+      "runtime_seconds": null,
+      "entrypoint": "spinereport -t TEST_TOTALSPINESEG_FOLDER -c CONTROL_TOTALSPINESEG_FOLDER -o reports",
+      "source_api": [
+        "spinereport.utils.measure_seg.measure_canal",
+        "spinereport.utils.measure_seg.measure_disc",
+        "spinereport.utils.measure_seg.measure_seg_mp"
+      ],
+      "limitations": [
+        "SC+CSF canal definition",
+        "1mm resampling adds no acquisition detail",
+        "control group not clinical norm",
+        "need physical transform back to source frames"
+      ]
+    },
+    {
+      "id": "spinenet_v2",
+      "url": "https://github.com/rwindsor1/SpineNet",
+      "upstream_main_commit": "5e96ac54b1c1845a37d12e40bfd16f647d40acd8",
+      "status": "public_weight_urls_in_source_not_downloaded_or_run",
+      "code_license": "Oxford non-commercial research terms",
+      "weights_license": "same terms cover weights and outputs",
+      "license_url": "https://github.com/rwindsor1/SpineNet/blob/main/LICENCE.md",
+      "input": "sagittal HxWxS volume+height,width pixel spacing; lumbar T2 for grading",
+      "output": [
+        "vertebral polygons and names",
+        "IVD crops",
+        "per-level DataFrame 11 grading heads"
+      ],
+      "pathology_categories": [
+        "Herniation binary",
+        "CentralCanalStenosis",
+        "ForaminalStenosisLeft binary",
+        "ForaminalStenosisRight binary",
+        "Pfirrmann",
+        "Narrowing",
+        "Spondylolisthesis",
+        "UpperEndplateDefect",
+        "LowerEndplateDefect",
+        "UpperMarrow",
+        "LowerMarrow"
+      ],
+      "bulging_head": false,
+      "devices": [
+        "cuda:0 default",
+        "cpu documented",
+        "mps unknown"
+      ],
+      "runtime_seconds": null,
+      "weights_sha256": null,
+      "weights_urls": [
+        "https://www.robots.ox.ac.uk/~vgg/research/spinenet/weights/grading/ckpt1.pt",
+        "https://www.robots.ox.ac.uk/~vgg/research/spinenet/weights/appearance/ckpt187.pt",
+        "https://www.robots.ox.ac.uk/~vgg/research/spinenet/weights/detect-vfr/ckpt435.pt",
+        "https://www.robots.ox.ac.uk/~vgg/research/spinenet/weights/context/ckpt16.pt"
+      ],
+      "entrypoints": [
+        "spinenet.download_weights()",
+        "s=spinenet.SpineNet(device=\"cpu\")",
+        "v=s.detect_vb(volume,pixel_spacing)",
+        "i=s.get_ivds_from_vert_dicts(v,volume)",
+        "df=s.grade_ivds(i)"
+      ],
+      "limitations": [
+        "not bulging endpoint",
+        "no herniation contour/millimeters/root involvement",
+        "native IVD preprocessing needed",
+        "non-commercial code weights outputs",
+        "fully public training origin not established"
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "id": "SPIDER_v4",
+      "provider": "https://zenodo.org/records/10159290",
+      "documentation": "https://spider.grand-challenge.org/data/",
+      "paper": "https://www.nature.com/articles/s41597-024-03090-w",
+      "license": "CC-BY-4.0",
+      "public_patients": 218,
+      "public_sagittal_series": 447,
+      "format": "MHA + CSV",
+      "targets": [
+        "vertebra/disc/canal masks",
+        "per-IVD binary bulging herniation narrowing",
+        "Pfirrmann Modic endplate spondylolisthesis"
+      ],
+      "absent": [
+        "pathological herniated-material masks",
+        "side/root involvement",
+        "herniation dimensions"
+      ],
+      "numbering": "caudal relative mask201+; not verified anatomical levels",
+      "local_reference_rois": {
+        "patients": 64,
+        "records": 447,
+        "bulging_positive": 216,
+        "bulging_negative": 231,
+        "herniation_positive": 20,
+        "herniation_negative": 427,
+        "anatomically_confirmed": 0,
+        "patients_by_split": {
+          "train": 40,
+          "development": 13,
+          "test": 11
+        },
+        "roi_by_split": {
+          "train": 276,
+          "development": 92,
+          "test": 79
+        },
+        "bulging_by_split": {
+          "train": [
+            139,
+            137
+          ],
+          "development": [
+            46,
+            46
+          ],
+          "test": [
+            31,
+            48
+          ]
+        },
+        "split_seed": 20261007,
+        "split_method": "stable SHA256 patient buckets; no label stratification",
+        "manifest_path": "parent:data/spider/disc-reference/manifest.json",
+        "audit_path": "parent:artifacts/spider-disc-reference-audit.json",
+        "split_sha256_recorded": "9408dc5f9e42e354eb608743b5e07339d24784ea49c1970e64825f38b4514e30",
+        "gradings_sha256_recorded": "9b6045750dacb8a7f5313de5e5711c027a5a7a12cd7da14bb1d5e1c84ed39f10"
+      },
+      "leakage": "TSS trained on SPIDER; patient split alone does not prove independent end-to-end evaluation"
+    },
+    {
+      "id": "RSNA_LumbarDISC",
+      "provider": "https://registry.opendata.aws/rsna-lumbar-spine-degenerative-classification-dataset/",
+      "paper": "https://pubs.rsna.org/doi/10.1148/ryai.250480",
+      "competition": "https://www.kaggle.com/competitions/rsna-2024-lumbar-spine-degenerative-classification",
+      "access": "controlled; non-commercial; redistribution prohibited in current provider text",
+      "local_status": "unknown",
+      "format": "DICOM + CSV",
+      "series": [
+        "sagittal T1",
+        "sagittal T2/STIR",
+        "axial T2"
+      ],
+      "targets": "25 level/condition grades: canal, left/right foraminal, left/right subarticular; normal/mild moderate severe; coordinate annotations",
+      "absent": [
+        "bulging endpoint",
+        "herniation tissue masks"
+      ],
+      "provider_metadata_caveat": "AWS registry citation paragraph appears to refer to mammography; retain lumbar dataset identity and verify citation with RSNA"
+    }
+  ],
+  "t10": {
+    "chosen_endpoint": "binary disc bulging",
+    "ready_own_classifier": false,
+    "ready_shortlist_equivalent": false,
+    "training_needed": true,
+    "new_binary_annotation_for_existing_baseline": false,
+    "new_annotation_needed_for": [
+      "herniation contour",
+      "side/root relationship",
+      "millimeter pathology extent",
+      "independent external evaluation"
+    ],
+    "evaluation_required": [
+      "freeze existing patient splits",
+      "check target joins missing/ordinal0",
+      "reference vs predicted ROI separately",
+      "patient-clustered uncertainty",
+      "external cohort for segmentation independence"
+    ]
+  },
+  "gates": {
+    "available": [
+      "parent importer anatomy adapters renderer",
+      "local TSS manifests env",
+      "SpinoSarc native frame exports cached masks",
+      "SPIDER relative binary gradings"
+    ],
+    "unknown": [
+      "fresh full step2 runtime RAM exit",
+      "TSS weight rights",
+      "SpineNet bytes availability/hash and macOS runtime",
+      "RSNA local access",
+      "new-series registration validity"
+    ],
+    "must_preserve": [
+      "source series/frame IDs and hashes",
+      "LPS size spacing origin direction transforms",
+      "mask_kind not pathology contour",
+      "method unit plane measurement endpoints",
+      "numbering needs_confirmation",
+      "unknown and not_assessed",
+      "cache vs fresh origin"
+    ]
+  },
+  "future_smoke": "one new fresh output job; successful exit and timestamped runtime; source and recorded weights verification; source-grid overlay QA; no cache relabelled live"
+}
