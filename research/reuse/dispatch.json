@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-09",
+  "stage": "research_only",
+  "max_active_researchers": 3,
+  "repository": "/Users/andrew/Projects/DorsopathyCDS",
+  "assignments": [
+    {
+      "task_id": "T11",
+      "module": "lidar",
+      "agent": "/root/lidar_reuse",
+      "status": "completed",
+      "branch": "research/reuse-lidar",
+      "worktree": "/Users/andrew/Projects/DorsopathyCDS-agents/T11-lidar",
+      "source_commit": "f13e734070cb9bd33e45760de30e6b05d41df103",
+      "integration_commit": "4c38a71ae8c4f93dea213609ea7a95d45adf2cee"
+    },
+    {
+      "task_id": "T12",
+      "module": "thermography",
+      "agent": "/root/thermal_reuse",
+      "status": "completed",
+      "branch": "research/reuse-thermography",
+      "worktree": "/Users/andrew/Projects/DorsopathyCDS-agents/T12-thermography",
+      "source_commit": "415c2eb7ad2642de4e76f778221951b80c22f05c",
+      "integration_commit": "888e9e43d47d7701f290e8bfe8156c5640d4e66d"
+    },
+    {
+      "task_id": "T13",
+      "module": "emg",
+      "agent": "/root/emg_reuse",
+      "status": "completed",
+      "branch": "research/reuse-emg",
+      "worktree": "/Users/andrew/Projects/DorsopathyCDS-agents/T13-emg",
+      "source_commit": "c3c51385cb998845c5b6a594d709ec116602bc3b",
+      "integration_commit": "14f990d656e4184c8d542cf6a6091c8297dfd23f"
+    },
+    {
+      "task_id": "T14",
+      "module": "ultrasound",
+      "agent": "/root/ultrasound_reuse",
+      "status": "completed",
+      "branch": "research/reuse-ultrasound",
+      "worktree": "/Users/andrew/Projects/DorsopathyCDS-agents/T14-ultrasound",
+      "source_commit": "b5700d2ca430e7a5135ccd3670499ada07127331",
+      "integration_commit": "18e6bbaf2ec4d96b28783991a54ae2f8c497fa72"
+    },
+    {
+      "task_id": "T15",
+      "module": "nociception",
+      "agent": "/root/nociception_reuse",
+      "status": "completed",
+      "branch": "research/reuse-nociception",
+      "worktree": "/Users/andrew/Projects/DorsopathyCDS-agents/T15-nociception",
+      "source_commit": "581c4fe32d500db8963c729771bb3b6099375dc2",
+      "integration_commit": "9d355ff5700813de2e992357ef79f732f5ec80d0"
+    },
+    {
+      "task_id": "T16",
+      "module": "comparison",
+      "agent": "/root/comparison_reuse",
+      "status": "completed",
+      "branch": "research/reuse-comparison",
+      "worktree": "/Users/andrew/Projects/DorsopathyCDS-agents/T16-comparison",
+      "source_commit": "fc1c553ba894dca6b4271de336ffa02c1f96b153",
+      "integration_commit": "4a864efbd808add094043582f9008bb854f3ac4d"
+    },
+    {
+      "task_id": "T03",
+      "module": "mri",
+      "agent": "/root/mri_reuse",
+      "status": "completed",
+      "branch": "research/reuse-mri",
+      "worktree": "/Users/andrew/Projects/DorsopathyCDS-agents/T03-mri",
+      "source_commit": "9508edc084f65cb64a7ad3ab8b72761542a58052",
+      "integration_commit": "07742a1c827fa19d5cd61fec3de9361c346e85ca",
+      "initial_source_commit": "a5e5d03e49053174f4c5eca0e92995b81132ac4f",
+      "initial_integration_commit": "0229706f8b7d01801d2602f002afc79091693584"
+    },
+    {
+      "task_id": "T04",
+      "module": "intake",
+      "agent": "/root/intake_reuse",
+      "status": "completed",
+      "branch": "research/reuse-intake",
+      "worktree": "/Users/andrew/Projects/DorsopathyCDS-agents/T04-intake",
+      "source_commit": "6c7d6257f80a75b00db6767e0af579cfa460ac3c",
+      "integration_commit": "4e80ca6390b072368eb4fe6dea63904f6bd08ca8"
+    }
+  ],
+  "reviewer": {
+    "agent": "/root/reuse_audit",
+    "status": "completed",
+    "mode": "read_only",
+    "audited_modules": 8,
+    "must_fix_found": 1,
+    "must_fix_resolved": 1,
+    "must_fix_remaining": 0,
+    "scope": "research source/license/runtime/calibration gates and ModuleResult 1.0 mapping; not clinical validation"
+  },
+  "status": "completed",
+  "base_commit": "6161304de7c02960fa3d40e681ef612e90cd3e17",
+  "max_active_agents_including_coordinator": 4,
+  "researcher_count": 8,
+  "reviewer_count": 1,
+  "implementation_performed": false,
+  "aggregation_files": [
+    "research/reuse/README.md",
+    "research/reuse/summary_ru.md",
+    "research/reuse/dispatch.json"
+  ]
+}
