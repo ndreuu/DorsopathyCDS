@@ -349,5 +349,157 @@
       "cache vs fresh origin"
     ]
   },
-  "future_smoke": "one new fresh output job; successful exit and timestamped runtime; source and recorded weights verification; source-grid overlay QA; no cache relabelled live"
+  "future_smoke": "one new fresh output job; successful exit and timestamped runtime; source and recorded weights verification; source-grid overlay QA; no cache relabelled live",
+  "module_result_1_0_mapping": {
+    "contract_sources": [
+      "/Users/andrew/Projects/DorsopathyCDS/src/dorsopathy_platform/contracts.py",
+      "/Users/andrew/Projects/DorsopathyCDS/docs/module_development_ru.md"
+    ],
+    "schema_version": "1.0",
+    "implementation_status": "future_adapter_design_only",
+    "envelope_fields": [
+      "schema_version",
+      "result_id",
+      "job_id",
+      "episode_id",
+      "module_id",
+      "module_version",
+      "status",
+      "observations",
+      "artifacts",
+      "warnings",
+      "error"
+    ],
+    "origin_enum": [
+      "patient_report",
+      "clinician_entered",
+      "automatically_measured",
+      "model_predicted",
+      "synthetic_demo"
+    ],
+    "outputs": [
+      {
+        "module_id": "mri.anatomy",
+        "concept": "spine.canal.cross_sectional_area",
+        "origin": "automatically_measured",
+        "value_type": "number scalar",
+        "unit": "mm2",
+        "model": "optional; do not invent identity",
+        "evidence": [
+          "source axial frame",
+          "canal mask",
+          "geometry/method/measurement sidecar",
+          "overlay"
+        ]
+      },
+      {
+        "module_id": "mri.muscles",
+        "concept": "muscle.cross_sectional_area",
+        "origin": "automatically_measured",
+        "value_type": "number scalar",
+        "unit": "mm2",
+        "evidence": [
+          "source axial frame",
+          "muscle label mask",
+          "measurement sidecar"
+        ]
+      },
+      {
+        "module_id": "mri.disc_features",
+        "concept": "spine.disc.bulging",
+        "origin": "model_predicted",
+        "value_type": "boolean scalar",
+        "unit": null,
+        "model_required_fields": [
+          "id",
+          "version",
+          "weights_sha256"
+        ],
+        "evidence": [
+          "source frames",
+          "disc ROI",
+          "model provenance sidecar"
+        ]
+      },
+      {
+        "output": "other pathology category",
+        "value_type": "string scalar",
+        "unit": null,
+        "origin": "model_predicted",
+        "concept_status": "agree with platform owner before integration"
+      }
+    ],
+    "observation_fields": [
+      "observation_id",
+      "concept",
+      "assessment_status",
+      "value",
+      "unit",
+      "anatomy",
+      "quality",
+      "origin",
+      "method",
+      "evidence_refs",
+      "model",
+      "acquired_at",
+      "coordinate_frame"
+    ],
+    "anatomy_fields": [
+      "region",
+      "side",
+      "level",
+      "numbering_status"
+    ],
+    "source_acquired_at": "known source acquisition timestamp else null",
+    "coordinate_frame": "DICOM-LPS-mm when known",
+    "evidence_ref_shape": {
+      "artifact_id": "declared opaque artifact ID",
+      "selector": {
+        "module_defined": "frame/label/ROI/LPS measurement endpoint selectors"
+      }
+    },
+    "evidence_resolution": "result artifacts, plus request input_artifacts when request provided; shared metadata identical",
+    "artifact_fields": [
+      "artifact_id",
+      "storage_key",
+      "sha256",
+      "media_type",
+      "size_bytes",
+      "role"
+    ],
+    "artifact_role_enum": [
+      "source",
+      "derived"
+    ],
+    "sidecars": [
+      "segmentation labels/stage/mask kind",
+      "geometry size spacing origin direction/transforms/source-frame linkage",
+      "provenance model multi-checkpoint hashes and replay/fresh mode",
+      "measurement plane method endpoints units"
+    ],
+    "not_observation_values": [
+      "segmentation array",
+      "geometry object",
+      "ROI object",
+      "PNG"
+    ],
+    "hash_semantics": {
+      "recorded_sha256": "existing local manifests, not independently rehashed this audit",
+      "independently_verified_sha256": null,
+      "contract_validation": "weights_sha256 64-hex shape only; no checkpoint byte equality check in ModuleResult validator",
+      "multi_checkpoint_TSS": "preserve both recorded checkpoints in provenance sidecar; model identity/weights field convention to agree before integration"
+    },
+    "future_integration_gates": [
+      "model ID/version and actual checkpoint identity known before emitting real model_predicted observation",
+      "agree multi-checkpoint identity scheme for TSS; never invent composite weights SHA"
+    ],
+    "missing": {
+      "assessment_status": "not_assessed",
+      "value": null,
+      "result_status": "partial",
+      "quality": "unknown or unreliable independently"
+    },
+    "replay": "preserve original observation origin; mode replay in provenance sidecar; synthetic_demo reserved for synthetic data",
+    "clinical_semantics": "selector schema permits JSON but does not validate anatomy/pathology correspondence"
+  }
 }
