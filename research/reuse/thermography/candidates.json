@@ -1,0 +1,390 @@
+{
+  "schema_version": "reuse-research-1.0",
+  "module": "T12.thermography",
+  "checked_at": "2026-10-09",
+  "scope": "tools-and-data-selection-only",
+  "recommended_stack": {
+    "tools": [
+      "exiftool",
+      "thermimage"
+    ],
+    "runtime": "isolated R worker in a future implementation",
+    "roi_statistics": "base R mean/min/max on explicit masks",
+    "heatmap": "Thermimage plotTherm with fields; explicit scale/orientation",
+    "training_required": false,
+    "hardware_required_for_import": false,
+    "status": "source-reviewed; runtime not executed"
+  },
+  "tools": [
+    {
+      "id": "exiftool",
+      "name": "ExifTool",
+      "decision": "recommended extraction layer",
+      "repository": "https://github.com/exiftool/exiftool",
+      "reviewed_revision": "2200871d9cef988051d2a99d67df3bda6cbb30a8",
+      "reviewed_version": "13.59",
+      "last_commit": "2026-05-27T16:44:48Z",
+      "archived": false,
+      "input_formats": [
+        "FLIR JPEG APP1/FFF",
+        "FFF",
+        "SEQ"
+      ],
+      "api": [
+        "CLI -j -G1 -n",
+        "CLI -b -RawThermalImage",
+        "Perl Image::ExifTool"
+      ],
+      "code_license": {
+        "declared": "Perl Artistic License OR GPL",
+        "source": "https://raw.githubusercontent.com/exiftool/exiftool/master/README",
+        "status": "explicit primary declaration checked; GitHub auto-detection not substituted"
+      },
+      "data_license": {
+        "status": "does not grant licenses to user image data",
+        "package_test_image_rights": "not used as selected dataset"
+      },
+      "dependencies": [
+        "Perl >=5.004",
+        "Compress::Zlib recommended for compressed formats"
+      ],
+      "limitations": [
+        "does not itself produce physically corrected temperatures",
+        "PNG byte order may require swapping",
+        "no ordinary JPEG-to-temperature inference"
+      ],
+      "sources": [
+        "https://raw.githubusercontent.com/exiftool/exiftool/master/lib/Image/ExifTool/FLIR.pm",
+        "https://raw.githubusercontent.com/exiftool/exiftool/master/README"
+      ]
+    },
+    {
+      "id": "thermimage",
+      "name": "Thermimage",
+      "decision": "recommended deterministic conversion and plotting",
+      "repository": "https://github.com/gtatters/Thermimage",
+      "reviewed_revision": "cb244dac8fffaac50b1ba8bbbf58b7d37b5d96e1",
+      "reviewed_version": "4.1.3",
+      "last_commit": "2025-05-28T11:40:37Z",
+      "archived": false,
+      "input_formats": [
+        "selected FLIR RJPEG",
+        "some SEQ/FCF profiles"
+      ],
+      "api": [
+        "readflirJPG",
+        "flirsettings",
+        "raw2temp",
+        "plotTherm"
+      ],
+      "code_license": {
+        "description": "GPL (>=2)",
+        "repository_license": "GPL version 3 text",
+        "sources": [
+          "https://github.com/gtatters/Thermimage/blob/master/DESCRIPTION",
+          "https://raw.githubusercontent.com/gtatters/Thermimage/master/LICENSE.md"
+        ],
+        "reuse_condition": "preserve declarations and GPL-compatible distribution; do not relabel borrowed converter MIT"
+      },
+      "data_license": {
+        "bundled_IR_2412_sample": "no separate image-specific grant verified; not selected as principal licensed data"
+      },
+      "dependencies": [
+        "R >=2.10",
+        "tiff",
+        "png",
+        "ExifTool/Perl for extraction",
+        "fields for plotTherm",
+        "ffmpeg/ImageMagick for applicable conversion/video functions"
+      ],
+      "limitations": [
+        "supply file-specific constants; do not accept library defaults silently",
+        "certain FLIR imports only, no universal DJI support",
+        "plot transpose/rotate/mirror must match ROI coordinates",
+        "computed estimate is not independent metrological calibration"
+      ],
+      "sources": [
+        "https://search.r-project.org/CRAN/refmans/Thermimage/html/raw2temp.html",
+        "https://search.r-project.org/CRAN/refmans/Thermimage/html/plotTherm.html",
+        "https://github.com/gtatters/Thermimage"
+      ]
+    },
+    {
+      "id": "flirpy",
+      "name": "flirpy",
+      "decision": "conditional FFF/SEQ/capture candidate",
+      "repository": "https://github.com/LJMUAstroecology/flirpy",
+      "reviewed_revision": "ce0cfbb57472c6d42575db45e67a292f74ac9058",
+      "pypi_version": "0.6.2",
+      "pypi_upload": "2026-04-08T23:44:08.542920Z",
+      "last_commit": "2026-07-23T15:07:05Z",
+      "archived": false,
+      "tested_camera_list_from_readme": [
+        "Tau 2 serial",
+        "TeAx ThermalCapture Grabber",
+        "Boson",
+        "Duo Pro R processing",
+        "TeAx Fusion Zoom processing",
+        "Lepton PureThermal capture/telemetry only"
+      ],
+      "api": [
+        "flirpy.io.fff.Fff",
+        "Fff.get_image",
+        "Fff.get_radiometric_image(dtype=\"float\")",
+        "split_seqs"
+      ],
+      "code_license": {
+        "declared": "MIT",
+        "source": "https://raw.githubusercontent.com/LJMUAstroecology/flirpy/main/LICENSE.md",
+        "bundled_exiftool": "separate Perl terms",
+        "converter_lineage": "util/raw.py explicitly says ported from GPL Thermimage",
+        "status": "MIT declaration checked; borrowed converter rights need upstream clarification before redistribution"
+      },
+      "data_license": {
+        "status": "repository code MIT is not a grant on camera datasets"
+      },
+      "dependencies": [
+        "Python >=3.10",
+        "numpy >=1.26,<2.4",
+        "Pillow",
+        "opencv-python-headless >=4.12",
+        "natsort",
+        "psutil",
+        "pyftdi",
+        "pyserial",
+        "pyusb",
+        "libusb",
+        "tqdm >4.29",
+        "pyudev on Linux",
+        "ExifTool bundled or separately installed depending on platform"
+      ],
+      "limitations": [
+        "camera core access is not proof of calibrated radiometry",
+        "format/endian/timestamp/RH normalization require acceptance per input path",
+        "PNG payload not proven by reviewed TIFF-type examples",
+        "do not treat scaled integer TIFF as Cel"
+      ],
+      "sources": [
+        "https://github.com/LJMUAstroecology/flirpy/blob/main/pyproject.toml",
+        "https://raw.githubusercontent.com/LJMUAstroecology/flirpy/main/src/flirpy/io/fff.py",
+        "https://raw.githubusercontent.com/LJMUAstroecology/flirpy/main/src/flirpy/util/raw.py",
+        "https://github.com/LJMUAstroecology/flirpy/blob/main/docs/getting_started/cameras.rst"
+      ]
+    }
+  ],
+  "data_candidates": [
+    {
+      "id": "zenodo_10008937_vue_pro_r",
+      "decision": "selected open technical radiometric example",
+      "provider": "Zenodo / Messmer and Groos",
+      "record_url": "https://zenodo.org/records/10008937",
+      "metadata_url": "https://zenodo.org/api/records/10008937",
+      "doi": "10.5281/zenodo.10008937",
+      "version": "v2.0.0",
+      "data_license": {
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "verified_from": "provider API metadata.license.id=cc-by-4.0; access_right=open",
+        "attribution": [
+          "Jérôme Messmer",
+          "Alexander R. Groos",
+          "DOI/version/license; indicate changes"
+        ]
+      },
+      "code_license": {
+        "status": "included R scripts not selected or audited; record license does not erase dependency licenses"
+      },
+      "archive": {
+        "name": "Messmer_&_Groos_2023_The_Cryosphere.zip",
+        "size_bytes": 1302491299,
+        "provider_md5": "a3e591d3cb2188ebbb97c716ba023391",
+        "full_download": false,
+        "full_archive_checksum_recomputed": false,
+        "content_url": "https://zenodo.org/api/records/10008937/files/Messmer_&_Groos_2023_The_Cryosphere.zip/content"
+      },
+      "member": {
+        "path": "thermal_images/radiometric/20210928_135203_R.jpg",
+        "size_bytes": 826288,
+        "compressed_size_bytes": 580458,
+        "sha256": "c51aac71d367bb418c53d08dba5b1f9939cc54a0e3e0ed5175d000116a3e6635",
+        "zip_crc32_verified": true
+      },
+      "radiometry_verified": {
+        "method": "bounded HTTP Range -> in-memory ZIP member decode -> FLIR APP1/FFF records via stdlib struct",
+        "bytes_read": 711560,
+        "app1_flir_segments": 11,
+        "fff_version": 101,
+        "header_byte_order": "big",
+        "raw_byte_order": "little",
+        "matrix_shape_rows_columns": [
+          512,
+          640
+        ],
+        "container_dtype": "uint16",
+        "pixel_count": 327680,
+        "raw_min": 1834,
+        "raw_max": 3483,
+        "camera_model": "Vue Pro R 640 13mm",
+        "planck": {
+          "R1": 17096.453125,
+          "B": 1428.0,
+          "F": 1.0,
+          "O": -215,
+          "R2": 0.046412475407123566
+        },
+        "saved_emissivity_fraction": 1.0,
+        "saved_object_distance_m": 100.0
+      },
+      "limitations": [
+        "glacier scene, no clinical lower-back evidence",
+        "saved settings not independently verified against physical conditions",
+        "source timezone not checked; acquired_at remains null",
+        "full Celsius conversion, vendor comparison and runtime parser not tested"
+      ],
+      "artifact_saved": false,
+      "source_reference": "https://zenodo.org/records/10008937/preview/Messmer_%26_Groos_2023_The_Cryosphere.zip?include_deleted=0"
+    },
+    {
+      "id": "strdrones_flir_e40",
+      "decision": "reserve technical sample with provenance/rights gate",
+      "provider_url": "https://huggingface.co/datasets/STRDrones/FLIR",
+      "revision": "305c34a090b6b608299178925d0b115ab5b10aef",
+      "last_modified": "2026-06-18T15:43:15.000Z",
+      "public": true,
+      "gated": false,
+      "data_license": {
+        "declared": "MIT in dataset card",
+        "independent_upstream_rights_verified": false,
+        "gate": "sidecar SourceFile points inside DJI Thermal SDK dataset/test/FLIR; uploader right to relicense upstream samples not verified"
+      },
+      "code_license": {
+        "status": "no tool code selected from this dataset"
+      },
+      "member": {
+        "name": "FLIR_E40.jpg",
+        "size_bytes": 70163,
+        "sha256": "7fc6f5a7000b7d52d48d716dea6b503d75608253f65e101fcbc767f27f9611cb",
+        "url": "https://huggingface.co/datasets/STRDrones/FLIR/resolve/305c34a090b6b608299178925d0b115ab5b10aef/FLIR_E40.jpg"
+      },
+      "radiometry_verified": {
+        "fff_version": 100,
+        "raw_shape_rows_columns": [
+          120,
+          160
+        ],
+        "preview_shape_rows_columns": [
+          240,
+          320
+        ],
+        "raw_dtype": "uint16",
+        "raw_byte_order": "little",
+        "pixel_count": 19200,
+        "raw_min": 17059,
+        "raw_max": 18266,
+        "camera_model": "FLIR E40",
+        "method": "bounded small JPEG in-memory binary inspection",
+        "runtime_import_test": false
+      },
+      "artifact_saved": false
+    },
+    {
+      "id": "morichi_a50",
+      "decision": "future calibration/time/SEQ corpus; access gate",
+      "provider_record": "https://data.4tu.nl/datasets/c5fb8062-af5d-491a-8faf-8be7fc390f48",
+      "doi": "10.4121/c5fb8062-af5d-491a-8faf-8be7fc390f48",
+      "data_license": {
+        "declared": "CC-BY-4.0",
+        "verified_in": [
+          "provider README",
+          "author data descriptor"
+        ],
+        "source": "https://github.com/tudelft3d/MORICHI"
+      },
+      "code_license": {
+        "sciencespy_irim": "GPL per data descriptor; package/code not selected or audited"
+      },
+      "format_claimed_by_provider": "FLIR A50 SEQ, weather CSV, contact ground truth CSV",
+      "scale_note": "SEQ approx 95 MB/300 frames; full dataset >1 TB",
+      "downloaded": false,
+      "payload_verified": false,
+      "access_check": {
+        "provider_landing_web_status": 403,
+        "small_file_get_and_zip_head_status": 503,
+        "status": "unavailable in this audit"
+      },
+      "limitations": [
+        "shape differs across descriptor sections; actual shape requires file inspection",
+        "SEQ support by selected parser not demonstrated",
+        "outdoor scene not clinical skin protocol"
+      ],
+      "sources": [
+        "https://research.tudelft.nl/en/datasets/meteorological-observations-and-radiometric-images-for-cold-clima/",
+        "https://www.nature.com/articles/s41597-026-06763-w",
+        "https://github.com/tudelft3d/MORICHI/blob/main/install.py"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "id": "runtime_acceptance",
+      "status": "not performed",
+      "required": "install approved isolated stack later and compare extraction, temperature and orientation with reference"
+    },
+    {
+      "id": "skin_data",
+      "status": "unavailable in this selection",
+      "required": "paired lower-back radiometric skin images with acquisition protocol/calibration/reference/linkage; glacier data does not substitute"
+    },
+    {
+      "id": "flirpy_converter_license",
+      "status": "unresolved",
+      "required": "upstream clarification of GPL-derived raw2temp lineage before redistribution"
+    },
+    {
+      "id": "hf_upstream_rights",
+      "status": "unresolved",
+      "required": "rights to relicense SDK-origin samples before redistribution"
+    },
+    {
+      "id": "morichi_access_seq",
+      "status": "503/403 and unverified",
+      "required": "provider file access and actual A50 SEQ parser compatibility"
+    },
+    {
+      "id": "new_camera_formats",
+      "status": "unsupported until verified",
+      "required": "model/export-specific sample and format/calibration verification; native DJI RJPEG may require DJI Thermal SDK Windows/Linux and License.txt review",
+      "vendor_source": "https://www.dji.com/downloads/softwares/dji-thermal-sdk",
+      "sdk_downloaded": false
+    },
+    {
+      "id": "capture",
+      "status": "future device gate",
+      "required": "specific radiometric hardware/driver/SDK/protocol/reference; no purchase required for current import selection"
+    }
+  ],
+  "forbidden_inferences": [
+    "inflammation from temperature/asymmetry",
+    "source of pain",
+    "absence of pain",
+    "diagnosis or disease exclusion",
+    "numerical diagnostic probabilities"
+  ],
+  "verification": {
+    "dependencies_installed": false,
+    "models_trained": false,
+    "weights_downloaded": false,
+    "large_archives_downloaded": false,
+    "real_data_committed": false,
+    "sdk_downloaded": false,
+    "checks": [
+      "primary sources",
+      "code/data licenses separately",
+      "GitHub/PyPI/provider metadata",
+      "bounded two real JPEG binary checks",
+      "JSON parsing",
+      "git diff --check"
+    ],
+    "behavior_tests_required_for_this_document_only_change": false
+  }
+}
