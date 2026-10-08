@@ -1,0 +1,368 @@
+{
+  "schema_version": "research.reuse.candidates.v1",
+  "module_id": "emg.surface",
+  "checked_at": "2026-10-09",
+  "stage": "research_only",
+  "base_commit": "6161304de7c02960fa3d40e681ef612e90cd3e17",
+  "training_required": false,
+  "implementation_performed": false,
+  "recommended_minimal_stack": [
+    "stdlib csv/gzip",
+    "numpy",
+    "scipy",
+    "wfdb (WFDB inputs only)"
+  ],
+  "code_candidates": [
+    {
+      "id": "numpy_scipy",
+      "name": "NumPy + SciPy",
+      "decision": "recommended_core",
+      "license": "BSD-3-Clause",
+      "license_urls": [
+        "https://github.com/numpy/numpy/blob/main/LICENSE.txt",
+        "https://github.com/scipy/scipy/blob/main/LICENSE.txt"
+      ],
+      "scipy_source_revision": "806c8bd732aa4d8b172b7ed7849a1a5f391215a9",
+      "revision_scope": "inspected branch head, not tested runtime pin",
+      "entrypoints": [
+        "numpy.isfinite(x)",
+        "numpy.lib.stride_tricks.sliding_window_view(x,window_shape,axis=0)",
+        "scipy.signal.butter(N,Wn,btype,fs=fs,output='sos')",
+        "scipy.signal.sosfiltfilt(sos,x,axis=0,padtype,padlen)",
+        "scipy.signal.welch(x,fs=fs,window,nperseg,noverlap,nfft,detrend,scaling,axis,average)"
+      ],
+      "capabilities": [
+        "numeric QC primitives",
+        "explicit filters",
+        "windows/RMS",
+        "PSD/MDF/MNF primitives"
+      ],
+      "gaps": [
+        "import/source metadata",
+        "QC policy",
+        "artifact evidence"
+      ],
+      "source_urls": [
+        "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html",
+        "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.sosfiltfilt.html",
+        "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html",
+        "https://numpy.org/doc/stable/reference/generated/numpy.isfinite.html"
+      ]
+    },
+    {
+      "id": "libemg",
+      "name": "LibEMG",
+      "decision": "optional_feature_extractor",
+      "license": "MIT",
+      "license_url": "https://github.com/LibEMG/libemg/blob/c9b0bdc5ceadb2b36bcb2f006877e5ba1b4b974b/LICENSE",
+      "source_revision": "c9b0bdc5ceadb2b36bcb2f006877e5ba1b4b974b",
+      "documentation_version": "2.0.1",
+      "entrypoints": [
+        "OfflineDataHandler.get_data(folder_location,regex_filters,delimiter,data_column,...)",
+        "OfflineDataHandler.parse_windows(window_size,window_increment)",
+        "FeatureExtractor.extract_features(['RMS','MDF','MNF'],windows,feature_dic={'MDF_fs':fs,'MNF_fs':fs},normalize=False,fix_feature_errors=False)"
+      ],
+      "window_shape": [
+        "windows",
+        "channels",
+        "samples"
+      ],
+      "issues": [
+        {
+          "code": "docs_source_parameter_mismatch",
+          "detail": "Docs example MDF_sf; actual getMDFfeat uses MDF_fs, getMNFfeat MNF_fs",
+          "source": "https://github.com/LibEMG/libemg/blob/c9b0bdc5ceadb2b36bcb2f006877e5ba1b4b974b/libemg/feature_extractor.py#L878"
+        },
+        {
+          "code": "nan_qc_bug",
+          "detail": "check_features compares == np.nan; independent np.isfinite required",
+          "source": "https://github.com/LibEMG/libemg/blob/c9b0bdc5ceadb2b36bcb2f006877e5ba1b4b974b/libemg/feature_extractor.py#L258"
+        },
+        {
+          "code": "unsafe_defaults_for_protocol",
+          "detail": "Default fs=1000, common notch 60 Hz and low-fs fallback; StandardScaler is not MVC"
+        }
+      ],
+      "source_urls": [
+        "https://libemg.github.io/libemg/emg_toolbox.html",
+        "https://libemg.github.io/libemg/documentation/data/data.html"
+      ]
+    },
+    {
+      "id": "neurokit2",
+      "name": "NeuroKit2",
+      "decision": "exploration_only_not_default_pipeline",
+      "license": "MIT",
+      "license_url": "https://github.com/neuropsychology/NeuroKit/blob/ff419d983568ef492eb8d229af643c0ef0100b32/LICENSE",
+      "source_revision": "ff419d983568ef492eb8d229af643c0ef0100b32",
+      "entrypoint": "neurokit2.emg_process(emg_signal,sampling_rate=fs)",
+      "issues": [
+        {
+          "code": "implicit_gap_fill",
+          "detail": "emg_clean forward-fills NaN",
+          "source": "https://github.com/neuropsychology/NeuroKit/blob/ff419d983568ef492eb8d229af643c0ef0100b32/neurokit2/emg/emg_clean.py#L55"
+        },
+        {
+          "code": "amplitude_fs_default",
+          "detail": "public emg_amplitude lacks fs; private envelope default 1000 Hz",
+          "source": "https://github.com/neuropsychology/NeuroKit/blob/ff419d983568ef492eb8d229af643c0ef0100b32/neurokit2/emg/emg_amplitude.py#L43"
+        },
+        {
+          "code": "amplitude_not_rms",
+          "detail": "TKEO/envelope, not RMS; default cleaning highpass 100 Hz"
+        }
+      ],
+      "source_urls": [
+        "https://neuropsychology.github.io/NeuroKit/_modules/neurokit2/emg/emg_process.html"
+      ]
+    },
+    {
+      "id": "wfdb_python",
+      "name": "WFDB Python",
+      "decision": "recommended_wfdb_import",
+      "license": "MIT",
+      "license_url": "https://github.com/MIT-LCP/wfdb-python/blob/f627b5ff9dcfdb11d4c3150f9c1ebb47cfc3909d/LICENSE",
+      "source_revision": "f627b5ff9dcfdb11d4c3150f9c1ebb47cfc3909d",
+      "entrypoints": [
+        "wfdb.rdheader(record_name)",
+        "wfdb.rdrecord(record_name,sampfrom=a,sampto=b,channels=ids,physical=True)"
+      ],
+      "capabilities": [
+        "sample/channel selection",
+        "gain/baseline scaling",
+        "fs/unit/channel metadata"
+      ],
+      "gaps": [
+        "not EMG features",
+        "not acquisition/clinical validation"
+      ],
+      "source_urls": [
+        "https://wfdb.readthedocs.io/en/latest/io.html"
+      ]
+    }
+  ],
+  "data_candidates": [
+    {
+      "id": "hipbridge_emg",
+      "name": "HipBridgeEMG",
+      "version": "0.1",
+      "doi": "10.5281/zenodo.17465228",
+      "provider_url": "https://zenodo.org/records/17465228",
+      "metadata_url": "https://zenodo.org/api/records/17465228",
+      "license": "CC-BY-4.0",
+      "license_verification": "Zenodo API metadata.license.id=cc-by-4.0",
+      "access": "open",
+      "anatomical_scope": "back_muscle_relevant_level_unverified",
+      "clinical_endpoint": "healthy exercise, not dorsopathy diagnosis",
+      "formats": [
+        "csv.gz"
+      ],
+      "fs_hz": 1000,
+      "fs_verification": "README + first two rows Time 0/0.001",
+      "units": null,
+      "units_status": "not_declared_in_inspected_readme_or_header",
+      "channel_count_emg": 8,
+      "back_channels": [
+        "Left Erector spinae longissimus",
+        "Right Erector spinae longissimus"
+      ],
+      "other_muscles": [
+        "rectus femoris",
+        "gluteus maximus",
+        "biceps femoris caput longus"
+      ],
+      "device": "BTS FREEEMG",
+      "electrode_metadata": "SENIAM stated; exact coordinates/level not verified",
+      "protocol": [
+        "glute bridge",
+        "prone hip extension"
+      ],
+      "mvc_available": "not_declared",
+      "acquired_at": null,
+      "sample_inspected": "fd0f5636-phe-1.csv.gz",
+      "inspection_extent": "only header and first 2 rows streamed; no full trial QC",
+      "sample_url": "https://zenodo.org/records/17465228/files/fd0f5636-phe-1.csv.gz?download=1",
+      "readme_url": "https://zenodo.org/records/17465228/files/README.md?download=1",
+      "gates": [
+        "unit_missing_for_calibrated_RMS",
+        "MVC_missing",
+        "ADC_rails_unknown",
+        "lumbar_level_unverified"
+      ],
+      "decision": "first_small_back_import_candidate"
+    },
+    {
+      "id": "shearers_lumbar",
+      "name": "Australian sheep shearers",
+      "version": "1",
+      "doi": "10.26188/c.7267204.v1",
+      "provider_url": "https://doi.org/10.26188/c.7267204.v1",
+      "metadata_url": "https://api.figshare.com/v2/collections/7267204/articles",
+      "license": "CC-BY-4.0",
+      "license_verification": "all 4 individual article APIs license.name=CC BY 4.0",
+      "access": "open",
+      "anatomical_scope": "lumbar_back",
+      "clinical_endpoint": "occupational dataset, not diagnostic dorsopathy corpus",
+      "formats": [
+        "ZIP containing raw Delsys CSV",
+        "filtered _emg.csv",
+        "normalized _envelope.csv",
+        "MVC CSV"
+      ],
+      "fs_hz": 2148,
+      "fs_status": "paper rounded; source reader hardcodes 2148.148148; actual raw timestamps/header not inspected",
+      "units": null,
+      "units_status": "actual raw export header not inspected",
+      "channels": "16 bilateral, including L1/L3 erector spinae and L5 multifidus",
+      "device": "Delsys Trigno Avanti",
+      "electrode_metadata": "10 mm inter-electrode, placement in primary article",
+      "protocol": "shearing; standing back extension calibration",
+      "mvc_available": "yes according to paper; actual CSV not inspected",
+      "archive_inspected": false,
+      "smallest_archive_name": "Shed4_Friday_S11.zip",
+      "smallest_archive_size_bytes": 9907272063,
+      "provider_article_ids": [
+        27914085,
+        27921924,
+        27922458,
+        27927699
+      ],
+      "paper_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12102280/",
+      "gates": [
+        "large_archive",
+        "units/header_unverified",
+        "sampling_rate_discrepancy",
+        "acquisition_clock_unverified"
+      ],
+      "decision": "preferred_lumbar_protocol_after_small_export_verification"
+    },
+    {
+      "id": "hyser_generic",
+      "name": "Hyser HD-sEMG",
+      "version": "2.0.0",
+      "doi": "10.13026/hxan-pe94",
+      "provider_url": "https://physionet.org/content/hd-semg/2.0.0/",
+      "license": "ODC-By-1.0",
+      "license_verification": "provider license section and README",
+      "access": "open",
+      "anatomical_scope": "upper_limb_forearm_generic_only",
+      "clinical_endpoint": "hand tasks, not lumbar or dorsopathy",
+      "formats": [
+        "WFDB .hea/.dat",
+        "label .txt"
+      ],
+      "fs_hz": 2048,
+      "units": "V",
+      "units_status": "verified header-declared unit, not input-referred calibration",
+      "channel_count_emg": 256,
+      "channel_metadata": "ED/EP/FD/FP and array row/column",
+      "electrode_metadata": "four 8x8 distal/proximal forearm extensor/flexor arrays; coordinates not inspected",
+      "protocol": "finger/gesture tasks",
+      "mvc_available": "separate finger MVC subset; not automatic EMG %MVC normalization",
+      "sample_record": "pr_dataset/subject01_session1/dynamic_raw_sample1",
+      "sample_count": 2048,
+      "sample_header_url": "https://physionet.org/files/hd-semg/2.0.0/pr_dataset/subject01_session1/dynamic_raw_sample1.hea",
+      "sample_dat_size_bytes_expected_from_header": 1048576,
+      "sample_header_inspected": true,
+      "sample_signal_body_inspected": false,
+      "readme_url": "https://physionet.org/files/hd-semg/2.0.0/readme.txt",
+      "full_corpus_size_reported": "142.8 GB, excluded",
+      "gates": [
+        "actual_signal_QC_pending",
+        "no_lumbar_endpoint",
+        "input_referred_voltage_not_verified"
+      ],
+      "decision": "small_generic_WFDB_RMS_spectral_candidate"
+    },
+    {
+      "id": "walking_generic",
+      "name": "PhysioNet long-lasting ground walking sEMG",
+      "version": "1.0.1",
+      "doi": "10.13026/grdj-qx06",
+      "provider_url": "https://physionet.org/content/semg/1.0.1/",
+      "license": "ODC-By-1.0",
+      "license_verification": "provider license section",
+      "access": "open",
+      "anatomical_scope": "lower_limb_generic_only",
+      "clinical_endpoint": "able-bodied gait, not dorsopathy",
+      "formats": [
+        "WFDB .hea/.dat"
+      ],
+      "fs_hz": 2000,
+      "units": null,
+      "units_status": "conflict: actual S01.hea mV vs provider Data Description microvolt",
+      "channel_count_emg": 10,
+      "channel_count_total": 14,
+      "channel_metadata": "bilateral TA/GL/RF/Ham/VL + footswitch/goniometry",
+      "device": "Step32 Medical Technology",
+      "electrode_metadata": "Ag/AgCl geometry/acquisition filters in provider Methods",
+      "protocol": "barefoot level-ground figure-eight walking",
+      "mvc_available": "not_declared",
+      "sample_header_url": "https://physionet.org/files/semg/1.0.1/S01.hea",
+      "sample_header_inspected": true,
+      "sample_signal_body_inspected": false,
+      "gates": [
+        "unit_conflict",
+        "no_lumbar_endpoint",
+        "MVC_missing"
+      ],
+      "decision": "secondary_generic_import_candidate"
+    }
+  ],
+  "additional_reference_pipeline": {
+    "name": "robinsonmc/shearer-data",
+    "source_revision": "f5c759109f70c03a613e7e2fc14bca71a983fb7d",
+    "url": "https://github.com/robinsonmc/shearer-data",
+    "license": "unverified_no_LICENSE_found",
+    "license_api_result": "404",
+    "entrypoint": "read_delsys_csv(filepath)",
+    "decision": "read_only_format_reference_no_code_copy",
+    "issues": [
+      "hardcoded fs=2148.148148",
+      "original timestamps regenerated"
+    ]
+  },
+  "integration": {
+    "existing_protocol": "ProviderProtocol.analyze(request, context) -> dict",
+    "module_result_version": "1.0",
+    "module_id_proposed": "emg.surface",
+    "T00_transport_freeze_available_in_base": false,
+    "artifacts": [
+      "raw",
+      "processed",
+      "QC mask",
+      "PSD",
+      "plots",
+      "processing/source manifests"
+    ],
+    "selector_proposed": "emg.sample_interval.v1: 0-based half-open original indices, channel identity, relative clock, processing artifact reference",
+    "concepts_proposed": [
+      "emg.surface.rms",
+      "emg.surface.median_frequency",
+      "emg.surface.mean_frequency"
+    ],
+    "concepts_status": "require T00 agreement before implementation",
+    "unknown_metadata_behavior": "partial/not_assessed; no silent defaults/normal finding",
+    "real_measurement_origin": "automatically_measured",
+    "synthetic_origin": "synthetic_demo"
+  },
+  "excluded": [
+    "training",
+    "large data downloads",
+    "weights",
+    "library installation",
+    "hardware purchases",
+    "device capture/SDKs/streamers",
+    "needle EMG replacement",
+    "radiculopathy diagnosis",
+    "complaint truth inference",
+    "clinical validity claims"
+  ],
+  "verification": [
+    "primary provider/docs/source browsing",
+    "bounded small metadata/header/source reads",
+    "HipBridge header+2 rows only",
+    "WFDB headers only",
+    "JSON and git checks; no runtime signal processing"
+  ]
+}
