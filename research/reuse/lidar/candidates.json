@@ -1,0 +1,281 @@
+{
+  "schema_version": "1.0",
+  "task": "T11",
+  "scope": "research_only",
+  "checked_at": "2026-10-09",
+  "contract": "ModuleResult 1.0; ProviderProtocol.analyze(request, context)",
+  "recommendation": {
+    "core": [
+      "Open3D",
+      "NumPy"
+    ],
+    "optional": [
+      "Trimesh GLB export",
+      "CloudCompare manual QC"
+    ],
+    "format": "PLY plus geometry/session and authored-landmarks JSON",
+    "training": false,
+    "hardware_purchase": false
+  },
+  "tools": [
+    {
+      "id": "open3d",
+      "category": "generic_geometry_toolkit",
+      "decision": "recommended",
+      "verified": [
+        "MIT code",
+        "PLY/PCD/OBJ IO APIs",
+        "manual picked vertex indices"
+      ],
+      "unknown": [
+        "runtime importer and renderer pass"
+      ],
+      "entrypoint": [
+        "o3d.io.read_triangle_mesh(path)",
+        "o3d.io.read_point_cloud(path)",
+        "o3d.visualization.VisualizerWithEditing.get_picked_points()"
+      ],
+      "licenses": {
+        "code": "MIT",
+        "weights": "none required",
+        "data": "separate"
+      },
+      "sources": [
+        "https://www.open3d.org/docs/0.19.0/tutorial/geometry/file_io.html",
+        "https://www.open3d.org/docs/0.19.0/tutorial/visualization/interactive_visualization.html",
+        "https://github.com/isl-org/Open3D/blob/b6c5e196384ad71e75b6e6f9c5da22d046221f1d/LICENSE"
+      ]
+    },
+    {
+      "id": "trimesh",
+      "category": "generic_mesh_toolkit",
+      "decision": "optional",
+      "verified": [
+        "MIT code",
+        "PLY/OBJ/GLB API"
+      ],
+      "unknown": [
+        "runtime conversion and source-index mapping"
+      ],
+      "entrypoint": [
+        "trimesh.load_mesh(path, process=False)",
+        "trimesh.exchange.gltf.export_glb(scene)"
+      ],
+      "licenses": {
+        "code": "MIT",
+        "weights": "none required",
+        "data": "separate"
+      },
+      "sources": [
+        "https://trimesh.org/trimesh.exchange.load.html",
+        "https://trimesh.org/trimesh.exchange.gltf.html",
+        "https://github.com/mikedh/trimesh/blob/dc8490c825c382d2d58b5bd87ecacc74790ead27/LICENSE.md"
+      ]
+    },
+    {
+      "id": "cloudcompare",
+      "category": "generic_desktop_qc",
+      "decision": "optional_standalone",
+      "verified": [
+        "GPL-2.0-or-later",
+        "point picking coordinates/distances/three-point angles"
+      ],
+      "unknown": [
+        "installed target build"
+      ],
+      "entrypoint": [
+        "Tools > Point picking"
+      ],
+      "licenses": {
+        "code": "GPL-2.0-or-later",
+        "weights": "none required",
+        "data": "separate"
+      },
+      "sources": [
+        "https://www.cloudcompare.org/doc/wiki/index.php/Point_picking",
+        "https://github.com/CloudCompare/CloudCompare/blob/master/license.txt"
+      ]
+    },
+    {
+      "id": "smpl_anthropometry",
+      "category": "ready_body_measurement_pipeline",
+      "decision": "conditional_not_minimal",
+      "verified": [
+        "MIT wrapper",
+        "SMPL 6890 / SMPL-X 10475 exact topology",
+        "neutral T-pose intended scope",
+        "from_verts still loads model assets",
+        "metres assumption / cm output"
+      ],
+      "unknown": [
+        "licensed model assets availability",
+        "body pipeline runtime"
+      ],
+      "entrypoint": [
+        "from measure import MeasureBody",
+        "m = MeasureBody('smpl')",
+        "m.from_verts(torch.tensor(verts))",
+        "m.measure(['height', 'shoulder breadth'])"
+      ],
+      "licenses": {
+        "code": "MIT wrapper",
+        "weights_or_body_assets": "separate SMPL/SMPL-X non-commercial model license; registration; no redistribution",
+        "data": "separate"
+      },
+      "sources": [
+        "https://github.com/DavidBoja/SMPL-Anthropometry",
+        "https://github.com/DavidBoja/SMPL-Anthropometry/blob/d8f43bca7a2ae6263f43ebb0efe74136e37e25eb/measure.py",
+        "https://github.com/DavidBoja/SMPL-Anthropometry/blob/d8f43bca7a2ae6263f43ebb0efe74136e37e25eb/LICENSE",
+        "https://smpl.is.tue.mpg.de/modellicense.html",
+        "https://github.com/DavidBoja/SMPL-Anthropometry/blob/d8f43bca7a2ae6263f43ebb0efe74136e37e25eb/measurement_definitions.py"
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "id": "texel_part1",
+      "category": "real_human_recorded_depth_and_mesh",
+      "decision": "preferred_candidate_pending_units_qc",
+      "verified": [
+        "Public archive Texel-BodyScan-Part1.7z: 140327895 bytes via Yandex API",
+        "Provider declares real human PLY, PNG uint16, XML/JSON, CSV",
+        "Data CC-BY-NC-4.0 and parser MIT separately",
+        "Kinect nominal DEPTH16 mm; Texel camera offsets m"
+      ],
+      "unknown": [
+        "archive member extraction",
+        "specific PLY vertex units",
+        "PNG depth unit preservation and intrinsics after undistortion/crop",
+        "acquisition time, repeatability, calibration residual",
+        "runtime real import"
+      ],
+      "is_body_data": true,
+      "is_clinical_validation": false,
+      "entrypoint": "portal_mx/scan.ply after unit audit; ./bin/IterateScans <directory> metadata only",
+      "formats": [
+        "PLY",
+        "PNG uint16",
+        "XML/JSON",
+        "CSV"
+      ],
+      "licenses": {
+        "code": "MIT parser",
+        "weights": "not needed for raw scan/depth; body assets separately",
+        "data": "CC-BY-NC-4.0; TEXEL attribution and changes; no commercial use"
+      },
+      "mixed_provenance": "Free Fusion adds synthetic model-derived regions",
+      "scale": {
+        "ply": "unknown",
+        "sensor_nominal": "mm",
+        "camera_offset": "m",
+        "metric_pass_ready": false
+      },
+      "download": "https://disk.yandex.ru/d/5R57d5509rP7jQ",
+      "sources": [
+        "https://github.com/m-krivov/Texel-BodyScan-Dataset/blob/5b3ba6fa1606e92205c3bdebde53b401a8c999a6/README.md",
+        "https://github.com/m-krivov/Texel-BodyScan-Dataset/blob/5b3ba6fa1606e92205c3bdebde53b401a8c999a6/LICENSE-CODE",
+        "https://github.com/m-krivov/Texel-BodyScan-Dataset/blob/5b3ba6fa1606e92205c3bdebde53b401a8c999a6/LICENSE-DATA",
+        "https://github.com/m-krivov/Texel-BodyScan-Dataset/blob/5b3ba6fa1606e92205c3bdebde53b401a8c999a6/utilities/Defs.h",
+        "https://github.com/m-krivov/Texel-BodyScan-Dataset/blob/5b3ba6fa1606e92205c3bdebde53b401a8c999a6/utilities/Scanogram.cpp",
+        "https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/include/k4a/k4atypes.h"
+      ]
+    },
+    {
+      "id": "hsrd100",
+      "category": "real_human_photogrammetry_mesh",
+      "decision": "conditional_licence_label_and_scale",
+      "verified": [
+        "API public ungated at revision 9cc5e9c138dd310dc88c95c80e5db0a3ecb7971a",
+        "Scan-LOD2.zip 22918198 bytes",
+        "HTTP 206 bounded 65557-byte ZIP directory contains OBJ/PNG/JSON",
+        "Card CC-BY-4.0; selected person/pose metadata license label Commercial"
+      ],
+      "unknown": [
+        "meaning of per-object Commercial versus card license",
+        "vertex unit",
+        "runtime real import",
+        "calibration/coverage accuracy"
+      ],
+      "is_body_data": true,
+      "is_clinical_validation": false,
+      "formats": [
+        "OBJ",
+        "PNG texture",
+        "JSON"
+      ],
+      "file": "data/HSR0027/HSR0027-Body-006/scans/HSR0027-Body-006-Scan-LOD2.zip",
+      "member": "HSR0027-Body-006_LOD2.obj",
+      "pose": "Crossed Arms",
+      "licenses": {
+        "code": "not applicable",
+        "weights": "not applicable",
+        "data_card": "CC-BY-4.0",
+        "object_label": "Commercial; unresolved ambiguity, not proven prohibition"
+      },
+      "scale": {
+        "vertex": "unknown",
+        "height_unit": "not specified",
+        "metric_pass_ready": false
+      },
+      "sources": [
+        "https://huggingface.co/datasets/digitalrealitylab/HSRD-100/blob/9cc5e9c138dd310dc88c95c80e5db0a3ecb7971a/README.md",
+        "https://huggingface.co/datasets/digitalrealitylab/HSRD-100/blob/9cc5e9c138dd310dc88c95c80e5db0a3ecb7971a/data/HSR0027/HSR0027-Body-006/metadata/person_meta.json",
+        "https://huggingface.co/datasets/digitalrealitylab/HSRD-100/blob/9cc5e9c138dd310dc88c95c80e5db0a3ecb7971a/data/HSR0027/HSR0027-Body-006/metadata/pose_meta.json"
+      ]
+    }
+  ],
+  "integration": {
+    "module_proposed": "lidar.posture",
+    "profile_proposed": "surface_geometry_manual_v0.1",
+    "streaming": [
+      "context.artifacts.open(ref)",
+      "context.artifacts.add_file(path, media_type, role='derived')"
+    ],
+    "observations": [
+      "surface.landmark.distance: mm",
+      "surface.landmark.height_difference: mm; verified up",
+      "surface.landmark.angle: deg"
+    ],
+    "origins": {
+      "real_arithmetic": "automatically_measured",
+      "synthetic": "synthetic_demo"
+    },
+    "evidence": [
+      "source",
+      "authored landmarks JSON",
+      "measurement definitions/QC JSON",
+      "viewable PLY/optional GLB",
+      "PNG overlay/camera"
+    ],
+    "unknown_scale": "mm not_assessed/null; partial",
+    "missing_landmarks": "partial",
+    "invalid_geometry": "failed/error; no observations",
+    "dependencies": [
+      "T00 concepts/profile/selectors",
+      "T01 artifact MIME/storage",
+      "T02 worker exchange/resource slots",
+      "T08 viewer"
+    ]
+  },
+  "gates": {
+    "synthetic": "not implemented; independent arithmetic reference only",
+    "real_import": "pending per-file units, extraction, runtime, QC",
+    "device_capture": "unavailable: no selected/accessible device or SDK/firmware/OS calibration profile"
+  },
+  "effort": "3-5 working days for first importer/manual provider; no training; excludes data clarification and capture",
+  "verification": {
+    "installs": false,
+    "weights_downloaded": false,
+    "full_datasets_downloaded": false,
+    "provider_tests_executed": false,
+    "bounded_zip_metadata_bytes": 65557,
+    "arithmetic": "Python math 300/400/500 mm triangle; 90 deg; B.z+2 -> 89.61803379527097 deg"
+  },
+  "excluded_claims": [
+    "internal vertebrae",
+    "Cobb",
+    "diagnosis/pain cause",
+    "verified MRI registration",
+    "clinical validation"
+  ]
+}
