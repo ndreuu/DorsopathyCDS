@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "documents": [
+    {
+      "id": "777_1",
+      "title": "Дискогенная пояснично-крестцовая радикулопатия",
+      "publisher": "Рубрикатор клинических рекомендаций Минздрава России",
+      "guideline_version": 1,
+      "approval_year": 2023,
+      "jurisdiction": "RU",
+      "population": "adults",
+      "pdf_url": "https://apicr.minzdrav.gov.ru/api.ashx?id=777_1&op=GetClinrecPdf",
+      "metadata_url": "https://apicr.minzdrav.gov.ru/api.ashx?op=GetClinrec2&id=777_1",
+      "pdf_sha256": "1a2ef3ab07ae020a2e75ec56fadabce6b39e1dc37e74a29b87deb250ca2f94aa",
+      "metadata_observed_on": "2026-10-08",
+      "metadata_snapshot": {
+        "NPC_approved": true,
+        "apply_status": "Применяется",
+        "publish_date": "2023-12-07T13:29:50.693"
+      },
+      "quote_verification": "Fragments checked against official PDF, printed page 12; quotation whitespace normalized.",
+      "quotes": [
+        {
+          "id": "triad_1",
+          "exact_quote": "не выявлено признаков, настораживающих в отношении специфических причин",
+          "page": 12,
+          "locator": "Раздел 2.2, диагностическая триада, пункт 1; фрагмент",
+          "recommendation_strength": "C",
+          "evidence_level": 5
+        },
+        {
+          "id": "triad_2",
+          "exact_quote": "выявлены признаки ДПКР, положительные тесты натяжения",
+          "page": 12,
+          "locator": "Раздел 2.2, диагностическая триада, пункт 2; фрагмент",
+          "recommendation_strength": "C",
+          "evidence_level": 5
+        },
+        {
+          "id": "triad_3",
+          "exact_quote": "Результаты нейровизуализации (при их наличии) имеют прямую корреляцию с клинической картиной",
+          "page": 12,
+          "locator": "Раздел 2.2, диагностическая триада, пункт 3; фрагмент",
+          "recommendation_strength": "C",
+          "evidence_level": 5
+        }
+      ]
+    }
+  ]
+}

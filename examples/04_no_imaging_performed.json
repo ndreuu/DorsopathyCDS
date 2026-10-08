@@ -1,0 +1,9 @@
+{
+  "case_id": "demo-no-imaging",
+  "population": "adult",
+  "facts": {
+    "clinical.specific_cause_warning_signs_absent": {"value": true, "origin": "synthetic_demo", "assessment_ref": "demo-clinical-assessment-4"},
+    "clinical.radiculopathy_signs_and_positive_tension_tests": {"value": true, "origin": "synthetic_demo", "assessment_ref": "demo-neurological-assessment-4"},
+    "imaging.study_status": {"value": "not_performed", "origin": "synthetic_demo", "assessment_ref": "demo-study-history-4"}
+  }
+}

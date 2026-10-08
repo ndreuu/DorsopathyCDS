@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ru_777_radiculopathy_triad",
+    "version": "0.1.0",
+    "title": "Поддержка гипотезы дискогенной пояснично-крестцовой радикулопатии",
+    "profile": "RU-research",
+    "population": "adults",
+    "clinical_review_status": "requires_clinical_review",
+    "formalization_status": "draft_pending_clinical_validation",
+    "diagnostic_output": "hypothesis_support_only",
+    "condition": {
+      "id": "diagnostic_triad",
+      "all": [
+        {
+          "id": "specific_cause_warning_signs_absent",
+          "fact": "clinical.specific_cause_warning_signs_absent",
+          "operator": "eq",
+          "expected": true,
+          "label": "Врач оценил и не выявил настораживающих признаков специфической причины",
+          "citations": [{"doc_id": "777_1", "quote_id": "triad_1"}]
+        },
+        {
+          "id": "radiculopathy_signs_and_tension_tests_present",
+          "fact": "clinical.radiculopathy_signs_and_positive_tension_tests",
+          "operator": "eq",
+          "expected": true,
+          "label": "Врач установил признаки радикулопатии и положительные тесты натяжения",
+          "citations": [{"doc_id": "777_1", "quote_id": "triad_2"}]
+        },
+        {
+          "id": "imaging_when_available",
+          "label": "Сопоставление нейровизуализации с клинической картиной при наличии результатов",
+          "any": [
+            {
+              "id": "imaging_not_performed",
+              "fact": "imaging.study_status",
+              "operator": "eq",
+              "expected": "not_performed",
+              "label": "Известно, что исследование нейровизуализации не выполнялось",
+              "citations": [{"doc_id": "777_1", "quote_id": "triad_3"}]
+            },
+            {
+              "id": "available_imaging_concordant",
+              "all": [
+                {
+                  "id": "imaging_result_available",
+                  "fact": "imaging.study_status",
+                  "operator": "eq",
+                  "expected": "performed_result_available",
+                  "label": "Исследование выполнено, результат доступен для клинического сопоставления",
+                  "citations": [{"doc_id": "777_1", "quote_id": "triad_3"}]
+                },
+                {
+                  "id": "imaging_clinical_concordance",
+                  "fact": "clinical.imaging_clinical_concordance",
+                  "operator": "eq",
+                  "expected": true,
+                  "label": "Врач подтвердил соответствие результатов нейровизуализации клинике",
+                  "citations": [{"doc_id": "777_1", "quote_id": "triad_3"}]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

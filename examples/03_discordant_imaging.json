@@ -1,0 +1,10 @@
+{
+  "case_id": "demo-discordant",
+  "population": "adult",
+  "facts": {
+    "clinical.specific_cause_warning_signs_absent": {"value": true, "origin": "synthetic_demo", "assessment_ref": "demo-clinical-assessment-3"},
+    "clinical.radiculopathy_signs_and_positive_tension_tests": {"value": true, "origin": "synthetic_demo", "assessment_ref": "demo-neurological-assessment-3"},
+    "imaging.study_status": {"value": "performed_result_available", "origin": "synthetic_demo", "assessment_ref": "demo-imaging-study-3"},
+    "clinical.imaging_clinical_concordance": {"value": false, "origin": "synthetic_demo", "assessment_ref": "demo-imaging-clinical-review-3"}
+  }
+}
