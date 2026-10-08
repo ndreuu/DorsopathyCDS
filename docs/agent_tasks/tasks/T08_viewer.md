@@ -16,6 +16,9 @@ Packaging/bootstrap подключает T00 по предложенному ent
    анкета/карта боли, отдельные поля врачебных оценок, запуск и polling.
 2. Результаты: жалобы, clinical assessment, MRI-наблюдения и задания.
    Покажи метод, origin, quality, единицы, уровень и состояние нумерации.
+   Добавь панели T11–T15: mesh/landmarks, heatmap/ROI, EMG signals/windows,
+   US frame/annotations и vendor index/events. Загружаются declared recorded
+   inputs; поле устройства не выдаётся за работающий live-capture.
 3. Для observation открой связанный PNG/срез, контур/ROI и измерение.
    Формат evidence согласован с T03; viewer не вычисляет свою площадь или диагноз.
 4. Различай anatomical contour, disc ROI и pathology contour. Без детектора
@@ -26,6 +29,9 @@ Packaging/bootstrap подключает T00 по предложенному ent
    новый review создаёт отдельный report/snapshot и явно reuse MRI-анализ.
 6. Обрабатывай queued/running/partial/failed, отсутствующие приборы и невозможность
    оценки. Безопасно показывай пользовательские строки, без innerHTML из uploads.
+7. Покажи ComparisonReport T16: связанность, условия, время/frames и причины
+   невозможности сопоставления. Overlay только с проверенным transform;
+   без него раздельные панели, без искусственного общего процента.
 
 ## Приёмка
 

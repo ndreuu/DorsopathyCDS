@@ -4,16 +4,370 @@
   "baseline_commit": "bd5cc16",
   "brief": "README.md",
   "tasks": [
-    {"id":"T00","title":"Контракты и интеграция","file":"tasks/T00_integration.md","branch":"integration/full-flow","start_after":[],"accept_after":["T01","T02","T03","T04","T05","T06","T07","T08","T09"],"optional":false},
-    {"id":"T01","title":"Storage и upload","file":"tasks/T01_storage_uploads.md","branch":"task/storage-uploads","start_after":["T00-freeze"],"accept_after":[],"optional":false},
-    {"id":"T02","title":"Dispatcher и ProcessProvider","file":"tasks/T02_execution.md","branch":"task/execution","start_after":["T00-freeze"],"accept_after":["T01"],"optional":false},
-    {"id":"T03","title":"MRI import, adapter и worker","file":"tasks/T03_mri.md","branch":"task/mri-provider","start_after":["T00-freeze"],"accept_after":["T01","T02"],"optional":false},
-    {"id":"T04","title":"Жалобы и врачебные оценки","file":"tasks/T04_intake.md","branch":"task/intake","start_after":["T00-freeze"],"accept_after":[],"optional":false},
-    {"id":"T05","title":"Workflow и application","file":"tasks/T05_workflow.md","branch":"task/workflow","start_after":["T00-freeze"],"accept_after":["T01","T02","T03","T04","T07"],"optional":false},
-    {"id":"T06","title":"Платформенный HTTP","file":"tasks/T06_http.md","branch":"task/platform-http","start_after":["T00-freeze"],"accept_after":["T01","T05"],"optional":false},
-    {"id":"T07","title":"CDS adapter и отчёт","file":"tasks/T07_cds_report.md","branch":"task/cds-report","start_after":["T00-freeze"],"accept_after":["T04"],"optional":false},
-    {"id":"T08","title":"UI и evidence viewer","file":"tasks/T08_viewer.md","branch":"task/viewer","start_after":["T00-freeze"],"accept_after":["T03","T06","T07"],"optional":false},
-    {"id":"T09","title":"Сквозная приёмка","file":"tasks/T09_acceptance.md","branch":"task/e2e-acceptance","start_after":["T00-freeze"],"accept_after":["T01","T02","T03","T04","T05","T06","T07","T08"],"optional":false},
-    {"id":"T10","title":"Обучение выпячивания диска","file":"tasks/T10_disc_training.md","branch":"task/disc-bulging","start_after":["T00-freeze"],"accept_after":["T03"],"optional":true}
-  ]
+    {
+      "id": "T00",
+      "title": "Контракты и интеграция",
+      "file": "tasks/T00_integration.md",
+      "branch": "integration/full-flow",
+      "start_after": [],
+      "accept_after": [
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07",
+        "T08",
+        "T09",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15",
+        "T16"
+      ],
+      "optional": false,
+      "accept_milestones": {
+        "mri": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09"
+        ],
+        "multimodal": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16"
+        ]
+      }
+    },
+    {
+      "id": "T01",
+      "title": "Storage и upload",
+      "file": "tasks/T01_storage_uploads.md",
+      "branch": "task/storage-uploads",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [],
+      "optional": false
+    },
+    {
+      "id": "T02",
+      "title": "Dispatcher и ProcessProvider",
+      "file": "tasks/T02_execution.md",
+      "branch": "task/execution",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T03",
+      "title": "MRI import, adapter и worker",
+      "file": "tasks/T03_mri.md",
+      "branch": "task/mri-provider",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T02"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T04",
+      "title": "Жалобы и врачебные оценки",
+      "file": "tasks/T04_intake.md",
+      "branch": "task/intake",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [],
+      "optional": false
+    },
+    {
+      "id": "T05",
+      "title": "Workflow и application",
+      "file": "tasks/T05_workflow.md",
+      "branch": "task/workflow",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T07",
+        "T16"
+      ],
+      "optional": false,
+      "accept_milestones": {
+        "mri": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T07"
+        ],
+        "multimodal": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T07",
+          "T16"
+        ]
+      }
+    },
+    {
+      "id": "T06",
+      "title": "Платформенный HTTP",
+      "file": "tasks/T06_http.md",
+      "branch": "task/platform-http",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T05"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T07",
+      "title": "CDS adapter и отчёт",
+      "file": "tasks/T07_cds_report.md",
+      "branch": "task/cds-report",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T04"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T08",
+      "title": "UI и evidence viewer",
+      "file": "tasks/T08_viewer.md",
+      "branch": "task/viewer",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T03",
+        "T06",
+        "T07",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15",
+        "T16"
+      ],
+      "optional": false,
+      "accept_milestones": {
+        "mri": [
+          "T03",
+          "T06",
+          "T07"
+        ],
+        "multimodal": [
+          "T03",
+          "T06",
+          "T07",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16"
+        ]
+      }
+    },
+    {
+      "id": "T09",
+      "title": "Сквозная приёмка",
+      "file": "tasks/T09_acceptance.md",
+      "branch": "task/e2e-acceptance",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T02",
+        "T03",
+        "T04",
+        "T05",
+        "T06",
+        "T07",
+        "T08",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15",
+        "T16"
+      ],
+      "optional": false,
+      "accept_milestones": {
+        "mri": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08"
+        ],
+        "multimodal": [
+          "T01",
+          "T02",
+          "T03",
+          "T04",
+          "T05",
+          "T06",
+          "T07",
+          "T08",
+          "T11",
+          "T12",
+          "T13",
+          "T14",
+          "T15",
+          "T16"
+        ]
+      }
+    },
+    {
+      "id": "T10",
+      "title": "Обучение выпячивания диска",
+      "file": "tasks/T10_disc_training.md",
+      "branch": "task/disc-bulging",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T03"
+      ],
+      "optional": true
+    },
+    {
+      "id": "T11",
+      "title": "LiDAR / глубина",
+      "file": "tasks/T11_lidar.md",
+      "branch": "task/lidar",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T02"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T12",
+      "title": "Термография",
+      "file": "tasks/T12_thermography.md",
+      "branch": "task/thermography",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T02"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T13",
+      "title": "Поверхностная ЭМГ",
+      "file": "tasks/T13_emg.md",
+      "branch": "task/surface-emg",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T02"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T14",
+      "title": "УЗИ: масштаб и измерение",
+      "file": "tasks/T14_ultrasound.md",
+      "branch": "task/ultrasound",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T02"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T15",
+      "title": "ANI/PMD: device export",
+      "file": "tasks/T15_nociception.md",
+      "branch": "task/nociception",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T01",
+        "T02"
+      ],
+      "optional": false
+    },
+    {
+      "id": "T16",
+      "title": "Сопоставление модальностей",
+      "file": "tasks/T16_comparison.md",
+      "branch": "task/multimodal-comparison",
+      "start_after": [
+        "T00-freeze"
+      ],
+      "accept_after": [
+        "T03",
+        "T04",
+        "T11",
+        "T12",
+        "T13",
+        "T14",
+        "T15"
+      ],
+      "optional": false
+    }
+  ],
+  "milestones": {
+    "mri": "Первый технический MRI-flow",
+    "multimodal": "Все модальности: импорт/измерения/сопоставление с отдельными data/device gates"
+  }
 }

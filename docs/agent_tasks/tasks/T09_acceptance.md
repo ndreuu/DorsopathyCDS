@@ -31,6 +31,10 @@
    версии/модели/источник/лицензию. Нет окружения — live не считается пройденным.
 6. Проверка viewer вместе с T08: понятные статусы, evidence, цитаты, экспорт.
    Проверь полный существующий unittest suite; отдели software checks от accuracy.
+7. Отдельно прими T11–T16: calibrated synthetic полный flow, настоящий импорт
+   доступных exports и аппаратный capture при наличии устройства. Проверяй
+   unknown scale/radiometry/sample rate/US calibration/device version/clock/frame
+   и независимые unlinked datasets. Для каждого режима passed/failed/not_run.
 
 ## Приёмка
 

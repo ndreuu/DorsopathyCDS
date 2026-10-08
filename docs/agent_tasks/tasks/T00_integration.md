@@ -18,6 +18,8 @@ registry/CLI, `pyproject.toml`, README и `docs/run_full_flow_ru.md`.
 1. Прочитай все карточки и текущую платформу. Зафиксируй минимальные
    CaseManifest/WorkflowRun/EpisodeReport, worker exchange и API fixtures.
    Сохрани ModuleResult 1.0; дополнительные контракты должны быть отдельными.
+   Включи T11–T16: sensor input profiles, calibration/time/clock/pose/frame,
+   acquisition/processing modes, ComparisonReport и отдельные data/device gates.
 2. Согласуй interface signatures storage/upload/dispatcher/application,
    функцию импорта MRI-экспорта и CDS `build_case/evaluate_snapshot`.
    Опиши селекторы PNG/кадра/контуров/измерений и внутренний клинический ввод.
@@ -32,6 +34,8 @@ registry/CLI, `pyproject.toml`, README и `docs/run_full_flow_ru.md`.
    Изменения общего интерфейса после freeze согласуй с потребителями.
 6. Вместе с T09 выполни полный synthetic/replay/live путь, оформи инструкцию
    и точный список поддерживаемых признаков. Заверши сборку отдельным коммитом.
+   Прими MRI-flow первым этапом, затем все sensor modules/ComparisonReport.
+   Не подменяй требование отдельных модулей одним MRI-демо.
 
 ## Приёмка
 

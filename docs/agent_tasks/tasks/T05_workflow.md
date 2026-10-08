@@ -17,6 +17,8 @@
    Canonical manifest hash + idempotency key используются через atomic storage API.
 2. Запусти independent complaints/clinical intake/MRI-анатомию через dispatcher.
    Нет файла MRI — явная незапущенная ветвь, а не отрицательный результат.
+   Поддержи выбранные LiDAR/thermal/EMG/US/nociception modules по manifest.
+   Отсутствующий sensor source — not_connected/missing_input, не нулевое измерение.
 3. Завершение всех обязательных ветвей даёт terminal workflow; failed branch
    не стирает результаты остальных. Опиши правила partial и skipped dependencies.
 4. Опциональный disc_features запускается только при registered version и
@@ -24,6 +26,8 @@
    может отсутствовать. Данные передаются artifacts, не вызовами provider→provider.
 5. Выбери точные result IDs, создай snapshot, вызови T07 и сохрани immutable
    report/ref. Polling готового run возвращает тот же snapshot/report.
+   В мультимодальной сборке вызови T16 по frozen snapshot/protocol и сохрани
+   ComparisonReport вместе с clinical report. Sensor observations не clinical booleans.
    После review врачом создай новый run/snapshot, явно reuse того же MRI result
    и новую clinical assessment. Manifest/selection и редакция каталога сохраняются.
 6. Предоставь T06 frozen Application facade: episodes, upload, modules, start/get

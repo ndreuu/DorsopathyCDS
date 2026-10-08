@@ -31,6 +31,8 @@
 6. Вызови существующий evaluate_case. Оберни вывод в EpisodeReport: snapshot ID/hash,
    выбранные result/observation/evidence, версии, catalogue hash, mode, warnings.
    JSON и HTML используют одно содержание; HTML экранирует пользовательский текст.
+   Добавь frozen ComparisonReport как отдельный раздел; его техническая
+   пригодность сравнений не устанавливает клинические факты/вероятность диагноза.
    Сохрани manifest/selection и использованные правила/цитаты либо полную
    неизменяемую их копию по хешу. Старый HTML/export не вызывает текущий load_catalog.
 
