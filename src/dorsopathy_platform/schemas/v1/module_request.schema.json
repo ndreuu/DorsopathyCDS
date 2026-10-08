@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dorsopathy module request v1",
+  "description": "Identifiers are opaque tokens and must not contain patient information. Python validation additionally rejects non-finite JSON values and duplicate artifact IDs; storage safety also requires storage-layer root and symlink checks.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "job_id": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "episode_id": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "module_id": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "module_version": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "input_artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArtifactRef"
+      },
+      "uniqueItems": true
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      }
+    },
+    "protocol_id": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "job_id",
+    "episode_id",
+    "module_id",
+    "module_version",
+    "input_artifacts",
+    "parameters",
+    "protocol_id"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "Identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9_.-]+$",
+      "not": {
+        "anyOf": [
+          {
+            "enum": [
+              ".",
+              ".."
+            ]
+          },
+          {
+            "pattern": "[\\u0000-\\u001F\\u007F]"
+          }
+        ]
+      }
+    },
+    "Sha256": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "JsonValue": {
+      "anyOf": [
+        {
+          "type": [
+            "null",
+            "boolean",
+            "string",
+            "number"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          }
+        }
+      ]
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "storage_key": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "allOf": [
+            {
+              "not": {
+                "pattern": "^/|\\\\|:|[\\u0000-\\u001F\\u007F]"
+              }
+            },
+            {
+              "not": {
+                "pattern": "(^|/)(\\.|\\.\\.)(/|$)"
+              }
+            },
+            {
+              "not": {
+                "pattern": "//|/$"
+              }
+            }
+          ]
+        },
+        "sha256": {
+          "$ref": "#/$defs/Sha256"
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "role": {
+          "enum": [
+            "source",
+            "derived"
+          ]
+        }
+      },
+      "required": [
+        "artifact_id",
+        "storage_key",
+        "sha256",
+        "media_type",
+        "size_bytes",
+        "role"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

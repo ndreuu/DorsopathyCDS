@@ -6,5 +6,6 @@ build/
 dist/
 .DS_Store
 reports/
+var/
 research/sources/*.pdf
 research/sources/*-metadata.json

@@ -11,9 +11,11 @@ dependencies = []
 
 [project.scripts]
 dorsopathy-cds = "dorsopathy_cds.cli:main"
+dorsopathy-platform = "dorsopathy_platform.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
 dorsopathy_cds = ["catalog/*.json", "web/*.html"]
+dorsopathy_platform = ["schemas/v1/*.json"]

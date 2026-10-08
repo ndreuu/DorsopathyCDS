@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "result_id": "result-e30136a2d2a15990a28c96438dfe2523",
+  "job_id": "example-complaints-job",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "demo.complaints",
+  "module_version": "0.1.0",
+  "status": "complete",
+  "observations": [
+    {
+      "observation_id": "observation-126a7922c195d02f8d683c6a7204bac5",
+      "concept": "symptoms.pain_intensity",
+      "assessment_status": "assessed",
+      "value": 6,
+      "unit": "{score}",
+      "anatomy": {
+        "region": "lower_back",
+        "side": "left",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "synthetic-questionnaire-fixture",
+      "acquired_at": null,
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-5d8bf69fe48bd10c92d13dc560de1d793078b5d84732e56f6eb40b3e90064610",
+          "selector": {
+            "field": "pain_intensity"
+          }
+        }
+      ],
+      "model": null
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "artifact-5d8bf69fe48bd10c92d13dc560de1d793078b5d84732e56f6eb40b3e90064610",
+      "storage_key": "artifacts/5d8bf69fe48bd10c92d13dc560de1d793078b5d84732e56f6eb40b3e90064610",
+      "sha256": "5d8bf69fe48bd10c92d13dc560de1d793078b5d84732e56f6eb40b3e90064610",
+      "media_type": "application/json",
+      "size_bytes": 91,
+      "role": "source"
+    }
+  ],
+  "warnings": [],
+  "error": null
+}

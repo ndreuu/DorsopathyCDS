@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "job_id": "example-complaints-job",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "demo.complaints",
+  "module_version": "0.1.0",
+  "input_artifacts": [
+    {
+      "artifact_id": "artifact-5d8bf69fe48bd10c92d13dc560de1d793078b5d84732e56f6eb40b3e90064610",
+      "storage_key": "artifacts/5d8bf69fe48bd10c92d13dc560de1d793078b5d84732e56f6eb40b3e90064610",
+      "sha256": "5d8bf69fe48bd10c92d13dc560de1d793078b5d84732e56f6eb40b3e90064610",
+      "media_type": "application/json",
+      "size_bytes": 91,
+      "role": "source"
+    }
+  ],
+  "parameters": {},
+  "protocol_id": "synthetic-static-v1"
+}

@@ -1,0 +1,539 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dorsopathy module result v1",
+  "description": "Python validation additionally rejects non-finite numbers, duplicate observation/artifact IDs, undeclared evidence references, conflicting metadata for shared input/output artifacts, and request/result context mismatch. Quality is preserved without clinical inference. Standalone results require evidence artifacts in this envelope. acquired_at records source acquisition, never processing time. The date-time format is an annotation unless the JSON Schema validator enables format assertion; Python always checks timezone awareness.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "job_id": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "episode_id": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "module_id": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "module_version": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "result_id": {
+      "$ref": "#/$defs/Identifier"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "failed"
+      ]
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Observation"
+      },
+      "uniqueItems": true
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArtifactRef"
+      },
+      "uniqueItems": true
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Message"
+      }
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Message"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "job_id",
+    "episode_id",
+    "module_id",
+    "module_version",
+    "result_id",
+    "status",
+    "observations",
+    "artifacts",
+    "warnings",
+    "error"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "error": {
+            "$ref": "#/$defs/Message"
+          },
+          "observations": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "error": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "observations": {
+            "items": {
+              "properties": {
+                "assessment_status": {
+                  "enum": [
+                    "assessed",
+                    "not_applicable"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "Identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9_.-]+$",
+      "not": {
+        "anyOf": [
+          {
+            "enum": [
+              ".",
+              ".."
+            ]
+          },
+          {
+            "pattern": "[\\u0000-\\u001F\\u007F]"
+          }
+        ]
+      }
+    },
+    "Sha256": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64,
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "JsonValue": {
+      "anyOf": [
+        {
+          "type": [
+            "null",
+            "boolean",
+            "string",
+            "number"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          }
+        }
+      ]
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "properties": {
+        "artifact_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "storage_key": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "allOf": [
+            {
+              "not": {
+                "pattern": "^/|\\\\|:|[\\u0000-\\u001F\\u007F]"
+              }
+            },
+            {
+              "not": {
+                "pattern": "(^|/)(\\.|\\.\\.)(/|$)"
+              }
+            },
+            {
+              "not": {
+                "pattern": "//|/$"
+              }
+            }
+          ]
+        },
+        "sha256": {
+          "$ref": "#/$defs/Sha256"
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "role": {
+          "enum": [
+            "source",
+            "derived"
+          ]
+        }
+      },
+      "required": [
+        "artifact_id",
+        "storage_key",
+        "sha256",
+        "media_type",
+        "size_bytes",
+        "role"
+      ],
+      "additionalProperties": false
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "Observation": {
+      "type": "object",
+      "properties": {
+        "observation_id": {
+          "$ref": "#/$defs/Identifier"
+        },
+        "concept": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*(\\.[A-Za-z][A-Za-z0-9_-]*)+$",
+          "not": {
+            "pattern": "[\\u0000-\\u001F\\u007F]"
+          }
+        },
+        "assessment_status": {
+          "enum": [
+            "assessed",
+            "not_assessed",
+            "not_applicable"
+          ]
+        },
+        "value": {
+          "type": [
+            "null",
+            "boolean",
+            "string",
+            "number"
+          ]
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "anatomy": {
+          "type": "object",
+          "properties": {
+            "region": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "side": {
+              "enum": [
+                "left",
+                "right",
+                "bilateral",
+                "midline",
+                "unspecified"
+              ]
+            },
+            "level": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "numbering_status": {
+              "enum": [
+                "confirmed",
+                "needs_confirmation",
+                "not_applicable"
+              ]
+            }
+          },
+          "required": [
+            "region",
+            "side",
+            "level",
+            "numbering_status"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "enum": [
+            "usable",
+            "unreliable",
+            "unknown"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "patient_report",
+            "clinician_entered",
+            "automatically_measured",
+            "model_predicted",
+            "synthetic_demo"
+          ]
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "acquired_at": {
+          "description": "Known timezone-aware source-acquisition timestamp; null when acquisition time or timezone is unknown.",
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coordinate_frame": {
+          "description": "Identifier of the physical/image/body coordinate frame used by the evidence; null when no coordinate frame is available or applicable.",
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact_id": {
+                "$ref": "#/$defs/Identifier"
+              },
+              "selector": {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/$defs/JsonValue"
+                }
+              }
+            },
+            "required": [
+              "artifact_id",
+              "selector"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/Identifier"
+                },
+                "version": {
+                  "$ref": "#/$defs/Identifier"
+                },
+                "weights_sha256": {
+                  "$ref": "#/$defs/Sha256"
+                }
+              },
+              "required": [
+                "id",
+                "version",
+                "weights_sha256"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "observation_id",
+        "concept",
+        "assessment_status",
+        "value",
+        "unit",
+        "anatomy",
+        "quality",
+        "origin",
+        "method",
+        "evidence_refs",
+        "model",
+        "acquired_at",
+        "coordinate_frame"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "assessment_status": {
+                "const": "assessed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "evidence_refs": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "value": {
+                "type": "number"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "unit": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "value": {
+                "type": [
+                  "boolean",
+                  "string"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "unit": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "origin": {
+                "const": "model_predicted"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "model": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
