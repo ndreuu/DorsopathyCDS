@@ -1,0 +1,354 @@
+{
+  "schema_version": "research.reuse.intake.1",
+  "module": "T04",
+  "verified_date": "2026-10-09",
+  "timezone": "Europe/Istanbul",
+  "scope": "Research only; no implementation, installs, patient downloads or medical rules",
+  "candidates": [
+    {
+      "id": "jsonforms",
+      "decision": "recommended_form",
+      "name": "JSON Forms",
+      "packages": [
+        "@jsonforms/core@3.8.0",
+        "@jsonforms/react@3.8.0",
+        "@jsonforms/vanilla-renderers@3.8.0"
+      ],
+      "repository": "https://github.com/eclipsesource/jsonforms",
+      "release": "https://github.com/eclipsesource/jsonforms/releases/tag/v3.8.0",
+      "documentation": "https://jsonforms.io/docs/integrations/react/",
+      "api": "JsonForms({schema,uischema,data,renderers,cells,onChange}); onChange({data,errors})",
+      "formats": {
+        "browser_input": [
+          "JSON Schema",
+          "UI schema",
+          "JSON data"
+        ],
+        "browser_output": "JSON answers + AJV errors",
+        "server": "JSON source artifact + revalidation"
+      },
+      "reuse": [
+        "typed fields",
+        "numeric limits",
+        "conditional UI",
+        "separate patient and clinician capture"
+      ],
+      "gaps": [
+        "Unknown/NA schema must be explicit",
+        "No medical questionnaire or bodymap",
+        "No provenance/MRI adapter"
+      ],
+      "licenses": {
+        "code": "MIT",
+        "code_source": "https://github.com/eclipsesource/jsonforms/blob/master/LICENSE",
+        "artwork": "No medical artwork",
+        "questionnaire": "No clinical instrument license supplied",
+        "data": "No patient data supplied"
+      },
+      "offline": "Self-hosted JS; no paid API",
+      "integration": "React runtime plus local schema/evidence adapter",
+      "verification": "Docs, stable release and LICENSE reviewed; no runtime test"
+    },
+    {
+      "id": "react_body_highlighter",
+      "decision": "recommended_bodymap_with_manual_side",
+      "name": "react-body-highlighter",
+      "package": "react-body-highlighter",
+      "repository": "https://github.com/giavinh79/react-body-highlighter",
+      "version": {
+        "repository_package": "2.0.5",
+        "source": "https://github.com/giavinh79/react-body-highlighter/blob/master/package.json",
+        "limit": "Publication and exact commit pin not tested"
+      },
+      "api": "import Model from 'react-body-highlighter'; type anterior/posterior; data Array<{name,muscles,frequency?}>; onClick({muscle,data:{exercises,frequency}})",
+      "implementation": "https://github.com/giavinh79/react-body-highlighter/blob/master/src/component/Model.tsx",
+      "formats": {
+        "browser": "SVG external muscle/region selection",
+        "server": "JSON artifact with diagram version/view, external region IDs and explicitly entered side; polygons remain artifact"
+      },
+      "reuse": [
+        "ready front/back polygons",
+        "lower-back region",
+        "highlight and click"
+      ],
+      "gaps": [
+        "Callback has no laterality or polygon ID",
+        "Separate manual side and region list mandatory",
+        "Color frequency is not NRS",
+        "No freehand/dermatomes/spinal level inference"
+      ],
+      "licenses": {
+        "code": "MIT",
+        "code_source": "https://github.com/giavinh79/react-body-highlighter/blob/master/LICENSE",
+        "artwork": {
+          "status": "Repository MIT; separate artwork license not found",
+          "provenance": "README: polygons reused from react-native-body-highlighter",
+          "upstream": "https://github.com/HichamELBSI/react-native-body-highlighter",
+          "upstream_license": "https://github.com/HichamELBSI/react-native-body-highlighter/blob/main/LICENSE",
+          "gate": "Repository license coverage is inference. Preserve both notices and reconcile copied polygon version/provenance before redistribution."
+        },
+        "questionnaire": "None",
+        "data": "None"
+      },
+      "offline": "Local browser package; no paid API",
+      "verification": "README, code callback and both LICENSE files reviewed; no runtime test"
+    },
+    {
+      "id": "lhc_forms",
+      "decision": "alternative_fhir_capture",
+      "name": "NLM LHC-Forms",
+      "package": "lforms",
+      "repository": "https://github.com/LHNCBC/lforms",
+      "documentation": "https://lhncbc.github.io/lforms/",
+      "version": {
+        "documented_bundle": "42.0.0",
+        "limit": "Official documentation-listed version, not asserted latest"
+      },
+      "api": [
+        "Local script/link bundle loading; docs warn import/require unsupported",
+        "LForms.Util.addFormToPage(q,container,{fhirVersion:'R4'})",
+        "LForms.Util.getFormFHIRData('QuestionnaireResponse','R4',container)"
+      ],
+      "formats": {
+        "browser_input": "FHIR Questionnaire JSON or LHC internal definition",
+        "browser_output": "FHIR QuestionnaireResponse JSON",
+        "server": "Source artifact plus scalar mapping into ModuleResult 1.0"
+      },
+      "reuse": [
+        "clinical typed/coded forms",
+        "repeating questions",
+        "skip logic",
+        "partial SDC"
+      ],
+      "gaps": [
+        "No bodymap",
+        "Not full SDC conformance",
+        "Local missing-state/provenance/MRI adapter required"
+      ],
+      "licenses": {
+        "code": "Custom BSD-based terms, not Apache-2.0",
+        "code_source": "https://github.com/LHNCBC/lforms/blob/master/LICENSE.md",
+        "obligations": [
+          "Prominent owner notice, conditions and disclaimer",
+          "No NLM/NIH endorsement",
+          "Citation in published research"
+        ],
+        "artwork": "No clinical body diagram selected",
+        "questionnaire": "LOINC and UCUM separate terms; instrument copyright separate",
+        "data": "No linked patient dataset"
+      },
+      "offline": "Self-hosted files; no FHIR server required; disable remote lookup/prepopulation",
+      "verification": "Official docs and full LICENSE reviewed; no install"
+    }
+  ],
+  "minimal_stack": {
+    "tools": [
+      "jsonforms",
+      "react_body_highlighter"
+    ],
+    "fields": [
+      "intensity 0–10",
+      "duration + unit + recall window",
+      "external region",
+      "explicit side",
+      "selected regions",
+      "source acquired_at",
+      "separate clinician fact assessments"
+    ],
+    "adapter_api": [
+      "Provider.analyze(request,context)",
+      "context.artifacts.read(input_artifact)",
+      "context.artifacts.add_bytes(json_bytes,media_type='application/json',role='derived')",
+      "validate_result(result,request)"
+    ],
+    "transport": "Platform source artifact boundary; no new HTTP endpoint claimed",
+    "source_fields": [
+      "author",
+      "respondent/source",
+      "form/version",
+      "assessment_ref",
+      "reviewed_result_id",
+      "time",
+      "side",
+      "region"
+    ],
+    "evidence": "Declared source artifact + selector on exact answer/assessment; no new Observation fields",
+    "origins": {
+      "patient": "patient_report",
+      "clinician": "clinician_entered",
+      "fixture": "synthetic_demo"
+    },
+    "known_values": "0/false remain assessed scalar; intensity unit {score}",
+    "missing_states": {
+      "unknown": "not_assessed/null",
+      "not_applicable": "not_applicable/null",
+      "unperformed_exam": "not_assessed/null, never false"
+    },
+    "bodymap": "Explicit answered [] differs from unknown null; neither implies a negative clinical test",
+    "mri": "not_performed => concordance not_applicable/null; running/available-unreviewed => not_assessed/null; manual exact completed reviewed_result_id => new assessment and snapshot",
+    "mapping": "External lower_back is not internal lumbar_spine; side/region never implies vertebral/root level",
+    "prohibited": [
+      "Psychogenic pain or malingering inference",
+      "New clinical classification/rules",
+      "Patient answers implying clinician exam",
+      "Synthetic clinical answers becoming MRI-linked real patient history"
+    ]
+  },
+  "existing_cds": {
+    "contracts": "src/dorsopathy_platform/contracts.py",
+    "fact_schema": "src/dorsopathy_cds/service.py",
+    "demo": "src/dorsopathy_modules/demo/complaints.py",
+    "facts": [
+      {
+        "concept": "clinical.specific_cause_warning_signs_absent",
+        "type": "bool"
+      },
+      {
+        "concept": "clinical.radiculopathy_signs_and_positive_tension_tests",
+        "type": "bool"
+      },
+      {
+        "concept": "clinical.imaging_clinical_concordance",
+        "type": "bool"
+      },
+      {
+        "concept": "imaging.study_status",
+        "type": "string",
+        "allowed": [
+          "not_performed",
+          "performed_result_available"
+        ]
+      }
+    ],
+    "reuse": [
+      "Synthetic NRS capture fixture",
+      "Assessment scalar/evidence checks",
+      "CDS provenance validation",
+      "Unknown-vs-false behavior"
+    ],
+    "gaps": [
+      "Production intake/bodymap",
+      "Reviewed MRI result binding in intake provider"
+    ]
+  },
+  "schemas": [
+    {
+      "name": "HL7 FHIR R4 QuestionnaireResponse",
+      "version": "4.0.1",
+      "source": "https://hl7.org/fhir/R4/questionnaireresponse.html",
+      "formats": [
+        "application/fhir+json",
+        "FHIR XML"
+      ],
+      "reuse": [
+        "linkId",
+        "typed answer",
+        "authored",
+        "source vs author",
+        "questionnaire canonical/version"
+      ],
+      "unknown": "QR.status is response lifecycle, not field assessment; explicit coded/status items needed",
+      "license": "FHIR specification CC0; third-party IP separate",
+      "license_source": "https://hl7.org/fhir/R4/license.html",
+      "mri": "reviewed_result_id in source manifest or documented extension/profile, never arbitrary new FHIR or Observation field"
+    }
+  ],
+  "questionnaires": [
+    {
+      "name": "ODI",
+      "decision": "permission_gate",
+      "questionnaire_license": "Copyright Jeremy Fairbank; current instrument license required",
+      "translation": "Obtain approved Russian version",
+      "scoring": "Verify exact digital/scoring rights; no scores implemented",
+      "artwork": "Not inherited from renderer MIT",
+      "sources": [
+        "https://eprovide.mapi-trust.org/instruments/oswestry-disability-index",
+        "https://www.mapi-trust.org/news-events/news/the-oswestry-disability-i"
+      ],
+      "note": "Author's older statement offers free clinical/academic license and commercial fee; confirm current digital terms"
+    },
+    {
+      "name": "PROMIS",
+      "decision": "permission_gate",
+      "questionnaire_license": "English paper and digital terms differ; HEAP generally required with single noncommercial study exception",
+      "translation": "All translated versions require permission",
+      "scoring": "Manual resources and Assessment Center API have distinct terms; no paid API selected",
+      "source": "https://www.healthmeasures.net/explore-measurement-systems/promis/obtain-administer-measures"
+    },
+    {
+      "name": "BPI",
+      "decision": "permission_gate",
+      "questionnaire_license": "Charles S. Cleeland copyright, all rights reserved",
+      "artwork_license": "Body drawing is copyrighted questionnaire artwork",
+      "translation": "Russian listed by provider; obtain permitted version",
+      "scoring": "Use official allowed version/guidance separately from code licensing",
+      "sources": [
+        "https://www.mdanderson.org/research/departments-labs-institutes/departments-divisions/symptom-research/symptom-assessment-tools/brief-pain-inventory.html",
+        "https://www3.mdanderson.org/depts/prg/bpisf.pdf"
+      ]
+    }
+  ],
+  "corpora": [
+    {
+      "name": "SPIDER",
+      "version": "v4",
+      "source": "https://zenodo.org/records/10159290",
+      "license": "CC BY 4.0",
+      "license_source": "https://www.nature.com/articles/s41597-024-03090-w",
+      "formats": [
+        "MRI images",
+        "masks",
+        "overview.csv",
+        "radiological_gradings.csv"
+      ],
+      "linked": "Images/grades/demographics/acquisition metadata",
+      "clinical_linkage": "No released pain questionnaires or clinical exam inventory documented",
+      "decision": "MRI corpus only; does not close linked intake gate",
+      "downloaded": false
+    },
+    {
+      "name": "Lumbar composite mid-sagittal dataset",
+      "version": "2",
+      "source": "https://data.mendeley.com/datasets/k3b363f3vz/2",
+      "doi": "10.17632/k3b363f3vz.2",
+      "license": "CC BY 4.0",
+      "formats": [
+        "sagittal images",
+        "annotations",
+        "spinal geometry measurements"
+      ],
+      "clinical_linkage": "No pain/exam answers documented",
+      "decision": "Not a linked complaint/exam corpus",
+      "downloaded": false
+    },
+    {
+      "name": "BACPAC requirements / HEAL notebook",
+      "sources": [
+        "https://heal.nih.gov/files/2020-07/BACPAC%20Dataset%20Requirements%20and%20Recommendations%20-%20Longitudinal%20Assessments.pdf",
+        "https://healdata.org/dashboard/Public/notebooks/BACPAC_Synthetic_Data_Analysis.html"
+      ],
+      "reuse": "Field inventory only; instrument terms separate",
+      "data_license": "Actual linked release terms not established",
+      "clinical_linkage": "Reviewed official notebook explicitly synthetic",
+      "decision": "Schema lead/synthetic demonstration; not patient corpus",
+      "downloaded": false
+    }
+  ],
+  "data_gate": {
+    "status": "not_found_in_verified_sources",
+    "required": [
+      "Permissioned linked lumbar MRI + raw pain answers + clinician examination",
+      "Data dictionary and patient/visit linkage key",
+      "Source/time/side/region and assessment refs",
+      "Exact reviewed MRI result refs"
+    ],
+    "limit": "No claim that no such dataset exists globally; none immediately reusable was verified in this scoped review",
+    "policy": "Unlinked/unknown/mixed real MRI + synthetic intake does not yield confirming CDS-case; generic PROM dataset does not close gate"
+  },
+  "checks": [
+    "JSON parse",
+    "Report <=1000 words",
+    "Only own research files changed",
+    "Research-only change; no behavior tests"
+  ]
+}
