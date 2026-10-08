@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "repository": "/Users/andrew/Projects/DorsopathyCDS",
+  "baseline_commit": "bd5cc16",
+  "brief": "README.md",
+  "tasks": [
+    {"id":"T00","title":"Контракты и интеграция","file":"tasks/T00_integration.md","branch":"integration/full-flow","start_after":[],"accept_after":["T01","T02","T03","T04","T05","T06","T07","T08","T09"],"optional":false},
+    {"id":"T01","title":"Storage и upload","file":"tasks/T01_storage_uploads.md","branch":"task/storage-uploads","start_after":["T00-freeze"],"accept_after":[],"optional":false},
+    {"id":"T02","title":"Dispatcher и ProcessProvider","file":"tasks/T02_execution.md","branch":"task/execution","start_after":["T00-freeze"],"accept_after":["T01"],"optional":false},
+    {"id":"T03","title":"MRI import, adapter и worker","file":"tasks/T03_mri.md","branch":"task/mri-provider","start_after":["T00-freeze"],"accept_after":["T01","T02"],"optional":false},
+    {"id":"T04","title":"Жалобы и врачебные оценки","file":"tasks/T04_intake.md","branch":"task/intake","start_after":["T00-freeze"],"accept_after":[],"optional":false},
+    {"id":"T05","title":"Workflow и application","file":"tasks/T05_workflow.md","branch":"task/workflow","start_after":["T00-freeze"],"accept_after":["T01","T02","T03","T04","T07"],"optional":false},
+    {"id":"T06","title":"Платформенный HTTP","file":"tasks/T06_http.md","branch":"task/platform-http","start_after":["T00-freeze"],"accept_after":["T01","T05"],"optional":false},
+    {"id":"T07","title":"CDS adapter и отчёт","file":"tasks/T07_cds_report.md","branch":"task/cds-report","start_after":["T00-freeze"],"accept_after":["T04"],"optional":false},
+    {"id":"T08","title":"UI и evidence viewer","file":"tasks/T08_viewer.md","branch":"task/viewer","start_after":["T00-freeze"],"accept_after":["T03","T06","T07"],"optional":false},
+    {"id":"T09","title":"Сквозная приёмка","file":"tasks/T09_acceptance.md","branch":"task/e2e-acceptance","start_after":["T00-freeze"],"accept_after":["T01","T02","T03","T04","T05","T06","T07","T08"],"optional":false},
+    {"id":"T10","title":"Обучение выпячивания диска","file":"tasks/T10_disc_training.md","branch":"task/disc-bulging","start_after":["T00-freeze"],"accept_after":["T03"],"optional":true}
+  ]
+}
