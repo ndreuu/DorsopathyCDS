@@ -9,6 +9,7 @@ from __future__ import annotations
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import ipaddress
 import json
+from pathlib import Path
 import socket
 from typing import Any
 
@@ -17,6 +18,7 @@ from .engine import DefinitionError, InputValidationError
 
 
 MAX_BODY_BYTES = 64 * 1024
+DEMO_HTML_PATH = Path(__file__).parent / "web" / "index.html"
 
 
 def _reject_constant(value: str) -> None:
@@ -56,8 +58,17 @@ class _Handler(BaseHTTPRequestHandler):
 
     def _json_response(self, status: int, payload: dict[str, Any]) -> None:
         body = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode("utf-8")
+        self._response(status, body, "application/json; charset=utf-8")
+
+    def _html_response(self) -> None:
+        # Only the packaged static page is served. Case data is never
+        # interpolated into HTML by this adapter.
+        body = DEMO_HTML_PATH.read_text(encoding="utf-8").encode("utf-8")
+        self._response(200, body, "text/html; charset=utf-8")
+
+    def _response(self, status: int, body: bytes, content_type: str) -> None:
         self.send_response(status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
         self.send_header("Connection", "close")
@@ -73,7 +84,9 @@ class _Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:
         try:
-            if self.path == "/health":
+            if self.path in ("/", "/demo"):
+                self._html_response()
+            elif self.path == "/health":
                 self._json_response(200, {"status": "ok", "mode": "research_only"})
             elif self.path == "/rules":
                 rules, sources = service.load_catalog()
@@ -161,6 +174,9 @@ def create_server(host: str = "127.0.0.1", port: int = 8765) -> ThreadingHTTPSer
 def serve(host: str = "127.0.0.1", port: int = 8765) -> None:
     """Serve locally until interrupted, closing the listening socket on exit."""
     with create_server(host, port) as server:
+        bound_host, bound_port = server.server_address[:2]
+        url_host = f"[{bound_host}]" if ":" in bound_host else bound_host
+        print(f"Локальная демоверсия: http://{url_host}:{bound_port}/", flush=True)
         try:
             server.serve_forever()
         except KeyboardInterrupt:

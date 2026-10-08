@@ -16,4 +16,4 @@ dorsopathy-cds = "dorsopathy_cds.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-dorsopathy_cds = ["catalog/*.json"]
+dorsopathy_cds = ["catalog/*.json", "web/*.html"]

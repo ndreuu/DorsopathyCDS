@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DorsopathyCDS — проверка гипотезы</title>
+  <style>
+    :root { color-scheme: light; --ink:#172b3a; --muted:#546675; --line:#dce4e9; --blue:#225c89; --background:#f3f6f8; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--background); color:var(--ink); font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    main { max-width:1200px; margin:auto; padding:36px 28px 64px; }
+    .brand { display:flex; align-items:center; gap:12px; margin-bottom:28px; font-weight:700; }
+    .brand-mark { padding:7px 10px; border-radius:9px; background:var(--blue); color:#fff; font-size:13px; }
+    .brand span:last-child { font-weight:400; color:var(--muted); font-size:14px; }
+    h1 { font-size:clamp(26px,3.5vw,39px); line-height:1.18; letter-spacing:-.8px; margin:0 0 14px; max-width:820px; }
+    h2 { font-size:22px; line-height:1.3; margin:0 0 8px; }
+    h3 { font-size:16px; margin:0; }
+    p { margin:0 0 16px; }
+    .intro { color:var(--muted); max-width:830px; font-size:17px; }
+    .notice { border:1px solid #cbdde9; background:#eaf3f9; border-radius:12px; padding:14px 18px; margin:22px 0; font-size:14px; }
+    .layout { display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:22px; align-items:start; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px; box-shadow:0 4px 15px #172b3a04; }
+    .muted { color:var(--muted); }
+    .small { font-size:14px; }
+    .eyebrow { color:var(--blue); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin:0 0 8px; }
+    label { display:block; font-weight:600; margin:0 0 6px; }
+    select { width:100%; color:var(--ink); background:#fff; padding:12px 10px; border:1px solid #b7c7d3; border-radius:8px; font:inherit; min-height:48px; }
+    select:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible { outline:3px solid #6dabdf; outline-offset:3px; }
+    select:disabled { background:#f1f4f6; color:#647785; }
+    .field { margin:22px 0; }
+    .hint { font-size:13px; color:var(--muted); margin:6px 0 0; }
+    .example { padding-bottom:23px; margin-bottom:25px; border-bottom:1px solid var(--line); }
+    button { min-height:48px; border:0; border-radius:9px; font:inherit; font-weight:600; padding:12px 20px; cursor:pointer; background:var(--blue); color:#fff; width:100%; }
+    button:disabled { opacity:.6; cursor:wait; }
+    .badge { display:inline-block; border-radius:6px; padding:4px 9px; font-size:12px; line-height:1.4; font-weight:700; white-space:nowrap; background:#edf1f4; color:#4a5d6c; }
+    .true { background:#e4f3e9; color:#226342; }
+    .false { background:#fff1df; color:#935d13; }
+    .unknown { background:#eef1f5; color:#506376; }
+    .inapplicable { background:#e8f1fa; color:#2c5c88; }
+    .result-heading { padding:18px; border:1px solid var(--line); border-radius:11px; margin:20px 0; }
+    .result-heading.met { border-color:#b8d9c3; background:#f1f9f4; }
+    .result-heading.not_met { border-color:#ecd4b4; background:#fff8ef; }
+    .result-heading.indeterminate { border-color:#cbd7e3; background:#f3f7fa; }
+    .result-title { font-size:22px; font-weight:700; line-height:1.3; margin-bottom:8px; }
+    .result-heading p { font-size:14px; margin:0; }
+    .condition { padding:20px 0; border-bottom:1px solid var(--line); }
+    .condition:last-child { border-bottom:0; }
+    .condition-header { display:flex; align-items:start; gap:12px; justify-content:space-between; }
+    .condition-header h3 { max-width:75%; }
+    .condition p { font-size:14px; margin:9px 0 0; }
+    details { margin-top:12px; font-size:13px; }
+    summary { color:var(--blue); cursor:pointer; width:fit-content; }
+    blockquote { padding:12px 15px; margin:12px 0 8px; border-left:3px solid #95b8d1; background:#f4f8fb; font-size:14px; }
+    a { color:var(--blue); }
+    .next { margin-top:18px; padding:15px; background:#f3f6f8; border-radius:9px; font-size:14px; }
+    .next strong { display:block; margin-bottom:4px; }
+    #stale { padding:10px 13px; background:#fff4df; border-radius:8px; color:#875c16; font-size:14px; margin:16px 0; }
+    #error { background:#fff1ed; color:#914327; border-radius:8px; padding:12px; margin:16px 0; }
+    pre { max-height:400px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; padding:15px; background:#f3f6f8; border-radius:8px; font:12px/1.5 ui-monospace,SFMono-Regular,monospace; }
+    .try { margin-top:22px; border-left:3px solid #85abc5; padding-left:14px; font-size:14px; }
+    [hidden] { display:none!important; }
+    @media(max-width:850px) { .layout { grid-template-columns:1fr; } main { padding:24px 16px 40px; } .card { padding:21px; } .brand { flex-wrap:wrap; gap:8px; } }
+    @media(max-width:460px) { .condition-header { flex-direction:column; gap:6px; } .condition-header h3 { max-width:100%; } }
+  </style>
+</head>
+<body>
+<main id="app">
+  <div class="brand"><span class="brand-mark">CDS</span>DorsopathyCDS<span>Локальная демонстрация</span></div>
+  <h1>Какие данные поддерживают гипотезу радикулопатии?</h1>
+  <p class="intro">Выберите результаты осмотра и сопоставления МРТ с клиникой. Система проверит три условия и покажет основание каждого вывода.</p>
+  <div class="notice">Здесь используются изменяемые учебные примеры для взрослых. Анализ снимков и другие модули пока не подключены. Формализация правила требует клинической проверки.</div>
+  <div class="layout">
+    <section class="card" aria-labelledby="input-title">
+      <p class="eyebrow">1 · Исходные данные</p>
+      <h2 id="input-title">Что известно о случае</h2>
+      <p class="muted small">В реальном сценарии клинические оценки устанавливает врач. Здесь можно менять ответы и изучать алгоритм.</p>
+      <div class="example">
+        <label for="example">Готовый пример</label>
+        <select id="example">
+          <option value="supported">Все условия выполнены</option>
+          <option value="unknown">Соответствие МРТ клинике не оценено</option>
+          <option value="discordant">МРТ не соответствует клинической картине</option>
+          <option value="no-imaging">Исследование не выполнялось</option>
+          <option value="warning">Пункт об отсутствии настораживающих признаков не выполнен</option>
+        </select>
+        <p class="hint">Выбор примера заполнит ответы и сразу покажет результат.</p>
+      </div>
+      <form id="case-form">
+        <div class="field">
+          <label for="warning-signs">Настораживающие признаки специфической причины</label>
+          <select id="warning-signs">
+            <option value="unknown">Не оценено</option>
+            <option value="true">Врач оценил: признаки не выявлены</option>
+            <option value="false">Условие об отсутствии признаков не выполнено</option>
+          </select>
+          <p class="hint">Это клиническая оценка после сбора жалоб, анамнеза и обследования.</p>
+        </div>
+        <div class="field">
+          <label for="radiculopathy">Признаки радикулопатии и положительные тесты натяжения</label>
+          <select id="radiculopathy">
+            <option value="unknown">Не оценено</option>
+            <option value="true">Врач подтвердил оба условия</option>
+            <option value="false">Условие не выполнено</option>
+          </select>
+          <p class="hint">Одна жалоба на боль в ноге не заменяет эту оценку.</p>
+        </div>
+        <div class="field">
+          <label for="imaging-status">Исследование нейровизуализации, например МРТ</label>
+          <select id="imaging-status">
+            <option value="unknown">Статус или результат неизвестен</option>
+            <option value="performed_result_available">Выполнено, результат доступен</option>
+            <option value="not_performed">Известно, что не выполнялось</option>
+          </select>
+          <p class="hint">Отсутствие загруженного файла не означает, что исследование не выполнялось.</p>
+        </div>
+        <div class="field">
+          <label for="concordance">Соответствие результатов МРТ клинической картине</label>
+          <select id="concordance">
+            <option value="unknown">Не оценено</option>
+            <option value="true">Врач подтвердил соответствие</option>
+            <option value="false">Врач указал несоответствие</option>
+          </select>
+          <p class="hint" id="concordance-hint">Доступный результат исследования сопоставляют с клиническими проявлениями.</p>
+        </div>
+        <button id="evaluate" type="submit">Проверить условия</button>
+      </form>
+      <div class="try"><strong>Попробуйте:</strong> в первом примере измените соответствие МРТ на «Не оценено» и нажмите кнопку. Затем выберите «Врач указал несоответствие» и проверьте ещё раз.</div>
+    </section>
+    <section class="card" aria-labelledby="result-section-title">
+      <p class="eyebrow">2 · Проверка правила</p>
+      <h2 id="result-section-title">Результат и основания</h2>
+      <p class="muted small">Гипотеза: дискогенная пояснично-крестцовая радикулопатия. Источник: КР №777, раздел 2.2, страница 12.</p>
+      <p id="loading" class="muted" role="status">Загружаем правило…</p>
+      <div id="error" role="alert" hidden></div>
+      <div id="stale" role="status" hidden>Ответы изменены. Нажмите «Проверить условия», чтобы получить новый результат.</div>
+      <div id="report" hidden>
+        <div id="result-heading" class="result-heading" aria-live="polite">
+          <div id="result-title" class="result-title"></div>
+          <p id="result-description"></p>
+        </div>
+        <div id="conditions"></div>
+        <div class="next"><strong>Что дальше</strong><span id="next-action"></span></div>
+        <details>
+          <summary>Технический отчёт JSON для разработчика</summary>
+          <pre id="raw-report"></pre>
+        </details>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const selectors = ['warning-signs', 'radiculopathy', 'imaging-status', 'concordance'];
+  const factIds = {
+    'warning-signs':'clinical.specific_cause_warning_signs_absent',
+    'radiculopathy':'clinical.radiculopathy_signs_and_positive_tension_tests',
+    'imaging-status':'imaging.study_status',
+    'concordance':'clinical.imaging_clinical_concordance'
+  };
+  const titles = [
+    '1. Оценены настораживающие признаки специфической причины',
+    '2. Подтверждены признаки радикулопатии и тесты натяжения',
+    '3. Результаты МРТ сопоставлены с клиникой'
+  ];
+  const states = {true:'Выполнено', false:'Не выполнено', unknown:'Не оценено'};
+  const examples = {
+    supported:['true','true','performed_result_available','true'],
+    unknown:['true','true','performed_result_available','unknown'],
+    discordant:['true','true','performed_result_available','false'],
+    'no-imaging':['true','true','not_performed','unknown'],
+    warning:['false','true','performed_result_available','true']
+  };
+  let catalog, rule, busy = false;
+
+  function node(tag, text, className) {
+    const element = document.createElement(tag);
+    if (text !== undefined) element.textContent = text;
+    if (className) element.className = className;
+    return element;
+  }
+  function syncConcordance() {
+    const available = $('imaging-status').value === 'performed_result_available';
+    if (!available) $('concordance').value = 'unknown';
+    $('concordance').disabled = busy || !available;
+    $('concordance-hint').textContent = available
+      ? 'Доступный результат исследования сопоставляют с клиническими проявлениями.'
+      : $('imaging-status').value === 'not_performed'
+        ? 'Сопоставление не требуется: известно, что исследование не выполнялось.'
+        : 'Сначала нужен доступный результат исследования. Этот пункт остаётся неизвестным.';
+  }
+  function setBusy(value) {
+    busy = value;
+    for (const id of selectors.concat(['example','evaluate'])) $(id).disabled = value;
+    $('evaluate').textContent = value ? 'Проверяем…' : 'Проверить условия';
+    syncConcordance();
+  }
+  function applyExample() {
+    const values = examples[$('example').value];
+    selectors.forEach((id, index) => $(id).value = values[index]);
+    syncConcordance();
+  }
+  function payload() {
+    const facts = {};
+    for (const id of selectors) {
+      const raw = $(id).value;
+      const value = raw === 'unknown' ? null : id === 'imaging-status' ? raw : raw === 'true';
+      facts[factIds[id]] = value === null ? {value:null} : {
+        value, origin:'synthetic_demo', assessment_ref:'interactive-demo-assessment'
+      };
+    }
+    return {case_id:'interactive-demo', population:'adult', facts};
+  }
+  function refs(definition) {
+    if (definition.citations) return definition.citations;
+    return (definition.all || definition.any || []).flatMap(refs);
+  }
+  function addSources(container, definition, result, report) {
+    const seen = new Set();
+    const details = node('details');
+    details.append(node('summary', 'Основание: цитата из КР №777'));
+    for (const ref of refs(definition)) {
+      const key = ref.doc_id + '/' + ref.quote_id;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const quote = result.citations.find(item => item.doc_id === ref.doc_id && item.quote_id === ref.quote_id);
+      if (!quote) continue;
+      details.append(node('blockquote', quote.exact_quote));
+      details.append(node('p', quote.locator + ' · страница ' + quote.page, 'muted small'));
+      const document = report.source_documents.find(item => item.id === ref.doc_id);
+      if (document && document.pdf_url.startsWith('https://')) {
+        const link = node('a', 'Открыть официальный документ');
+        link.href = document.pdf_url + '#page=' + quote.page;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        details.append(link);
+      }
+    }
+    container.append(details);
+  }
+  function explanation(index, value, result) {
+    if (index === 0) return value === 'true'
+      ? 'Передана врачебная оценка: настораживающие признаки специфической причины не выявлены.'
+      : value === 'false' ? 'Условие об отсутствии настораживающих признаков не выполнено. Этот вывод не определяет конкретную причину боли.'
+      : 'Нет оценки этого пункта. Нормальный снимок не заменяет клиническую проверку.';
+    if (index === 1) return value === 'true'
+      ? 'Передано подтверждение клинических признаков и положительных тестов натяжения.'
+      : value === 'false' ? 'По переданной оценке этот клинический пункт не выполнен.'
+      : 'Нужна оценка неврологического осмотра и тестов натяжения.';
+    if (result.imaging_concordance_status === 'not_applicable') return 'Исследование явно не выполнялось. Условие о соответствии снимков неприменимо; подтверждения по МРТ нет.';
+    return value === 'true' ? 'Результат исследования доступен, соответствие клинической картине подтверждено.'
+      : value === 'false' ? 'Передано несоответствие результатов исследования клинике. Правило не выполнено; заболевание этим не исключается.'
+      : 'Неизвестен статус исследования или не оценено соответствие клинике. Отсутствие файла не считается отсутствием исследования.';
+  }
+  function render(report) {
+    const result = report.results.find(item => item.rule_id === rule.id);
+    if (!result) throw new Error('Нет результата для выбранного правила.');
+    const noImaging = result.imaging_concordance_status === 'not_applicable';
+    $('result-heading').className = 'result-heading ' + result.status;
+    $('result-title').textContent = result.status === 'met'
+      ? noImaging ? 'Клинические условия выполнены' : 'Гипотеза поддерживается'
+      : result.status === 'not_met' ? 'Условия правила не выполнены' : 'Нужны дополнительные данные';
+    $('result-description').textContent = result.interpretation;
+    $('conditions').replaceChildren();
+    rule.condition.all.forEach((definition, index) => {
+      const value = result.trace.children[index].value;
+      const container = node('div', undefined, 'condition');
+      const header = node('div', undefined, 'condition-header');
+      header.append(node('h3', titles[index] || definition.label || definition.id));
+      header.append(node('span', index === 2 && noImaging ? 'Не требуется' : states[value], 'badge ' + (index === 2 && noImaging ? 'inapplicable' : value)));
+      container.append(header, node('p', explanation(index, value, result), 'muted'));
+      addSources(container, definition, result, report);
+      $('conditions').append(container);
+    });
+    $('next-action').textContent = result.decisive_missing_fact_ids.length
+      ? 'Дополнить недостающие клинические оценки и передать результат врачу.'
+      : result.status === 'not_met'
+        ? 'Врач проверяет причины невыполнения условий и другие гипотезы. Заболевание не исключено.'
+        : 'Передать гипотезу и её основания на проверку врачу. Это не окончательный диагноз.';
+    $('raw-report').textContent = JSON.stringify(report, null, 2);
+    $('loading').hidden = true;
+    $('stale').hidden = true;
+    $('report').hidden = false;
+  }
+  async function evaluate() {
+    if (busy) return;
+    setBusy(true);
+    $('error').hidden = true;
+    try {
+      const response = await fetch('/evaluate', {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload())
+      });
+      if (!response.ok) throw new Error('Не удалось проверить данные. Проверьте ответы и доступность локального сервера.');
+      render(await response.json());
+    } catch (error) {
+      $('error').textContent = error.message;
+      $('error').hidden = false;
+      $('loading').hidden = true;
+      $('report').hidden = true;
+    } finally { setBusy(false); }
+  }
+  $('case-form').addEventListener('submit', event => { event.preventDefault(); evaluate(); });
+  $('case-form').addEventListener('change', () => {
+    syncConcordance();
+    $('stale').hidden = false;
+    $('report').hidden = true;
+  });
+  $('example').addEventListener('change', () => { applyExample(); evaluate(); });
+  async function start() {
+    setBusy(true);
+    try {
+      const response = await fetch('/rules');
+      if (!response.ok) throw new Error('Каталог правил недоступен.');
+      catalog = await response.json();
+      rule = catalog.rules.find(item => item.id === 'ru_777_radiculopathy_triad');
+      if (!rule) throw new Error('Демонстрационное правило не найдено.');
+      applyExample();
+      setBusy(false);
+      await evaluate();
+    } catch (error) {
+      $('error').textContent = error.message;
+      $('error').hidden = false;
+      $('loading').hidden = true;
+    }
+  }
+  start();
+</script>
+</body>
+</html>

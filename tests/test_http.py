@@ -1,12 +1,12 @@
 """HTTP protocol boundaries and absence of sensitive exception disclosure."""
 
-from contextlib import redirect_stderr
+from contextlib import redirect_stderr, redirect_stdout
 import http.client as http_client
 from io import StringIO
 import json
 import threading
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from dorsopathy_cds import http, service
 from dorsopathy_cds.engine import DefinitionError, InputValidationError
@@ -55,6 +55,50 @@ class HTTPTests(unittest.TestCase):
         status, payload, _ = self.request("GET", "/health")
         self.assertEqual(status, 200)
         self.assertEqual(payload, {"status": "ok", "mode": "research_only"})
+
+    def test_root_and_demo_serve_the_same_static_utf8_form(self):
+        html = '<!doctype html><html lang="ru"><main id="app"><form id="case-form">Синтетический пример</form></main></html>'
+        bodies = []
+        with patch.object(http, "DEMO_HTML_PATH") as html_path:
+            html_path.read_text.return_value = html
+            for route in ("/", "/demo"):
+                with self.subTest(route=route):
+                    connection = http_client.HTTPConnection("127.0.0.1", self.port, timeout=2)
+                    try:
+                        connection.request("GET", route)
+                        response = connection.getresponse()
+                        body = response.read()
+                        self.assertEqual(response.status, 200)
+                        self.assertEqual(response.getheader("Content-Type"), "text/html; charset=utf-8")
+                        self.assertEqual(int(response.getheader("Content-Length")), len(body))
+                        self.assertEqual(response.getheader("Cache-Control"), "no-store")
+                        self.assertEqual(body.decode("utf-8"), html)
+                        self.assertIn(b'id="app"', body)
+                        self.assertIn(b'id="case-form"', body)
+                        bodies.append(body)
+                    finally:
+                        connection.close()
+            self.assertEqual(html_path.read_text.call_count, 2)
+            html_path.read_text.assert_called_with(encoding="utf-8")
+        self.assertEqual(bodies[0], bodies[1])
+
+    def test_missing_static_page_returns_safe_json_error(self):
+        with patch.object(http, "DEMO_HTML_PATH") as html_path:
+            html_path.read_text.side_effect = FileNotFoundError("private-installation-path")
+            status, payload, wire = self.request("GET", "/")
+        self.assertEqual(status, 500)
+        self.assertEqual(payload["error"]["code"], "internal_error")
+        self.assertNotIn(b"private-installation-path", wire)
+
+    def test_serve_announces_actual_local_demo_url(self):
+        server = MagicMock()
+        server.__enter__.return_value = server
+        server.server_address = ("127.0.0.1", 12345)
+        server.serve_forever.side_effect = KeyboardInterrupt
+        stdout = StringIO()
+        with patch.object(http, "create_server", return_value=server), redirect_stdout(stdout):
+            http.serve(port=0)
+        self.assertIn("http://127.0.0.1:12345/", stdout.getvalue())
 
     def test_rules_preserve_exact_quotes_and_canonical_references(self):
         rules = [{"id": "fixture", "condition": {"citations": [{"doc_id": "d1", "quote_id": "q1"}]}}]
