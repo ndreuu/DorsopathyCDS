@@ -1,0 +1,316 @@
+{
+  "schema_version": "1.0",
+  "task_id": "T14",
+  "checked_on": "2026-10-09",
+  "review_scope": "Primary-source research only. No installation, implementation, corpus downloads or runtime checks.",
+  "recommended_minimal_stack": [
+    "pydicom",
+    "ImageJ1"
+  ],
+  "tools": [
+    {
+      "id": "pydicom",
+      "repo": "https://github.com/pydicom/pydicom",
+      "code_license": "MIT; private dictionary portions separate BSD notice",
+      "license_url": "https://github.com/pydicom/pydicom/blob/main/LICENSE",
+      "weights_license": "not_applicable",
+      "decision": "recommended importer",
+      "inputs": [
+        "DICOM US Image Storage",
+        "DICOM US Multiframe Image Storage, decoder-dependent transfer syntaxes"
+      ],
+      "entrypoints": [
+        "pydicom.dcmread(path, stop_before_pixels=True)",
+        "ds.SequenceOfUltrasoundRegions",
+        "pydicom.pixels.pixel_array(path, index=frame)"
+      ],
+      "outputs": [
+        "NumPy frame",
+        "DICOM metadata"
+      ],
+      "calibration": "Reads US calibration tags; geometry validation is adapter responsibility.",
+      "limitations": [
+        "No annotation GUI or overlay export",
+        "Compressed transfer syntax may require separate decoder/license"
+      ],
+      "sources": [
+        "https://pydicom.github.io/pydicom/stable/reference/generated/pydicom.pixels.pixel_array.html",
+        "https://github.com/pydicom/pydicom/blob/main/LICENSE"
+      ]
+    },
+    {
+      "id": "imagej1",
+      "repo": "https://github.com/imagej/ImageJ",
+      "code_license": "public domain ImageJ1, not blanket license for Fiji/plugins",
+      "license_url": "https://imagej.net/ij/disclaimer.html",
+      "weights_license": "not_applicable",
+      "decision": "recommended manual annotation and export",
+      "inputs": [
+        "PNG",
+        "TIFF"
+      ],
+      "entrypoints": [
+        "IJ.openImage(path)",
+        "Calibration.pixelWidth/pixelHeight",
+        "Calibration.setUnit(\"mm\")",
+        "Analyze > Measure",
+        "RoiManager.save(path)",
+        "Image > Overlay > Flatten"
+      ],
+      "outputs": [
+        "Results CSV",
+        ".roi",
+        ".zip ROI set",
+        "TIFF overlay",
+        "flattened PNG"
+      ],
+      "calibration": "Explicit verified X/Y scales; automatic US-region interpretation not confirmed",
+      "limitations": [
+        "Image-wide calibration cannot model incompatible regions",
+        "Adapter must check bounds and preserve source coordinates/author"
+      ],
+      "sources": [
+        "https://imagej.net/ij/developer/api/ij/ij/measure/Calibration.html",
+        "https://imagej.net/ij/docs/guide/146-30.html",
+        "https://imagej.net/ij/disclaimer.html"
+      ]
+    },
+    {
+      "id": "slicer",
+      "repo": "https://github.com/Slicer/Slicer",
+      "code_license": "3D Slicer Contribution and Software License Agreement 1.0, BSD style with extensions",
+      "license_url": "https://github.com/Slicer/Slicer/blob/main/License.txt",
+      "weights_license": "not_applicable",
+      "decision": "alternative integrated desktop",
+      "inputs": [
+        "DICOM 2D US single/multiframe",
+        "PNG",
+        "TIFF"
+      ],
+      "entrypoints": [
+        "DICOMImageSequencePluginClass.examineFiles(files)",
+        "DICOMImageSequencePluginClass.load(loadable)",
+        "vtkMRMLMarkupsLineNode.GetLineLengthWorld()",
+        "vtkMRMLMarkupsClosedCurveNode.GetClosedCurveSurfaceArea(curveNode)",
+        "Save Markups JSON",
+        "Screen Capture single frame"
+      ],
+      "outputs": [
+        ".mrk.json",
+        "PNG screenshot",
+        "volume/scene"
+      ],
+      "calibration": "Inspected importer supports exactly one region, RegionSpatialFormat=1, RegionDataType=1 or 2, both PhysicalUnits=3; cm deltas converted to mm",
+      "limitations": [
+        "Multiple calibrated regions unsupported",
+        "Volume spacing does not validate annotation outside original region bounds",
+        "Planar contour required; preserve RAS to original pixels mapping"
+      ],
+      "sources": [
+        "https://github.com/Slicer/Slicer/blob/main/Modules/Scripted/DICOMPlugins/DICOMImageSequencePlugin.py",
+        "https://apidocs.slicer.org/main/classvtkMRMLMarkupsLineNode.html",
+        "https://apidocs.slicer.org/v5.0/classvtkMRMLMarkupsClosedCurveNode.html",
+        "https://slicer.readthedocs.io/en/latest/developer_guide/modules/markups.html",
+        "https://slicer.readthedocs.io/en/latest/user_guide/modules/screencapture.html"
+      ]
+    },
+    {
+      "id": "cornerstone3d",
+      "repo": "https://github.com/cornerstonejs/cornerstone3D",
+      "code_license": "MIT",
+      "license_url": "https://github.com/cornerstonejs/cornerstone3D/blob/main/LICENSE",
+      "weights_license": "not_applicable",
+      "decision": "optional future web UI",
+      "inputs": [
+        "DICOM via @cornerstonejs/dicom-image-loader"
+      ],
+      "entrypoints": [
+        "LengthTool",
+        "PlanarFreehandROITool",
+        "annotation.state.getAllAnnotations()"
+      ],
+      "outputs": [
+        "Annotation objects; persisted JSON adapter required"
+      ],
+      "calibration": "Metadata provider exposes US regions; getCalibratedUnits source checks handles against bounds with distinct scale/scaleY",
+      "limitations": [
+        "Full PNG including SVG annotations not verified",
+        "All contour geometry must be checked, not handles only",
+        "Multi-region conflict/aspect acceptance tests required"
+      ],
+      "sources": [
+        "https://github.com/cornerstonejs/cornerstone3D/blob/main/packages/dicomImageLoader/src/imageLoader/wadouri/metaData/metaDataProvider.ts",
+        "https://github.com/cornerstonejs/cornerstone3D/blob/main/packages/tools/src/utilities/getCalibratedUnits.ts",
+        "https://raw.githubusercontent.com/cornerstonejs/cornerstone3D/main/packages/tools/src/stateManagement/annotation/annotationState.ts",
+        "https://www.cornerstonejs.org/docs/api/tools/classes/lengthtool/",
+        "https://www.cornerstonejs.org/docs/api/tools/classes/planarfreehandroitool/"
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "id": "luminous",
+      "endpoint_match": "Lumbar multifidus CSA L5, prone/standing",
+      "provider_url": "https://users.encs.concordia.ca/~impact/luminous-database/",
+      "paper_url": "https://link.springer.com/article/10.1186/s12891-020-03679-3",
+      "population": "109 young athletic adults",
+      "access": "Provider Download links Dropbox; no archive download performed",
+      "formats": [
+        "TIFF B-mode",
+        "TIFF manual binary masks"
+      ],
+      "data_license": "External archive license unverified. Article CC BY 4.0 and CC0 clause for article data do not automatically establish rights for external Dropbox archive.",
+      "weights_license": "not_applicable",
+      "calibration": "Per-image TIFF headers/scale unverified. Acquisition depth 8 cm is not mm/pixel.",
+      "ready_for": "Anatomic manual mask/CSA research after rights gate",
+      "blocked_for": [
+        "metric CSA until calibration",
+        "thickness reference without manual endpoint protocol"
+      ],
+      "gates": [
+        "External archive README/license",
+        "Small original TIFF with per-image scale",
+        "subject-side-pose mapping"
+      ]
+    },
+    {
+      "id": "breast_lesions_usg_breast",
+      "endpoint_match": "Generic breast ultrasound importer; not lumbar endpoint",
+      "provider_url": "https://www.cancerimagingarchive.net/collection/breast-lesions-usg/",
+      "access": "Provider search-indexed listing verified; direct fetch returned HTTP 500; archive not inspected",
+      "formats": [
+        "PNG images",
+        "ZIP segmentations"
+      ],
+      "data_license": "CC BY 4.0 in provider collection listing",
+      "weights_license": "not_applicable",
+      "calibration": "unknown",
+      "ready_for": "Generic view/annotation/evidence",
+      "blocked_for": [
+        "Lumbar endpoint validity",
+        "Metric measurement without verified scale"
+      ]
+    },
+    {
+      "id": "cross_fit_tsartsapakis_2023",
+      "endpoint_match": "Related LM thickness numerical protocol; not imaging corpus",
+      "provider_url": "https://data.mendeley.com/datasets/4sx58vt8v9/1",
+      "doi": "10.17632/4sx58vt8v9.1",
+      "formats": [
+        "SPSS raw relative thickness and EMG measurements"
+      ],
+      "data_license": "CC BY 4.0",
+      "weights_license": "not_applicable",
+      "calibration": "not applicable to frame importer",
+      "ready_for": "Numerical export/protocol research",
+      "blocked_for": [
+        "Frame/overlay/calibration acceptance"
+      ]
+    }
+  ],
+  "geometry": {
+    "standard_url": "https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.8.5.5.html",
+    "first_profile": "One unambiguous 2D B-mode tissue Cartesian region; entire annotation contained in bounds",
+    "required_metadata": [
+      "SequenceOfUltrasoundRegions",
+      "RegionSpatialFormat",
+      "RegionDataType",
+      "RegionFlags",
+      "RegionLocationMinX0",
+      "RegionLocationMinY0",
+      "RegionLocationMaxX1",
+      "RegionLocationMaxY1",
+      "PhysicalUnitsXDirection",
+      "PhysicalUnitsYDirection",
+      "PhysicalDeltaX",
+      "PhysicalDeltaY"
+    ],
+    "units_code": 3,
+    "units_meaning": "cm",
+    "spacing_mm": [
+      "10*abs(deltaX)",
+      "10*abs(deltaY)"
+    ],
+    "distance_formula": "sqrt((dx*sx)^2+(dy*sy)^2)",
+    "area_formula": "absolute simple-polygon shoelace area in pixels * sx * sy",
+    "png_sidecar": [
+      "verified X/Y scale",
+      "region bounds",
+      "source",
+      "author",
+      "date",
+      "crop/resize transform"
+    ],
+    "unsupported": [
+      "unverified raw polar geometry",
+      "3D/proprietary export",
+      "M-mode/Doppler geometry",
+      "conflicting overlapping calibrations",
+      "unknown units",
+      "unverified resizing"
+    ],
+    "missing_scale": {
+      "assessment_status": "not_assessed",
+      "value": null,
+      "view_annotation_allowed": true
+    }
+  },
+  "contract": {
+    "version": "ModuleResult 1.0",
+    "source": "src/dorsopathy_platform/contracts.py",
+    "concepts_proposed_not_registered": [
+      "ultrasound.muscle_thickness",
+      "ultrasound.muscle_area"
+    ],
+    "units": [
+      "mm",
+      "mm2"
+    ],
+    "origin": "automatically_measured for software calculation from explicitly human annotations",
+    "methods": [
+      "manual_landmarks_calibrated_2d_distance",
+      "manual_contour_calibrated_2d_area"
+    ],
+    "model": null,
+    "artifact_ref_fields": [
+      "artifact_id",
+      "storage_key",
+      "sha256",
+      "media_type",
+      "size_bytes",
+      "role"
+    ],
+    "evidence_artifacts": [
+      "source DICOM/PNG/TIFF",
+      "annotation JSON/ROI with author provenance",
+      "calibration JSON",
+      "overlay PNG"
+    ],
+    "sidecar_metadata": [
+      "structure",
+      "side",
+      "level",
+      "pose",
+      "protocol",
+      "QC",
+      "source SOP/frame",
+      "annotation author/time",
+      "calibration source/bounds",
+      "pixel to world transform"
+    ],
+    "validation_entrypoint": "validate_result(result, request)",
+    "unknown_acquired_at": null,
+    "synthetic_origin": "synthetic_demo"
+  },
+  "concrete_data_gates": [
+    "External LUMINOUS archive rights",
+    "Small allowed original calibrated US export and scanner reference measurement",
+    "Verified X/Y scales, bounds, decoder and frame geometry",
+    "Human annotation author and protocol/QC metadata",
+    "Source-to-overlay coordinate round-trip",
+    "Real export acceptance distinct from explicitly synthetic anisotropic fixture"
+  ],
+  "runtime_status": "not_run",
+  "implementation_status": "not_implemented",
+  "large_downloads": false
+}
