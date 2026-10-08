@@ -1,0 +1,382 @@
+{
+  "module_id": "nociception",
+  "task_id": "T15",
+  "language": "ru",
+  "as_of": "2026-10-09",
+  "timezone": "Europe/Istanbul",
+  "scope": "research only; no application implementation",
+  "recommendation": {
+    "minimal_stack": [
+      "pandas",
+      "plotly_py"
+    ],
+    "optional_profiles": [
+      "pyserial after vendor protocol/hardware gate",
+      "wfdb_python generic replay"
+    ],
+    "pretrained_proprietary_index_model_found": false,
+    "verified_open_original_vendor_export_found": false,
+    "conclusion": "Open PMD-100 NOL values were verified as event-window aggregates; original timestamped vendor export remains an external dependency."
+  },
+  "devices": [
+    {
+      "manufacturer": "MDoloris Medical Systems",
+      "model": "ANI Monitor V2",
+      "manual_version": "MD/PRD/IN16.ANIV2 v.10, 2022-09-19",
+      "software_version": "must be confirmed on target monitor",
+      "index": [
+        "ANI",
+        "ANImean",
+        "ANIc; mode-specific mapping requires sample"
+      ],
+      "scale": [
+        0,
+        100
+      ],
+      "unit": "1 (dimensionless)",
+      "documented_windows_seconds": {
+        "base": 64,
+        "update": 1,
+        "ANIi": 120,
+        "ANIm": 240
+      },
+      "export": [
+        "USB text files",
+        "RS232 DE-9 real-time characters"
+      ],
+      "fields": [
+        "Date DD/MM/YYYY",
+        "Time HH:MM:SS",
+        "Time(s)",
+        "Energy",
+        "ANI",
+        "ANImean",
+        "ANIc",
+        "Quality",
+        "Events"
+      ],
+      "quality_raw": {
+        "0": "bad",
+        "1": "average",
+        "2": "average",
+        "3": "good"
+      },
+      "energy_unit": null,
+      "clock_timezone": null,
+      "delimiter": null,
+      "sdk_access": "technical serial protocol requested through MDoloris representative; public SDK not found",
+      "license": "manufacturer documentation not an open SDK/data license",
+      "source_urls": [
+        "https://www.mdoloris.com/wp-content/uploads/2024/06/ANI-MONITOR-V2-User-Manual-V10-EN.pdf",
+        "https://academic.mdoloris.com/wp-content/uploads/2024/03/MDQUAEN51.ANIV2-v.05-Product-sheet.pdf"
+      ],
+      "verification": "manufacturer indexed text pp.11,29-32; direct PDF access failed 403/521; no export file obtained"
+    },
+    {
+      "manufacturer": "Medasense Biometrics",
+      "model": "PMD-100",
+      "index": "NOL",
+      "scale": [
+        0,
+        100
+      ],
+      "unit": "1 (dimensionless)",
+      "export_spec": null,
+      "observed_research_recording": "GE S/5 Collect 5 s in Edry; Medasense laptop software 5 s in Bollag",
+      "clock": "Bollag laptop manually aligned with AIMS",
+      "sdk_access": "public manual/API/SDK and raw export format not verified",
+      "license": "research publication/data license does not license proprietary algorithm",
+      "source_urls": [
+        "https://medasense.com/wp-content/uploads/2019/12/Preliminary-Intraoperative-Validation-of-the-Nociception-Level-Index-A-Noninvasive-Nociception-Monitor.pdf",
+        "https://f1000research.com/articles/7-875"
+      ],
+      "must_not_substitute": "PMD-200 documentation does not establish PMD-100 interoperability"
+    },
+    {
+      "manufacturer": "Medasense Biometrics",
+      "model": "PMD-200",
+      "software_version": "2.2.1",
+      "manual_versions": [
+        "MK2U-02-378 Rev.4 EU",
+        "MK2U-02-708 Rev.2 US"
+      ],
+      "index": "NOL",
+      "scale": [
+        0,
+        100
+      ],
+      "unit": "1 (dimensionless)",
+      "export": [
+        "USB CSV",
+        "raw session folder",
+        "Review Session PDF",
+        "RS232 connectivity to approved systems"
+      ],
+      "documented_csv_fields": [
+        "Time",
+        "NOL index",
+        "Heart rate",
+        "Annotations"
+      ],
+      "quality_csv_column": null,
+      "quality_behavior": "NOL not displayed when signal quality inadequate; missing values are not zero",
+      "averaging_window": null,
+      "sample_period_seconds": null,
+      "clock_timezone": null,
+      "delimiter_encoding_full_schema": "comma-separated stated; header/encoding/missing tokens need actual file",
+      "sdk_access": "proprietary algorithms; public SDK/serial packet specification not found; approved integration requires vendor confirmation",
+      "source_urls": [
+        "https://medasense.com/wp-content/uploads/EU-User-Manual-2.2.1-MK2U-02-378-Medasense-PMD-200.pdf",
+        "https://medasense.com/wp-content/uploads/2025/11/Medasense-PMD-200-User-manual-2.2.1-MK2U-02-708-English-US.pdf"
+      ],
+      "context_gate": "general anesthesia vs awake/emergence; no awake dorsopathy applicability assumed"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "pandas",
+      "kind": "tool",
+      "decision": "recommended_import",
+      "code_license": "BSD-3-Clause",
+      "data_license": null,
+      "source_url": "https://github.com/pandas-dev/pandas",
+      "documentation_url": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html",
+      "formats": [
+        "CSV",
+        "delimited TXT"
+      ],
+      "capabilities": [
+        "explicit dtype/decimal/NA",
+        "chunked import",
+        "time/event tables"
+      ],
+      "limits": [
+        "not a vendor driver",
+        "XLSX engine is a separate dependency",
+        "pin compatible release; repository main requires Python >=3.11"
+      ],
+      "access": "public source; no install performed"
+    },
+    {
+      "id": "plotly_py",
+      "kind": "tool",
+      "decision": "recommended_viewer",
+      "code_license": "MIT",
+      "data_license": null,
+      "source_url": "https://github.com/plotly/plotly.py",
+      "formats": [
+        "standalone HTML"
+      ],
+      "capabilities": [
+        "index traces",
+        "event overlays",
+        "gaps and quality overlays"
+      ],
+      "limits": [
+        "source evidence must remain separately linked",
+        "no clinical interpretation"
+      ],
+      "access": "public source; no install performed"
+    },
+    {
+      "id": "pyserial",
+      "kind": "tool",
+      "decision": "conditional_capture_transport",
+      "code_license": "BSD-3-Clause",
+      "data_license": null,
+      "source_url": "https://github.com/pyserial/pyserial",
+      "license_url": "https://github.com/pyserial/pyserial/blob/master/LICENSE.txt",
+      "documentation_url": "https://pyserial.readthedocs.io/en/latest/pyserial_api.html",
+      "formats": [
+        "serial bytes"
+      ],
+      "limits": [
+        "requires confirmed device-specific protocol",
+        "does not grant vendor SDK rights",
+        "device capture untested"
+      ],
+      "access": "public source; vendor/hardware gate remains"
+    },
+    {
+      "id": "wfdb_python",
+      "kind": "tool",
+      "decision": "optional_generic_replay",
+      "code_license": "MIT",
+      "data_license": null,
+      "source_url": "https://github.com/MIT-LCP/wfdb-python",
+      "license_url": "https://github.com/MIT-LCP/wfdb-python/blob/main/pyproject.toml",
+      "formats": [
+        "WFDB signal",
+        "WFDB annotations"
+      ],
+      "limits": [
+        "not ANI or NOL decoder",
+        "no proprietary index reconstruction"
+      ],
+      "access": "public source; no install performed"
+    },
+    {
+      "id": "bollag_nol_pmd100",
+      "kind": "dataset",
+      "decision": "open_derived_index_windows_only",
+      "code_license": null,
+      "data_license": "CC0-1.0",
+      "source_url": "https://f1000research.com/articles/7-875",
+      "doi": "10.5256/f1000research.15279.d207164",
+      "file_url": "https://www.ebi.ac.uk/biostudies/files/S-EPMC6039929/f1000research-7-16645-s0000.tgz",
+      "actual_file_verified": true,
+      "download_bytes": 18792,
+      "file_format": "TGZ containing XLSX (21297 bytes)",
+      "workbook_sheets": [
+        "DEMOGRAPHICS",
+        "NO EPIDURAL",
+        "EPIDURAL"
+      ],
+      "fields": [
+        "patient code",
+        "Intubation/Incision",
+        "pre event NOL/HR (-60 to -10 s)",
+        "post event NOL/HR (+10 to +180 s)",
+        "delta post-pre"
+      ],
+      "vendor_index_provenance": "PMD-100 Medasense; study-specific laptop recording software",
+      "is_original_vendor_export": false,
+      "timestamped_index_series": false,
+      "quality_series": false,
+      "absolute_clock": false,
+      "averaging_window": "provided in workbook columns",
+      "context": "VATS general anesthesia, with/without epidural; not awake dorsopathy",
+      "access": "public file inspected in memory; no data committed"
+    },
+    {
+      "id": "openneuro_ds008115",
+      "kind": "dataset",
+      "decision": "reject_as_nol_export",
+      "code_license": null,
+      "data_license": "CC0",
+      "source_url": "https://github.com/OpenNeuroDatasets/ds008115",
+      "provider_url": "https://openneuro.org/datasets/ds008115/versions/1.0.0",
+      "version": "1.0.0",
+      "release_date": "2026-07-07",
+      "doi": "10.18112/openneuro.ds008115.v1.0.0",
+      "actual_file_verified": "metadata sidecars only; no EDF download",
+      "inspected_files": [
+        "CHANGES",
+        "README",
+        "dataset_description.json",
+        "channels.json",
+        "sub-006/eeg/sub-006_task-Positioning_channels.tsv",
+        "sub-006/eeg/sub-006_task-Positioning_events.tsv",
+        "sub-006/eeg/sub-006_task-Positioning_eeg.json"
+      ],
+      "sample_channels": [
+        "Fp1",
+        "Fp2",
+        "F7",
+        "F8"
+      ],
+      "sample_manufacturer": "Masimo SedLine",
+      "sample_sampling_hz": 178.1538462,
+      "sample_event_onset_seconds": 240,
+      "file_inventory_count": 1089,
+      "nol_pmd_physio_named_files_found": false,
+      "is_original_vendor_export": false,
+      "context": "mechanically ventilated critical-care patients unable to self-report; EEG publication mentions NOL",
+      "limits": [
+        "dataset title alone does not prove NOL availability",
+        "sample sidecars contain EEG only"
+      ],
+      "access": "public metadata verified"
+    },
+    {
+      "id": "autonomic_aging",
+      "kind": "generic_dataset",
+      "decision": "optional_generic_ecg_replay",
+      "code_license": null,
+      "data_license": "ODbL-1.0",
+      "source_url": "https://www.physionet.org/content/autonomic-aging-cardiovascular/1.0.0/",
+      "license_url": "https://www.physionet.org/content/autonomic-aging-cardiovascular/view-license/1.0.0/",
+      "version": "1.0.0",
+      "formats": [
+        "WFDB .hea",
+        ".dat"
+      ],
+      "actual_file_verified": "provider catalog only; waveform not downloaded",
+      "is_original_vendor_export": false,
+      "vendor_index_present": false,
+      "context": "healthy aging/autonomic function",
+      "access": "open file catalog; license conditions separate from WFDB code"
+    },
+    {
+      "id": "biovid",
+      "kind": "generic_dataset",
+      "decision": "conditional_research_only_not_open_vendor_data",
+      "code_license": null,
+      "data_license": "provider agreement; non-commercial research only",
+      "source_url": "https://www.nit.ovgu.de/BioVid.html",
+      "formats": [
+        "ECG/GSR/EMG",
+        "video"
+      ],
+      "actual_file_verified": false,
+      "is_original_vendor_export": false,
+      "vendor_index_present": false,
+      "context": "experimental heat pain, volunteers",
+      "access": "signed agreement and institution-approved access required; no request sent",
+      "limits": [
+        "encoding/file schema unverified",
+        "not dorsopathy diagnosis corpus"
+      ]
+    }
+  ],
+  "proposed_input_manifest_fields": [
+    "manufacturer/model/software/manual version",
+    "session/subject linkage",
+    "protocol_id",
+    "awake/sedated/general_anesthesia state",
+    "source_index_name",
+    "index scale/unit",
+    "sample_period_s",
+    "averaging_window_s",
+    "timestamp raw",
+    "timezone",
+    "clock_domain",
+    "clock offset/uncertainty",
+    "quality raw/mapping",
+    "events onset/duration/label",
+    "missing tokens",
+    "source hash"
+  ],
+  "module_result_1_0_proposal": {
+    "source_of_truth": "src/dorsopathy_platform/contracts.py",
+    "artifacts": [
+      "immutable original source",
+      "canonical series/context",
+      "plot with evidence linkage"
+    ],
+    "observation": [
+      "agreed scalar point/window only",
+      "numeric unit 1",
+      "method adapter/version",
+      "origin automatically_measured or synthetic_demo",
+      "acquired_at null without confirmed source timezone",
+      "quality unknown/unreliable/usable based on evidence",
+      "evidence_refs artifact_id + row/channel/window/event selector"
+    ],
+    "extra_metadata_location": "JSON artifact; do not add Observation fields",
+    "concept_and_selector_gate": "agree with T00 before implementing"
+  },
+  "gates": {
+    "synthetic": "not implemented; can verify import precision, NA, gaps, clock rollover/mismatch, poor quality, unknown windows, event/evidence selection; synthetic_demo only",
+    "real_import": "not passed; obtain permitted unchanged device export and compare to monitor",
+    "device_capture": "not passed; exact hardware, interface terms/protocol/SDK, approved cables/configuration, timestamps/quality validation required",
+    "clinical_applicability": "not passed; separate protocol/population assessment for awake dorsopathy"
+  },
+  "constraints": [
+    "do not compute ANI/NOL from generic HRV",
+    "no absent-pain/etiology/truthfulness inference",
+    "no real patient data, exports or weights committed",
+    "no installs or purchases",
+    "unknowns are explicit nulls; no resampling without recorded method"
+  ]
+}
