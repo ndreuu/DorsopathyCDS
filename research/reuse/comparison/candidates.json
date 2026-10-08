@@ -1,0 +1,404 @@
+{
+  "module": "comparison",
+  "task_id": "T16",
+  "checked_at": "2026-10-09",
+  "timezone": "Europe/Istanbul",
+  "scope": "Reuse research only; no application edits, installs or dataset downloads",
+  "contract": "ModuleResult 1.0 unchanged; additional metadata and ComparisonReport are separate JSON artifacts",
+  "freeze_status": "T00 frozen ComparisonReport/input absent in this worktree; proposed shapes require coordination",
+  "existing_core": {
+    "paths": [
+      "src/dorsopathy_platform/contracts.py",
+      "src/dorsopathy_platform/storage.py",
+      "src/dorsopathy_platform/ports.py"
+    ],
+    "entrypoints": [
+      "validate_result",
+      "SqliteRepository.create_snapshot(episode_id, result_ids)",
+      "SqliteRepository.get_snapshot(snapshot_id)",
+      "ArtifactAccess.open(reference)",
+      "ArtifactAccess.add_bytes(data, media_type, role)",
+      "ArtifactAccess.add_file(path, media_type, role)"
+    ],
+    "available": [
+      "immutable selected snapshot and SHA256",
+      "artifact integrity and evidence resolution",
+      "quality/origin/acquired_at/coordinate_frame"
+    ],
+    "not_validated": [
+      "subject/session linkage",
+      "clock mapping",
+      "anatomical registration",
+      "medical coherence"
+    ]
+  },
+  "minimal_stack": {
+    "base": "Existing snapshot + source/protocol manifest + deterministic rules",
+    "optional": [
+      "MNE for verified sync events",
+      "SimpleITK for known transforms",
+      "vtk.js spatial viewing"
+    ],
+    "new_server_infrastructure": false,
+    "ml_required": false
+  },
+  "components": [
+    {
+      "id": "bids-conventions",
+      "name": "BIDS",
+      "kind": "specification",
+      "decision": "Reuse metadata conventions; full conversion optional",
+      "checked_docs_version": "1.11.2",
+      "repository": "https://github.com/bids-standard/bids-specification",
+      "license": "CC-BY-4.0",
+      "license_source": "https://github.com/bids-standard/bids-specification/blob/master/LICENSE",
+      "entrypoints": [
+        "sub/ses/task/run/recording entities",
+        "participants.tsv and sessions.tsv",
+        "*_physio.tsv.gz plus matching JSON",
+        "*_physioevents.tsv.gz plus matching JSON"
+      ],
+      "input_metadata": [
+        "SamplingFrequency",
+        "StartTime",
+        "Columns",
+        "channel Units",
+        "event onset/duration",
+        "OnsetSource for physioevents"
+      ],
+      "boundary": "StartTime is relative to corresponding acquisition; namespace/IDs organize files but do not prove identity",
+      "sources": [
+        "https://bids-specification.readthedocs.io/en/stable/modality-specific-files/physiological-recordings.html",
+        "https://bids-specification.readthedocs.io/en/stable/modality-agnostic-files/data-summary-files.html"
+      ]
+    },
+    {
+      "id": "mne",
+      "name": "MNE-Python",
+      "kind": "Python library",
+      "decision": "Conditional alignment adapter",
+      "checked_docs_version": "1.13.2",
+      "repository": "https://github.com/mne-tools/mne-python",
+      "license": "BSD-3-Clause",
+      "license_source": "https://github.com/mne-tools/mne-python/blob/main/LICENSE.txt",
+      "entrypoints": [
+        "mne.create_info(ch_names, sfreq, ch_types)",
+        "mne.io.RawArray(data, info)",
+        "mne.preprocessing.realign_raw(raw, other, t_raw, t_other)",
+        "Raw.copy().crop(tmin, tmax)",
+        "Raw.resample(sfreq, events=events)",
+        "mne.Annotations(onset, duration, description, orig_time=None)"
+      ],
+      "input_shape": {
+        "data": "channels x samples; calibrated MNE channel units",
+        "shared_events": "Equal-length arrays, seconds from each Raw start",
+        "provenance": "Source hashes, original sample indices and verified event correspondence"
+      },
+      "output": "In-place cropped/resampled Raw objects with adjusted annotations; no complete audit-sidecar",
+      "gates": [
+        "Verified same subject/session and simultaneous acquisition",
+        "Regular sampling or explicit dropout profile",
+        "Distributed verified synchronization events",
+        "Independent residual/uncertainty within protocol tolerance"
+      ],
+      "limitations": [
+        "Offset plus first-order drift model",
+        "Call on copies; both Raw objects can be cropped",
+        "MNE warns for fewer than 20 event times; warning is not clinical validation",
+        "Retain original events because resampling affects timing",
+        "Waveform correlation does not prove clock sync",
+        "Adapter must preserve mapping and original selectors"
+      ],
+      "sources": [
+        "https://mne.tools/stable/generated/mne.preprocessing.realign_raw.html",
+        "https://github.com/mne-tools/mne-python/blob/maint/1.13/mne/preprocessing/realign.py",
+        "https://mne.tools/stable/generated/mne.io.RawArray.html",
+        "https://mne.tools/stable/generated/mne.io.Raw.html"
+      ]
+    },
+    {
+      "id": "simpleitk",
+      "name": "SimpleITK",
+      "kind": "Image/transform library",
+      "decision": "Apply known validated transforms; registration research separate",
+      "checked_docs_version": "Fundamental concepts page 2.4.0; latest API pages inspected",
+      "repository": "https://github.com/SimpleITK/SimpleITK",
+      "license": "Apache-2.0",
+      "license_source": "https://github.com/SimpleITK/SimpleITK/blob/main/LICENSE",
+      "entrypoints": [
+        "Image.TransformIndexToPhysicalPoint(index)",
+        "Transform.TransformPoint(point)",
+        "Transform.GetInverse()",
+        "Transform.WriteTransform(filename)",
+        "ResampleImageFilter.SetReferenceImage(image)",
+        "ResampleImageFilter.SetTransform(transform)",
+        "ResampleImageFilter.SetInterpolator(sitkNearestNeighbor)"
+      ],
+      "input_metadata": [
+        "origin/spacing/direction",
+        "source/target frame IDs",
+        "units/axes",
+        "transform direction",
+        "pose/time domain",
+        "landmarks and independent validation error"
+      ],
+      "gates": [
+        "Finite transform and inverse where required",
+        "Known units/axes",
+        "Correct mapping direction",
+        "Protocol-defined transform error acceptance",
+        "Camera intrinsics/distortion/extrinsics for image-to-surface projection"
+      ],
+      "limitations": [
+        "Units consistency is caller responsibility",
+        "Resampling maps output physical coordinates to input",
+        "Nearest-neighbor for label masks",
+        "Region/vertebral-level equality is not registration",
+        "Same frame convention alone is not same anatomical frame"
+      ],
+      "sources": [
+        "https://simpleitk.readthedocs.io/en/master/fundamentalConcepts.html",
+        "https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1Transform.html",
+        "https://simpleitk.org/doxygen/latest/html/classitk_1_1simple_1_1ResampleImageFilter.html"
+      ]
+    },
+    {
+      "id": "vtkjs",
+      "name": "vtk.js",
+      "kind": "Browser visualization library",
+      "decision": "Optional T08 renderer; provenance stays in existing artifacts",
+      "repository": "https://github.com/Kitware/vtk-js",
+      "license": "BSD-3-Clause",
+      "license_source": "https://github.com/Kitware/vtk-js/blob/master/LICENSE",
+      "entrypoints": [
+        "vtkImageData.newInstance()",
+        "vtkImageData.setOrigin(origin)",
+        "vtkImageData.setSpacing(spacing)",
+        "vtkImageData.setDirection(direction)",
+        "vtkActor.setUserMatrix(mat4)"
+      ],
+      "input_metadata": [
+        "Image/polydata geometry",
+        "Validated frames and matrix storage convention",
+        "Frozen source/transform evidence refs"
+      ],
+      "output": "Separate panels or explicitly validated overlay",
+      "limitations": [
+        "Does not validate registration or provenance",
+        "User matrix concatenates actor transform; avoid double application",
+        "Verify matrix convention against known points",
+        "Unknown transform means separate panels"
+      ],
+      "sources": [
+        "https://kitware.github.io/vtk-js/api/Common_DataModel_ImageData.html",
+        "https://kitware.github.io/vtk-js/api/Rendering_Core_Prop3D.html"
+      ]
+    }
+  ],
+  "datasets": [
+    {
+      "id": "putemg",
+      "provider": "Poznan University of Technology BioLab",
+      "decision": "Preferred public technical linkage fixture; noncommercial use",
+      "url": "https://biolab.put.poznan.pl/putemg-dataset/",
+      "access": "Public manual download; no application described",
+      "license": "CC-BY-NC-4.0 data; MIT scripts",
+      "formats": [
+        "HDF5",
+        "CSV zip",
+        "H264 MP4",
+        "depth PNG zip for gesture trials"
+      ],
+      "actual_sensors": [
+        "24 forearm sEMG",
+        "RGB video",
+        "depth only for emg_gesture"
+      ],
+      "linkage": [
+        "Subject/trajectory/date_time in trial identity",
+        "Timestamp",
+        "VIDEO_STAMP",
+        "TRAJ_1",
+        "Matching trial video name",
+        "Depth filename time in trial domain, ms"
+      ],
+      "entrypoint": "pandas.read_hdf(path)",
+      "absent": [
+        "lumbar MRI",
+        "thermography",
+        "ultrasound",
+        "ANI/PMD"
+      ],
+      "limits": [
+        "Hand movement, not lumbar clinical/pain corpus",
+        "TRAJ_GT is DNN-derived",
+        "UTC timezone, absolute clock error and spatial calibration not verified"
+      ],
+      "examples_url": "https://github.com/biolab-put/putemg_examples",
+      "download_performed": false
+    },
+    {
+      "id": "biovid-part-c",
+      "provider": "University of Magdeburg / Ulm University",
+      "decision": "Conditional experimental-pain comparator; unsuitable for freely redistributed demo",
+      "url": "https://www.nit.ovgu.de/BioVid.html",
+      "access": "Signed agreement and provider authorization; permanent academic signatory required",
+      "license": "Custom academic research terms; commercial use and redistribution prohibited; public display restricted",
+      "license_source": "https://www.nit.ovgu.de/nit_media/Bilder/Dokumente/BIOVID_Dokumente/BioVid_AgreementPartsABCD.pdf",
+      "actual_sensors": [
+        "Frontal video",
+        "GSR",
+        "ECG",
+        "trapezius EMG"
+      ],
+      "labels": "Heat stimulus labels in long sequences",
+      "file_formats": "Not verified from authorized files; do not assume CSV/video headers",
+      "clock_mapping": null,
+      "limits": [
+        "Experimental heat pain, not lumbar diagnosis",
+        "No lumbar MRI or target sensor calibration established"
+      ],
+      "download_performed": false
+    }
+  ],
+  "proposed_shapes": {
+    "source_manifest_fields": [
+      "source_id",
+      "artifact_id",
+      "sha256",
+      "subject_namespace",
+      "subject_id",
+      "session_id",
+      "protocol_id",
+      "linkage_evidence_refs",
+      "acquired_interval",
+      "clock_domain",
+      "time_unit",
+      "sampling_hz",
+      "channels",
+      "events",
+      "frame",
+      "transform_ref"
+    ],
+    "channel_fields": [
+      "name",
+      "unit",
+      "calibration_ref"
+    ],
+    "event_fields": [
+      "event_id",
+      "onset",
+      "duration",
+      "pose_id",
+      "evidence_ref"
+    ],
+    "frame_fields": [
+      "id",
+      "units",
+      "axes",
+      "origin",
+      "spacing",
+      "direction"
+    ],
+    "clock_mapping_fields": [
+      "from_clock",
+      "to_clock",
+      "mapping_t_ref_equals_a_t_source_plus_b",
+      "a",
+      "b",
+      "anchors_ref",
+      "validation_ref",
+      "residual",
+      "uncertainty",
+      "units",
+      "valid_interval",
+      "method",
+      "version"
+    ],
+    "transform_fields": [
+      "from_frame",
+      "to_frame",
+      "units",
+      "axes",
+      "matrix_or_field_ref",
+      "mapping_direction",
+      "method",
+      "version",
+      "landmark_refs",
+      "validation_refs",
+      "error_metric",
+      "error_unit",
+      "error_value",
+      "valid_pose",
+      "time_interval"
+    ],
+    "report_fields": [
+      "snapshot_id",
+      "snapshot_sha256",
+      "manifest_sha256",
+      "selection_sha256",
+      "rules_version",
+      "source_refs",
+      "availability",
+      "quality",
+      "pairs"
+    ],
+    "pair_fields": [
+      "comparison_kind",
+      "result_ids",
+      "status",
+      "reasons",
+      "evidence_refs",
+      "window_ref",
+      "transform_ref"
+    ],
+    "existing_evidence_shape": {
+      "artifact_id": "Declared source or derived artifact",
+      "selector": {
+        "sample_start": "Integer or null",
+        "sample_stop": "Integer or null",
+        "channel_ids": "Array",
+        "event_id": "String or null"
+      }
+    },
+    "status_values": [
+      "compatible",
+      "incompatible",
+      "unknown"
+    ],
+    "comparison_kinds": [
+      "subject_session_linkage",
+      "event_window",
+      "spatial_overlay"
+    ],
+    "null_policy": "Unknown stays null; processing timestamp never replaces acquisition; missing never becomes negative finding"
+  },
+  "assembly_order": [
+    "Freeze T00 sidecar contract",
+    "Check snapshot/artifact hashes and source crosswalk evidence",
+    "Evaluate quality/protocol/region/side/pose",
+    "Derive event windows and optional clock mapping on copies",
+    "Apply validated spatial transforms only",
+    "Save immutable report/evidence for T05/T07/T08"
+  ],
+  "future_acceptance_cases": [
+    "aligned linked trial",
+    "shifted events",
+    "wrong subject/session",
+    "unlinked datasets",
+    "known frame mismatch",
+    "missing calibration",
+    "late result leaves frozen report unchanged"
+  ],
+  "non_goals": [
+    "FHIR server",
+    "Kafka",
+    "medical coherence percentage",
+    "diagnostic probability",
+    "disease exclusion from normal sensors",
+    "malingering inference",
+    "joining unrelated datasets into a patient history"
+  ],
+  "runtime_verified": false,
+  "recommendation_limit": "Primary docs, repos and provider terms inspected; no end-to-end integration, sensor exports or spatial calibration validated."
+}
