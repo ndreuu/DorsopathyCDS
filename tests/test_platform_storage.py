@@ -9,7 +9,8 @@ import threading
 import unittest
 
 from dorsopathy_platform.contracts import ContractError, validate_result
-from dorsopathy_platform.storage import ArtifactStore, SqliteRepository, StorageError, TransitionError
+from dorsopathy_platform.storage import ArtifactStore, SqliteRepository, StorageError, TransitionError, ConflictError
+from dorsopathy_platform.api_contracts import default_manifest
 
 
 def request(job_id="job-one", episode_id="episode-one", artifacts=None):
@@ -285,6 +286,143 @@ class SqliteRepositoryTests(unittest.TestCase):
         empty_one = self.repo.create_snapshot("episode-one", [])
         empty_other = self.repo.create_snapshot("episode-other", [])
         self.assertNotEqual(empty_one["snapshot_id"], empty_other["snapshot_id"])
+
+
+class CatalogAndWorkflowTests(unittest.TestCase):
+    setUp = SqliteRepositoryTests.setUp
+
+    def manifest_for(self, payloads):
+        modules = [{
+            "module_id": payload["module_id"], "module_version": payload["module_version"],
+            "input_artifact_ids": [ref["artifact_id"] for ref in payload["input_artifacts"]],
+            "parameters": payload["parameters"],
+        } for payload in payloads]
+        manifest = default_manifest("episode-one", modules)
+        manifest["protocol_id"] = "synthetic-protocol"
+        return manifest
+
+    def test_catalog_is_scoped_and_content_deduplicates_without_metadata_overwrite(self):
+        ref = ArtifactStore(self.root).add_bytes(b"shared", "text/plain")
+        self.assertEqual(self.repo.register_artifact("episode-one", ref), ref)
+        ref["role"] = "derived"
+        with self.assertRaises(ConflictError):
+            self.repo.register_artifact("episode-one", ref)
+        self.repo.create_episode("episode-other")
+        with self.assertRaises(StorageError):
+            self.repo.get_artifact("episode-other", ref["artifact_id"])
+        self.repo.register_artifact("episode-other", ref)
+        self.assertEqual(self.repo.get_artifact("episode-one", ref["artifact_id"])["role"], "source")
+        self.assertEqual(self.repo.list_artifacts("episode-other"), [ref])
+        self.assertEqual(len(list((self.root / "artifacts").iterdir())), 1)
+
+    def test_media_types_cannot_inject_http_headers(self):
+        store = ArtifactStore(self.root)
+        for media_type in ("text/plain\r\nX-Injected: yes", "text/\x00plain", "x" * 256, "text/π"):
+            with self.subTest(media_type=media_type), self.assertRaises(StorageError):
+                store.add_bytes(b"source", media_type)
+        self.assertEqual(store.add_bytes(b"source", "text/plain; charset=utf-8")["media_type"], "text/plain; charset=utf-8")
+
+    def test_concurrent_run_starts_publish_one_job_and_retries_ignore_new_ids(self):
+        manifest = self.manifest_for([request()])
+        barrier = threading.Barrier(6)
+        def start(index):
+            barrier.wait(timeout=5)
+            return self.repo.create_run("episode-one", "same-key", manifest, [request("job-" + str(index))], "run-" + str(index))
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            runs = list(pool.map(start, range(6)))
+        self.assertTrue(all(run == runs[0] for run in runs))
+        self.assertEqual(len(self.repo.list_jobs()), 1)
+        self.assertEqual(self.repo.create_run("episode-one", "same-key", dict(reversed(list(manifest.items())))), runs[0])
+        self.assertEqual(self.repo.list_pending_runs(), [runs[0]])
+        changed = deepcopy(manifest)
+        changed["modules"][0]["parameters"]["synthetic"] = False
+        with self.assertRaises(ConflictError):
+            self.repo.create_run("episode-one", "same-key", changed)
+        self.assertEqual(self.repo.list_pending_runs(), [runs[0]])
+
+    def test_workflow_request_mismatch_and_job_collision_roll_back_everything(self):
+        one, two = request("job-new"), request("job-used")
+        two["module_id"] = "other-measurement"
+        self.repo.create_job(two)
+        manifest = self.manifest_for([one, two])
+        with self.assertRaises(ConflictError):
+            self.repo.create_run("episode-one", "key", manifest, [one, two])
+        self.assertEqual([job["job_id"] for job in self.repo.list_jobs()], ["job-used"])
+        self.assertEqual(self.repo.list_pending_runs(), [])
+        for field, value in (("episode_id", "episode-other"), ("module_version", "other"), ("parameters", {}), ("protocol_id", None)):
+            altered = dict(one, **{field: value})
+            with self.subTest(field=field), self.assertRaises(StorageError):
+                self.repo.create_run("episode-one", "key", self.manifest_for([one]), [altered])
+        with self.assertRaises(StorageError):
+            self.repo.create_run("episode-one", "key", self.manifest_for([one]))
+        self.assertEqual(self.repo.list_pending_runs(), [])
+
+    def test_new_run_requires_catalog_metadata_and_reused_result_episode(self):
+        ref = ArtifactStore(self.root).add_bytes(b"source", "application/octet-stream")
+        payload = request(artifacts=[ref])
+        manifest = self.manifest_for([payload])
+        with self.assertRaises(StorageError):
+            self.repo.create_run("episode-one", "key", manifest, [payload])
+        self.repo.register_artifact("episode-one", ref)
+        with self.assertRaises(StorageError):
+            self.repo.create_run("episode-one", "key", manifest, [request(artifacts=[dict(ref, media_type="text/plain")])])
+        self.repo.create_run("episode-one", "key", manifest, [payload])
+        self.repo.start_job(payload["job_id"])
+        self.repo.complete_job(result_for(payload))
+        reused = dict(manifest, modules=[], reuse_result_ids=["result-one"])
+        self.assertEqual(self.repo.create_run("episode-one", "reuse-key", reused)["job_ids"], [])
+        self.repo.create_episode("episode-other")
+        with self.assertRaises(StorageError):
+            self.repo.create_run("episode-other", "key", dict(reused, episode_id="episode-other"))
+
+    def test_terminal_run_cas_preserves_winning_report_and_survives_reopen(self):
+        payload = request()
+        run = self.repo.create_run("episode-one", "key", self.manifest_for([payload]), [payload])
+        self.repo.start_job(payload["job_id"])
+        self.repo.complete_job(result_for(payload))
+        snapshot = self.repo.create_snapshot("episode-one")
+        store = ArtifactStore(self.root)
+        refs = [self.repo.register_artifact("episode-one", store.add_bytes(str(index).encode(), "application/json", role="derived")) for index in range(6)]
+        barrier = threading.Barrier(6)
+        def finalize(index):
+            barrier.wait(timeout=5)
+            return self.repo.finalize_run(run["run_id"], snapshot["snapshot_id"], refs[index], "complete" if index % 2 else "partial")
+        with ThreadPoolExecutor(max_workers=6) as pool:
+            outcomes = list(pool.map(finalize, range(6)))
+        self.assertTrue(all(outcome == outcomes[0] for outcome in outcomes))
+        self.assertEqual(outcomes[0]["snapshot_id"], snapshot["snapshot_id"])
+        self.assertIn(outcomes[0]["report_artifact"], refs)
+        self.assertEqual(self.repo.list_pending_runs(), [])
+        reopened = SqliteRepository(self.root)
+        self.assertEqual(reopened.get_run(run["run_id"]), outcomes[0])
+        self.assertEqual(reopened.finalize_run(run["run_id"], snapshot["snapshot_id"], refs[-1], "failed"), outcomes[0])
+
+    def test_finalize_rejects_unregistered_foreign_and_source_report(self):
+        payload = request()
+        run = self.repo.create_run("episode-one", "key", self.manifest_for([payload]), [payload])
+        store = ArtifactStore(self.root)
+        report = store.add_bytes(b"report", "application/json", role="derived")
+        snapshot = self.repo.create_snapshot("episode-one", [])
+        self.repo.create_episode("episode-other")
+        foreign = self.repo.create_snapshot("episode-other", [])
+        with self.assertRaises(StorageError):
+            self.repo.finalize_run(run["run_id"], snapshot["snapshot_id"], report, "complete")
+        self.repo.register_artifact("episode-one", report)
+        for snap_id, ref in ((foreign["snapshot_id"], report), (snapshot["snapshot_id"], dict(report, size_bytes=100)), (snapshot["snapshot_id"], dict(report, role="source"))):
+            with self.subTest(snapshot=snap_id), self.assertRaises(StorageError):
+                self.repo.finalize_run(run["run_id"], snap_id, ref, "complete")
+        self.assertEqual(self.repo.get_run(run["run_id"])["status"], "running")
+
+    def test_recovery_job_filters_are_scoped_and_ordered(self):
+        self.repo.create_job(request("job-z"))
+        self.repo.create_job(request("job-a"))
+        self.repo.start_job("job-z")
+        self.assertEqual([job["job_id"] for job in self.repo.list_jobs(statuses=["queued", "running"])], ["job-a", "job-z"])
+        self.assertEqual([job["job_id"] for job in self.repo.list_jobs("episode-one", ["running"])], ["job-z"])
+        self.assertEqual(self.repo.list_jobs(statuses=[]), [])
+        for statuses in ("queued", ["unknown"], [None]):
+            with self.subTest(statuses=statuses), self.assertRaises(StorageError):
+                self.repo.list_jobs(statuses=statuses)
 
 
 if __name__ == "__main__":
