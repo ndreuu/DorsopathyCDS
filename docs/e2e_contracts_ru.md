@@ -134,7 +134,7 @@ JSON source: `{kind:"json",pointer:"/..."}`. Дополнительные кон
 в measurement sidecar; mask_kind anatomy/ROI/pathology различается.
 
 T16: `compare_snapshot(snapshot,manifest,artifacts)->dict` в собственном
-`dorsopathy_modules/comparison/` без orchestration/clinical engine.
+`dorsopathy_platform/comparison.py` без orchestration/clinical engine.
 ComparisonReport `{schema_version:"1.0",snapshot_id,pairs,warnings}`;
 pair `{left_result_id,right_result_id,status:compatible|incompatible|unknown,
 operations:[...],reasons:[...],evidence_refs:[...]}`. Время/зоны/frames проверяются
@@ -160,3 +160,12 @@ GET /jobs/{id}, /results/{id}, /snapshots/{id}; GET / — новый локал�
 POST run -> 202; mismatch idempotency ->409; unknown IDs ->404; malformed ->400;
 oversize ->413. Loopback только, нет shell/executable/path из HTTP. Тяжёлые
 библиотеки не импортируются при serve. Старый dorsopathy_cds serve сохраняется.
+
+GET /demo-inputs отдаёт только встроенные synthetic source profiles для учебного
+сквозного запуска. Это не registry fake: эти входы обрабатывают реальные численные
+методы зарегистрированных провайдеров. Учитывается source origin synthetic_demo.
+
+В этой сборке root также владеет T05 workflow/application и T06/T08 HTTP/viewer;
+их файлы не делегированы другим агентам. T01/T02/T04 и следующие аналитические
+провайдеры имеют отдельных владельцев. Python dependencies для сенсоров optional;
+обычный JSON/static synthetic flow запускается без torch/TSS окружения.

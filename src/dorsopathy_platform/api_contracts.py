@@ -40,9 +40,9 @@ def validate_manifest(value):
     if value['schema_version'] != '1.0' or value['population'] != 'adult':
         raise ContractError('Unsupported manifest version or population')
     opaque_id(value['episode_id'])
-    if value['mode'] not in {'synthetic', 'replay', 'live'}:
+    if type(value['mode']) is not str or value['mode'] not in {'synthetic', 'replay', 'live'}:
         raise ContractError('Unsupported processing mode')
-    if value['linkage'] not in {'synthetic_linked', 'verified_linked', 'unlinked', 'unknown'}:
+    if type(value['linkage']) is not str or value['linkage'] not in {'synthetic_linked', 'verified_linked', 'unlinked', 'unknown'}:
         raise ContractError('Unsupported linkage state')
     link_ref = value['linkage_evidence_artifact_id']
     if link_ref is not None:
