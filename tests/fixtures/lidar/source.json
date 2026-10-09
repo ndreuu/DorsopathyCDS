@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "acquisition_mode": "synthetic",
+  "processing_mode": "fresh",
+  "origin": "synthetic_demo",
+  "subject_ref": "synthetic-subject-1",
+  "session_ref": "synthetic-session-1",
+  "protocol_id": "synthetic-static-v1",
+  "acquired_at": "2026-10-09T10:00:00Z",
+  "clock_domain": "UTC",
+  "pose": "static-demo",
+  "anatomy": {
+    "region": "lower_back",
+    "side": "bilateral",
+    "level": null,
+    "numbering_status": "not_applicable"
+  },
+  "source_kind": "lidar-manual.v1",
+  "coordinate_frame": "synthetic-surface-mm",
+  "axes": [
+    "x-right",
+    "y-up",
+    "z-forward"
+  ],
+  "geometry_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "format": "ply",
+  "coverage": "complete",
+  "calibration": {
+    "status": "verified",
+    "mm_per_unit": 1,
+    "source": "synthetic_fixture",
+    "author_id": "demo-operator"
+  },
+  "annotations": {
+    "author": {
+      "id": "demo-operator",
+      "role": "operator"
+    },
+    "landmarks": {
+      "A": 0,
+      "B": 1,
+      "C": 2
+    },
+    "measurements": [
+      {
+        "id": "ac",
+        "kind": "distance",
+        "landmarks": [
+          "A",
+          "C"
+        ]
+      },
+      {
+        "id": "abc",
+        "kind": "angle",
+        "landmarks": [
+          "A",
+          "B",
+          "C"
+        ]
+      }
+    ]
+  }
+}

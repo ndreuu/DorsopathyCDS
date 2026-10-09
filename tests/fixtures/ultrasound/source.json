@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "acquisition_mode": "synthetic",
+  "processing_mode": "fresh",
+  "origin": "synthetic_demo",
+  "subject_ref": "synthetic-subject-1",
+  "session_ref": "synthetic-session-1",
+  "protocol_id": "synthetic-static-v1",
+  "acquired_at": "2026-10-09T10:00:00Z",
+  "clock_domain": "UTC",
+  "pose": "static-demo",
+  "anatomy": {
+    "region": "lower_back",
+    "side": "bilateral",
+    "level": null,
+    "numbering_status": "not_applicable"
+  },
+  "source_kind": "ultrasound-manual.v1",
+  "coordinate_frame": "synthetic-ultrasound-pixels",
+  "axes": [
+    "x-right",
+    "y-down"
+  ],
+  "frame_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "width": 8,
+  "height": 8,
+  "frame_index": 0,
+  "calibration": {
+    "status": "verified",
+    "mm_per_pixel_x": 1,
+    "mm_per_pixel_y": 1,
+    "region": [
+      0,
+      0,
+      7,
+      7
+    ],
+    "source": "synthetic_fixture",
+    "author_id": "demo-operator"
+  },
+  "annotations": {
+    "author": {
+      "id": "demo-operator",
+      "role": "operator"
+    },
+    "distances": [
+      {
+        "id": "line",
+        "points": [
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      }
+    ],
+    "areas": [
+      {
+        "id": "area",
+        "polygon": [
+          [
+            1,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            1,
+            5
+          ]
+        ]
+      }
+    ]
+  }
+}
