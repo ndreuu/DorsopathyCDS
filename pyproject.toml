@@ -1,21 +1,21 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "dorsopathy-cds"
-version = "0.1.0"
-description = "Traceable research rules for clinician-supported dorsopathy assessment"
+version = "0.2.0"
+description = "Local modular observation platform and research clinical rule engine"
 requires-python = ">=3.9"
 dependencies = []
 
 [project.scripts]
-dorsopathy-cds = "dorsopathy_cds.cli:main"
 dorsopathy-platform = "dorsopathy_platform.cli:main"
+dorsopathy-cds = "dorsopathy_cds.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
+dorsopathy_platform = ["schemas/v1/*.json", "web/*.html", "demo_assets/*/*"]
 dorsopathy_cds = ["catalog/*.json", "web/*.html"]
-dorsopathy_platform = ["schemas/v1/*.json"]

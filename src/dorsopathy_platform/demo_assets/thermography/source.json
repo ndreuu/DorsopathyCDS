@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "acquisition_mode": "synthetic",
+  "processing_mode": "fresh",
+  "origin": "synthetic_demo",
+  "subject_ref": "synthetic-subject-1",
+  "session_ref": "synthetic-session-1",
+  "protocol_id": "synthetic-static-v1",
+  "acquired_at": "2026-10-09T10:00:00Z",
+  "clock_domain": "UTC",
+  "pose": "static-demo",
+  "anatomy": {
+    "region": "lower_back",
+    "side": "bilateral",
+    "level": null,
+    "numbering_status": "not_applicable"
+  },
+  "source_kind": "thermography-matrix.v1",
+  "coordinate_frame": "synthetic-thermal-pixels",
+  "axes": [
+    "x-right",
+    "y-down"
+  ],
+  "unit": "Cel",
+  "temperature_matrix": [
+    [
+      32,
+      34
+    ],
+    [
+      32,
+      34
+    ]
+  ],
+  "calibration": {
+    "status": "verified",
+    "source": "synthetic_fixture",
+    "author_id": "demo-operator"
+  },
+  "conditions": {
+    "emissivity": 1,
+    "ambient_Cel": 22,
+    "distance_m": 1
+  },
+  "rois": [
+    {
+      "id": "left",
+      "side": "left",
+      "pixels": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "right",
+      "side": "right",
+      "pixels": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "id": "lr",
+      "left": "left",
+      "right": "right",
+      "compatibility": "compatible"
+    }
+  ]
+}

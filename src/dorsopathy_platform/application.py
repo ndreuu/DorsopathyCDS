@@ -92,7 +92,7 @@ class Application:
         report = self.report_builder(snapshot, run['manifest'], reader)
         report_ref = self.artifacts.add_bytes(canonical_bytes(report), 'application/json', role='derived')
         self.repository.register_artifact(run['episode_id'], report_ref)
-        statuses = [job['status'] for job in jobs]
+        statuses = [result['status'] for result in snapshot['results']]
         status = 'complete'
         if any(state in {'failed','partial'} for state in statuses):
             status = 'failed' if statuses and all(state=='failed' for state in statuses) else 'partial'
@@ -102,7 +102,11 @@ class Application:
         return self.repository.get_job(job_id)
 
     def get_result(self, result_id):
-        return self.repository.get_result(result_id)
+        result=self.repository.get_result(result_id)
+        for ref in result['artifacts']:
+            with self.artifacts.open(ref):pass
+            self.repository.register_artifact(result['episode_id'],ref)
+        return result
 
     def get_snapshot(self, snapshot_id):
         return self.repository.get_snapshot(snapshot_id)
@@ -120,4 +124,7 @@ class Application:
         return self.uploads.open(episode_id, artifact_id)
 
     def close(self):
-        self.dispatcher.close(wait=True)
+        try:self.dispatcher.close(wait=True)
+        finally:
+            guard=getattr(self,'_runtime_lock',None)
+            if guard is not None:guard.close()

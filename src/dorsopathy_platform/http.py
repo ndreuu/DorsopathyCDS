@@ -74,6 +74,16 @@ class Handler(BaseHTTPRequestHandler):
         self.connection.settimeout(30)
         app = self.server.application
         try:
+            # Binding loopback alone does not prevent browser DNS rebinding.
+            host=self.headers.get_all('Host',[])
+            address=self.server.server_address[0]
+            bound='['+address+']' if ':' in address else address
+            allowed={bound+':'+str(self.server.server_port),'localhost:'+str(self.server.server_port)}
+            if len(host)!=1 or host[0].lower() not in allowed:
+                return self._respond(403,{'error':'invalid_local_host'})
+            origins=self.headers.get_all('Origin',[])
+            if origins and (len(origins)!=1 or origins[0]!='http://'+host[0].lower()):
+                return self._respond(403,{'error':'invalid_local_origin'})
             parsed = urlsplit(self.path)
             if parsed.query or parsed.fragment:
                 return self._respond(404, {'error':'unknown_route'})

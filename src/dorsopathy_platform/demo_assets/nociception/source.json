@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "acquisition_mode": "synthetic",
+  "processing_mode": "fresh",
+  "origin": "synthetic_demo",
+  "subject_ref": "synthetic-subject-1",
+  "session_ref": "synthetic-session-1",
+  "protocol_id": "synthetic-static-v1",
+  "acquired_at": "2026-10-09T10:00:00Z",
+  "clock_domain": "UTC",
+  "pose": "static-demo",
+  "coordinate_frame": null,
+  "axes": null,
+  "anatomy": {
+    "region": "lower_back",
+    "side": "bilateral",
+    "level": null,
+    "numbering_status": "not_applicable"
+  },
+  "source_kind": "nociception-index.v1",
+  "calibration": {
+    "status": "verified",
+    "source": "synthetic_fixture",
+    "author_id": "demo-operator"
+  },
+  "device": {
+    "manufacturer": "Synthetic fixture",
+    "model": "canonical-demo",
+    "software_version": "1.0",
+    "index_field": "demo_index",
+    "averaging_window_s": 10
+  },
+  "state": "synthetic",
+  "unit": "1",
+  "sampling_period_s": 1,
+  "timing_tolerance_fraction": 0.01,
+  "rows": [
+    {
+      "time_s": 0,
+      "value": 20,
+      "quality": "usable",
+      "events": [
+        "baseline"
+      ]
+    },
+    {
+      "time_s": 1,
+      "value": 40,
+      "quality": "usable",
+      "events": []
+    },
+    {
+      "time_s": 2,
+      "value": 60,
+      "quality": "usable",
+      "events": []
+    }
+  ],
+  "events": [
+    {
+      "id": "baseline",
+      "label": "Synthetic baseline",
+      "time_s": 0
+    }
+  ],
+  "selection": {
+    "window_id": "baseline-window",
+    "start_s": 0,
+    "end_s": 3
+  }
+}

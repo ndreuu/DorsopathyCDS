@@ -49,3 +49,9 @@ class PlatformHTTPTests(unittest.TestCase):
         self.assertIn('Запустить пример всех модулей'.encode(),body)
         self.assertEqual(json.loads(self.req('GET','/health')[2])['mode'],'research_only')
         self.assertEqual(self.req('GET','/not-a-route')[0],404)
+
+    def test_local_host_and_origin_are_enforced(self):
+        self.assertEqual(self.req('GET','/health',headers={'Host':'attacker.example'})[0],403)
+        self.assertEqual(self.req('POST','/episodes',b'{}',{'Content-Type':'application/json','Origin':'http://attacker.example'})[0],403)
+        local='127.0.0.1:'+str(self.server.server_port)
+        self.assertEqual(self.req('POST','/episodes',b'{}',{'Content-Type':'application/json','Origin':'http://'+local})[0],201)

@@ -66,9 +66,70 @@ def main(argv=None):
     snapshot = commands.add_parser("inspect-snapshot", help="Read an immutable result snapshot")
     snapshot.add_argument("--store", required=True, type=Path)
     snapshot.add_argument("--id", required=True)
+    serve = commands.add_parser('serve',help='Open the local multimodal platform')
+    serve.add_argument('--store',type=Path,default=Path('var/multimodal'))
+    serve.add_argument('--port',type=int,default=8766)
+    serve.add_argument('--mri-config',type=Path)
+    flow = commands.add_parser('run-flow',help='Run the full synthetic example or a persisted manifest')
+    flow.add_argument('--store',type=Path,default=Path('var/multimodal'))
+    flow.add_argument('--manifest',type=Path)
+    flow.add_argument('--idempotency-key')
+    flow.add_argument('--mri-config',type=Path)
+    flow.add_argument('--output',type=Path)
+    flow.add_argument('--timeout',type=float,default=600)
+    bundle = commands.add_parser('import-bundle',help='Import and run a locally normalized MRI replay')
+    bundle.add_argument('directory',type=Path)
+    bundle.add_argument('--store',type=Path,default=Path('var/multimodal'))
+    bundle.add_argument('--timeout',type=float,default=600)
     args = parser.parse_args(argv)
     try:
-        if args.command == "demo":
+        if args.command == 'serve':
+            from .bootstrap import create_application
+            from .http import create_server
+            app=create_application(args.store,args.mri_config)
+            server=None
+            try:
+                server=create_server(app,port=args.port)
+                print('DorsopathyCDS modules: http://127.0.0.1:'+str(server.server_port)+'/',flush=True)
+                server.serve_forever()
+            except KeyboardInterrupt:
+                pass
+            finally:
+                if server is not None:server.server_close()
+                app.close()
+        elif args.command == 'import-bundle':
+            from .bootstrap import create_application
+            from .bundle_import import start_bundle
+            from .workflow import wait_for_run
+            app=create_application(args.store)
+            try:
+                run=start_bundle(app,args.directory)
+                finished=wait_for_run(app,run['run_id'],timeout_seconds=args.timeout)
+                print(json.dumps(finished,ensure_ascii=False,indent=2))
+            finally:app.close()
+        elif args.command == 'run-flow':
+            from .bootstrap import create_application
+            from .demo_flow import start_demo
+            from .workflow import wait_for_run
+            app=create_application(args.store,args.mri_config)
+            try:
+                if args.manifest:
+                    manifest=_load_json(args.manifest)
+                    run=app.start_run(manifest,args.idempotency_key or 'cli-'+uuid.uuid4().hex)
+                else:
+                    run=start_demo(app)
+                finished=wait_for_run(app,run['run_id'],timeout_seconds=args.timeout)
+                report=app.get_report(run['run_id'])
+                if args.output:
+                    args.output.parent.mkdir(parents=True,exist_ok=True)
+                    args.output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+                print(json.dumps({'run_id':run['run_id'],'status':finished['status'],
+                                  'snapshot_id':finished['snapshot_id'],
+                                  'modules':len(app.get_snapshot(finished['snapshot_id'])['results']),
+                                  'report_artifact_id':finished['report_artifact']['artifact_id'],
+                                  'output':str(args.output) if args.output else None},ensure_ascii=False,indent=2))
+            finally:app.close()
+        elif args.command == "demo":
             report = run_demo(args.store)
             if args.json:
                 print(json.dumps(report, ensure_ascii=False, indent=2))
@@ -101,7 +162,7 @@ def main(argv=None):
             result = SqliteRepository(args.store).get_snapshot(args.id)
             print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
-    except (OSError, ValueError, RecursionError) as exc:
+    except (OSError, ValueError, RuntimeError, RecursionError) as exc:
         print("Unable to process platform request: " + type(exc).__name__, file=sys.stderr)
         return 2
 
