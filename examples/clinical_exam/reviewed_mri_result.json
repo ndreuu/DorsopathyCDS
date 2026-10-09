@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "result_id": "result-d2ee9bd1d4e6f34aa6013a84e41b0f7c",
+  "job_id": "example-mri-job",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "mri.anatomy",
+  "module_version": "0.1.0",
+  "status": "complete",
+  "observations": [
+    {
+      "observation_id": "observation-6f550b41a9f644f683f07279a57f66f5",
+      "concept": "spine.canal.cross_sectional_area",
+      "assessment_status": "assessed",
+      "value": 75,
+      "unit": "mm2",
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "midline",
+        "level": "L4-L5",
+        "numbering_status": "needs_confirmation"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "synthetic-measurement-fixture",
+      "acquired_at": "2026-10-09T09:55:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-8b61741abf23998dfac59f23267b7cbbda5ecd105daf9cf1e3f5c0e8bcedccbc",
+          "selector": {
+            "kind": "json",
+            "pointer": "/value"
+          }
+        }
+      ],
+      "model": null
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "artifact-8b61741abf23998dfac59f23267b7cbbda5ecd105daf9cf1e3f5c0e8bcedccbc",
+      "storage_key": "artifacts/8b61741abf23998dfac59f23267b7cbbda5ecd105daf9cf1e3f5c0e8bcedccbc",
+      "sha256": "8b61741abf23998dfac59f23267b7cbbda5ecd105daf9cf1e3f5c0e8bcedccbc",
+      "media_type": "application/json",
+      "size_bytes": 127,
+      "role": "source"
+    }
+  ],
+  "warnings": [],
+  "error": null
+}

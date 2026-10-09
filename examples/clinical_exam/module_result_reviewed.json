@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "result_id": "result-2271cb422d7dc99ca42b2370cb839374",
+  "job_id": "example-exam-reviewed",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "clinical.exam",
+  "module_version": "0.1.0",
+  "status": "complete",
+  "observations": [
+    {
+      "observation_id": "observation-fb37b1c341e2f01adc2b9fa2562a0ece",
+      "concept": "clinical.imaging_clinical_concordance",
+      "assessment_status": "assessed",
+      "value": false,
+      "unit": null,
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "unspecified",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "explicit-clinician-assessment-v1",
+      "acquired_at": "2026-10-09T10:05:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+          "selector": {
+            "kind": "json",
+            "pointer": "/facts/clinical.imaging_clinical_concordance"
+          }
+        },
+        {
+          "artifact_id": "artifact-8cf091006e0af079f38597883b068ab6a24d06f30bca4dfac2e0962e8d6b4cb7",
+          "selector": {
+            "kind": "json",
+            "pointer": "/result_id"
+          }
+        }
+      ],
+      "model": null
+    },
+    {
+      "observation_id": "observation-573f96fd03a00fd08b50af3d3797c1fb",
+      "concept": "clinical.radiculopathy_signs_and_positive_tension_tests",
+      "assessment_status": "assessed",
+      "value": true,
+      "unit": null,
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "unspecified",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "explicit-clinician-assessment-v1",
+      "acquired_at": "2026-10-09T10:05:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+          "selector": {
+            "kind": "json",
+            "pointer": "/facts/clinical.radiculopathy_signs_and_positive_tension_tests"
+          }
+        }
+      ],
+      "model": null
+    },
+    {
+      "observation_id": "observation-0a1abda5af2cfacde6cf922aac0cf5e6",
+      "concept": "clinical.specific_cause_warning_signs_absent",
+      "assessment_status": "assessed",
+      "value": true,
+      "unit": null,
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "unspecified",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "explicit-clinician-assessment-v1",
+      "acquired_at": "2026-10-09T10:05:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+          "selector": {
+            "kind": "json",
+            "pointer": "/facts/clinical.specific_cause_warning_signs_absent"
+          }
+        }
+      ],
+      "model": null
+    },
+    {
+      "observation_id": "observation-c9d85d84f33866d8a7afbc14c542fad8",
+      "concept": "imaging.study_status",
+      "assessment_status": "assessed",
+      "value": "performed_result_available",
+      "unit": null,
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "unspecified",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "explicit-clinician-assessment-v1",
+      "acquired_at": "2026-10-09T10:05:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+          "selector": {
+            "kind": "json",
+            "pointer": "/facts/imaging.study_status"
+          }
+        }
+      ],
+      "model": null
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "artifact-e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+      "storage_key": "artifacts/e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+      "sha256": "e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+      "media_type": "application/json",
+      "size_bytes": 871,
+      "role": "source"
+    },
+    {
+      "artifact_id": "artifact-8cf091006e0af079f38597883b068ab6a24d06f30bca4dfac2e0962e8d6b4cb7",
+      "storage_key": "artifacts/8cf091006e0af079f38597883b068ab6a24d06f30bca4dfac2e0962e8d6b4cb7",
+      "sha256": "8cf091006e0af079f38597883b068ab6a24d06f30bca4dfac2e0962e8d6b4cb7",
+      "media_type": "application/json",
+      "size_bytes": 1554,
+      "role": "source"
+    }
+  ],
+  "warnings": [],
+  "error": null
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "clinical-exam.v1",
+  "mode": "synthetic_demo",
+  "origin": "synthetic_demo",
+  "acquired_at": "2026-10-09T10:05:00+03:00",
+  "assessment_ref": "synthetic-exam-before-review",
+  "author": {
+    "id": "synthetic-clinician-01",
+    "role": "clinician"
+  },
+  "facts": {
+    "clinical.specific_cause_warning_signs_absent": {
+      "assessment_status": "assessed",
+      "value": true
+    },
+    "clinical.radiculopathy_signs_and_positive_tension_tests": {
+      "assessment_status": "assessed",
+      "value": true
+    },
+    "clinical.imaging_clinical_concordance": {
+      "assessment_status": "not_assessed",
+      "value": null,
+      "reviewed_result_id": null
+    },
+    "imaging.study_status": {
+      "assessment_status": "assessed",
+      "value": "performed_result_available"
+    }
+  }
+}

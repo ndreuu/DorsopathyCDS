@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "result_id": "result-db91a12930eb05e3d8874b1f0c7a0070",
+  "job_id": "example-complaints-unknown",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "complaints",
+  "module_version": "0.1.0",
+  "status": "partial",
+  "observations": [
+    {
+      "observation_id": "observation-ef76daf76f1f0bf84e70b2e1b0382775",
+      "concept": "symptoms.pain_intensity",
+      "assessment_status": "not_assessed",
+      "value": null,
+      "unit": "{score}",
+      "anatomy": {
+        "region": "lower_back",
+        "side": "left",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "unknown",
+      "origin": "synthetic_demo",
+      "method": "structured-patient-input-v1",
+      "acquired_at": "2026-10-09T10:00:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-ad9c92a0b3892d2bc13af8ae7130118010e1babf58f12225ac535ecd390c4a82",
+          "selector": {
+            "kind": "json",
+            "pointer": "/answers/pain_intensity"
+          }
+        }
+      ],
+      "model": null
+    },
+    {
+      "observation_id": "observation-54bebe2bdf1bff11d027d56c2aa12a21",
+      "concept": "symptoms.pain_duration",
+      "assessment_status": "assessed",
+      "value": 14,
+      "unit": "d",
+      "anatomy": {
+        "region": "lower_back",
+        "side": "left",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "structured-patient-input-v1",
+      "acquired_at": "2026-10-09T10:00:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-ad9c92a0b3892d2bc13af8ae7130118010e1babf58f12225ac535ecd390c4a82",
+          "selector": {
+            "kind": "json",
+            "pointer": "/answers/duration"
+          }
+        }
+      ],
+      "model": null
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "artifact-ad9c92a0b3892d2bc13af8ae7130118010e1babf58f12225ac535ecd390c4a82",
+      "storage_key": "artifacts/ad9c92a0b3892d2bc13af8ae7130118010e1babf58f12225ac535ecd390c4a82",
+      "sha256": "ad9c92a0b3892d2bc13af8ae7130118010e1babf58f12225ac535ecd390c4a82",
+      "media_type": "application/json",
+      "size_bytes": 741,
+      "role": "source"
+    },
+    {
+      "artifact_id": "artifact-46dab29b75fff0291cac97bf118fbe224e8f51775dfa51945b025f93d69a2c01",
+      "storage_key": "artifacts/46dab29b75fff0291cac97bf118fbe224e8f51775dfa51945b025f93d69a2c01",
+      "sha256": "46dab29b75fff0291cac97bf118fbe224e8f51775dfa51945b025f93d69a2c01",
+      "media_type": "application/json",
+      "size_bytes": 527,
+      "role": "derived"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "incomplete_complaints",
+      "message": "Some complaints or body map answers were not assessed."
+    }
+  ],
+  "error": null
+}

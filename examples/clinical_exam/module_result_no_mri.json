@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "result_id": "result-ca01dcd1b57f9856351d5f5594e99660",
+  "job_id": "example-exam-no_mri",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "clinical.exam",
+  "module_version": "0.1.0",
+  "status": "partial",
+  "observations": [
+    {
+      "observation_id": "observation-a66350f8f67b79d4d63962ccc35e571f",
+      "concept": "clinical.imaging_clinical_concordance",
+      "assessment_status": "not_applicable",
+      "value": null,
+      "unit": null,
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "unspecified",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "unknown",
+      "origin": "synthetic_demo",
+      "method": "explicit-clinician-assessment-v1",
+      "acquired_at": "2026-10-09T10:05:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+          "selector": {
+            "kind": "json",
+            "pointer": "/facts/clinical.imaging_clinical_concordance"
+          }
+        }
+      ],
+      "model": null
+    },
+    {
+      "observation_id": "observation-4b782819add832c321ae3c26416c9a1d",
+      "concept": "clinical.radiculopathy_signs_and_positive_tension_tests",
+      "assessment_status": "not_assessed",
+      "value": null,
+      "unit": null,
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "unspecified",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "unknown",
+      "origin": "synthetic_demo",
+      "method": "explicit-clinician-assessment-v1",
+      "acquired_at": "2026-10-09T10:05:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+          "selector": {
+            "kind": "json",
+            "pointer": "/facts/clinical.radiculopathy_signs_and_positive_tension_tests"
+          }
+        }
+      ],
+      "model": null
+    },
+    {
+      "observation_id": "observation-f53b064f77d4c4ac6cb9d92709ce16e8",
+      "concept": "clinical.specific_cause_warning_signs_absent",
+      "assessment_status": "assessed",
+      "value": false,
+      "unit": null,
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "unspecified",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "explicit-clinician-assessment-v1",
+      "acquired_at": "2026-10-09T10:05:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+          "selector": {
+            "kind": "json",
+            "pointer": "/facts/clinical.specific_cause_warning_signs_absent"
+          }
+        }
+      ],
+      "model": null
+    },
+    {
+      "observation_id": "observation-61ed407a4eacafac1242c2e51c048ea2",
+      "concept": "imaging.study_status",
+      "assessment_status": "assessed",
+      "value": "not_performed",
+      "unit": null,
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "unspecified",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "explicit-clinician-assessment-v1",
+      "acquired_at": "2026-10-09T10:05:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+          "selector": {
+            "kind": "json",
+            "pointer": "/facts/imaging.study_status"
+          }
+        }
+      ],
+      "model": null
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "artifact-ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+      "storage_key": "artifacts/ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+      "sha256": "ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+      "media_type": "application/json",
+      "size_bytes": 824,
+      "role": "source"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "incomplete_clinical_assessment",
+      "message": "Some clinical assessments were not performed or remain unknown."
+    }
+  ],
+  "error": null
+}

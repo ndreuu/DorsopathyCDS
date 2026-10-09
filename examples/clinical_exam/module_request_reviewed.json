@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "job_id": "example-exam-reviewed",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "clinical.exam",
+  "module_version": "0.1.0",
+  "input_artifacts": [
+    {
+      "artifact_id": "artifact-e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+      "storage_key": "artifacts/e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+      "sha256": "e130b37eae21d035350a2776dee221ad123bb4189549377c4b6cba67602cc0af",
+      "media_type": "application/json",
+      "size_bytes": 871,
+      "role": "source"
+    },
+    {
+      "artifact_id": "artifact-8cf091006e0af079f38597883b068ab6a24d06f30bca4dfac2e0962e8d6b4cb7",
+      "storage_key": "artifacts/8cf091006e0af079f38597883b068ab6a24d06f30bca4dfac2e0962e8d6b4cb7",
+      "sha256": "8cf091006e0af079f38597883b068ab6a24d06f30bca4dfac2e0962e8d6b4cb7",
+      "media_type": "application/json",
+      "size_bytes": 1554,
+      "role": "source"
+    }
+  ],
+  "parameters": {},
+  "protocol_id": "synthetic-intake-v1"
+}

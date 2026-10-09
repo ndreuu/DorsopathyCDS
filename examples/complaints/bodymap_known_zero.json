@@ -1,0 +1,27 @@
+{
+  "acquired_at": "2026-10-09T10:00:00+03:00",
+  "anatomy": {
+    "region": "lower_back",
+    "side": "left"
+  },
+  "assessment_ref": "synthetic-questionnaire-01",
+  "author": {
+    "id": "synthetic-patient-01",
+    "role": "patient"
+  },
+  "bodymap": {
+    "assessment_status": "assessed",
+    "selected_regions": [
+      "lower_back"
+    ]
+  },
+  "mode": "synthetic_demo",
+  "origin": "synthetic_demo",
+  "schema_version": "1.0",
+  "source_artifact_id": "artifact-890b26ef52679ab26f104dab5fff0f6ac724786b86a664e41409f4999f449ad7",
+  "source_kind": "complaints.bodymap.v1",
+  "source_selector": {
+    "kind": "json",
+    "pointer": "/bodymap"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "complaints.v1",
+  "mode": "synthetic_demo",
+  "origin": "synthetic_demo",
+  "acquired_at": "2026-10-09T10:00:00+03:00",
+  "form_id": "basic-pain",
+  "form_version": "1.0",
+  "assessment_ref": "synthetic-questionnaire-01",
+  "author": {
+    "id": "synthetic-patient-01",
+    "role": "patient"
+  },
+  "anatomy": {
+    "region": "lower_back",
+    "side": "left"
+  },
+  "answers": {
+    "pain_intensity": {
+      "assessment_status": "assessed",
+      "value": 0,
+      "unit": "{score}"
+    },
+    "duration": {
+      "assessment_status": "assessed",
+      "value": 14,
+      "unit": "d"
+    }
+  },
+  "bodymap": {
+    "assessment_status": "assessed",
+    "selected_regions": [
+      "lower_back"
+    ]
+  }
+}

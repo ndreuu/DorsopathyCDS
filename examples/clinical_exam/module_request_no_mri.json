@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "job_id": "example-exam-no_mri",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "clinical.exam",
+  "module_version": "0.1.0",
+  "input_artifacts": [
+    {
+      "artifact_id": "artifact-ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+      "storage_key": "artifacts/ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+      "sha256": "ac5ab704c394035aaa1dcf65387d6b8eaa057923733bfe87374a77837c424b19",
+      "media_type": "application/json",
+      "size_bytes": 824,
+      "role": "source"
+    }
+  ],
+  "parameters": {},
+  "protocol_id": "synthetic-intake-v1"
+}

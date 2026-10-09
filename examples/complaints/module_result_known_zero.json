@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "result_id": "result-59a62f00c6d48a03e9b932ad04cec5fa",
+  "job_id": "example-complaints-known_zero",
+  "episode_id": "example-synthetic-episode",
+  "module_id": "complaints",
+  "module_version": "0.1.0",
+  "status": "complete",
+  "observations": [
+    {
+      "observation_id": "observation-ee4d77542180539c5d5707d645a339b1",
+      "concept": "symptoms.pain_intensity",
+      "assessment_status": "assessed",
+      "value": 0,
+      "unit": "{score}",
+      "anatomy": {
+        "region": "lower_back",
+        "side": "left",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "structured-patient-input-v1",
+      "acquired_at": "2026-10-09T10:00:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-890b26ef52679ab26f104dab5fff0f6ac724786b86a664e41409f4999f449ad7",
+          "selector": {
+            "kind": "json",
+            "pointer": "/answers/pain_intensity"
+          }
+        }
+      ],
+      "model": null
+    },
+    {
+      "observation_id": "observation-f5ba19c933f4aed5ee647073219b9bf6",
+      "concept": "symptoms.pain_duration",
+      "assessment_status": "assessed",
+      "value": 14,
+      "unit": "d",
+      "anatomy": {
+        "region": "lower_back",
+        "side": "left",
+        "level": null,
+        "numbering_status": "not_applicable"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "structured-patient-input-v1",
+      "acquired_at": "2026-10-09T10:00:00+03:00",
+      "coordinate_frame": null,
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-890b26ef52679ab26f104dab5fff0f6ac724786b86a664e41409f4999f449ad7",
+          "selector": {
+            "kind": "json",
+            "pointer": "/answers/duration"
+          }
+        }
+      ],
+      "model": null
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "artifact-890b26ef52679ab26f104dab5fff0f6ac724786b86a664e41409f4999f449ad7",
+      "storage_key": "artifacts/890b26ef52679ab26f104dab5fff0f6ac724786b86a664e41409f4999f449ad7",
+      "sha256": "890b26ef52679ab26f104dab5fff0f6ac724786b86a664e41409f4999f449ad7",
+      "media_type": "application/json",
+      "size_bytes": 752,
+      "role": "source"
+    },
+    {
+      "artifact_id": "artifact-186e6c6c58bf3ec8159c861c538a330420a402f42a2c5d75174b234b436252ce",
+      "storage_key": "artifacts/186e6c6c58bf3ec8159c861c538a330420a402f42a2c5d75174b234b436252ce",
+      "sha256": "186e6c6c58bf3ec8159c861c538a330420a402f42a2c5d75174b234b436252ce",
+      "media_type": "application/json",
+      "size_bytes": 533,
+      "role": "derived"
+    }
+  ],
+  "warnings": [],
+  "error": null
+}
