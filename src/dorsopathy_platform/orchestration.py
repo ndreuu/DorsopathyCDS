@@ -1,4 +1,4 @@
-"""Small local job runner. Heavy model subprocess adapters are separate work."""
+"""Single-job execution; admission and process isolation live in separate modules."""
 
 from __future__ import annotations
 
@@ -8,7 +8,8 @@ from typing import Any
 
 from .contracts import ContractError, validate_request, validate_result
 from .ports import ProviderContext
-from .registry import ModuleRegistry
+from .registry import ModuleRegistry, RegistryError
+from .process_provider import ProcessExecutionError
 from .results import result_envelope
 from .storage import ArtifactStore, SqliteRepository
 
@@ -27,10 +28,10 @@ class JobRunner:
     def execute(self, job_id: str) -> dict[str, Any]:
         job = self.repository.get_job(job_id)
         request = job["request"]
-        provider = self.registry.get(request["module_id"], request["module_version"])
         # CAS belongs to storage: concurrent attempts cannot run the same job.
         self.repository.start_job(job_id)
         try:
+            provider = self.registry.get(request["module_id"], request["module_version"])
             for reference in request["input_artifacts"]:
                 with self.artifacts.open(reference):
                     pass
@@ -56,8 +57,14 @@ class JobRunner:
         except Exception as exc:
             # Do not store exception strings: providers may include source data.
             result = result_envelope(request, [], [], status="failed")
+            code = (
+                exc.code if isinstance(exc, ProcessExecutionError)
+                else "provider_unavailable" if isinstance(exc, RegistryError)
+                else "invalid_module_result" if isinstance(exc, ContractError)
+                else "provider_execution_failed"
+            )
             result["error"] = {
-                "code": "invalid_module_result" if isinstance(exc, ContractError) else "provider_execution_failed",
+                "code": code,
                 "message": "Module processing failed; no clinical inference was produced.",
             }
             result = validate_result(result, request)
