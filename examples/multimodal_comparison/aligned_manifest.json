@@ -1,0 +1,29 @@
+{
+  "clinical_selection": {},
+  "episode_id": "synthetic-report-episode",
+  "linkage": "synthetic_linked",
+  "linkage_evidence_artifact_id": null,
+  "mode": "synthetic",
+  "modules": [
+    {
+      "input_artifact_ids": [
+        "artifact-0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923"
+      ],
+      "module_id": "fixture.left",
+      "module_version": "0.1.0",
+      "parameters": {}
+    },
+    {
+      "input_artifact_ids": [
+        "artifact-0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923"
+      ],
+      "module_id": "fixture.right",
+      "module_version": "0.1.0",
+      "parameters": {}
+    }
+  ],
+  "population": "adult",
+  "protocol_id": null,
+  "reuse_result_ids": [],
+  "schema_version": "1.0"
+}

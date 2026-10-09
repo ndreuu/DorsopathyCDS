@@ -1,0 +1,1421 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Отчёт DorsopathyCDS</title><style>body{font:16px system-ui;max-width:1050px;margin:32px auto;padding:0 20px;line-height:1.5}table{border-collapse:collapse;width:100%}td,th{padding:8px;border:1px solid #ddd;text-align:left}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f6f8;padding:16px}blockquote{border-left:3px solid #777;margin:12px 0;padding-left:12px}small{color:#555}details{margin:16px 0}section{margin:32px 0}</style><body><h1>Проверка клинической гипотезы</h1><p>Исследовательский модуль. Требуется клиническая проверка врачом.</p><p>Snapshot: <code>snapshot-04e49b0709466591d3cf73c0b0a57ef867145570a260cbdfd9d0109b3b1b3be3</code></p><section><h2>Недостаточно данных</h2><p>Для проверки условий правила недостаточно данных.</p><table><thead><tr><th>Условие</th><th>Значение</th><th>Проверка</th></tr></thead><tbody><tr><td>clinical.specific_cause_warning_signs_absent</td><td>True</td><td>true</td></tr><tr><td>clinical.radiculopathy_signs_and_positive_tension_tests</td><td>True</td><td>true</td></tr><tr><td>imaging.study_status</td><td>performed_result_available</td><td>false</td></tr><tr><td>imaging.study_status</td><td>performed_result_available</td><td>true</td></tr><tr><td>clinical.imaging_clinical_concordance</td><td>None</td><td>unknown</td></tr></tbody></table><h3>Прямые цитаты</h3><ul><li><blockquote>не выявлено признаков, настораживающих в отношении специфических причин</blockquote><small>777_1, с. 12; Раздел 2.2, диагностическая триада, пункт 1; фрагмент</small></li><li><blockquote>выявлены признаки ДПКР, положительные тесты натяжения</blockquote><small>777_1, с. 12; Раздел 2.2, диагностическая триада, пункт 2; фрагмент</small></li><li><blockquote>Результаты нейровизуализации (при их наличии) имеют прямую корреляцию с клинической картиной</blockquote><small>777_1, с. 12; Раздел 2.2, диагностическая триада, пункт 3; фрагмент</small></li></ul></section><h3>Источники сохранённой редакции</h3><ul><li><a href="https://apicr.minzdrav.gov.ru/api.ashx?id=777_1&amp;op=GetClinrecPdf" rel="noopener noreferrer">Дискогенная пояснично-крестцовая радикулопатия</a>; версия 1; 2023</li></ul><details><summary>Проверяемое происхождение условий</summary><pre>{
+  &quot;clinical.imaging_clinical_concordance&quot;: {
+    &quot;accepted&quot;: null,
+    &quot;candidates&quot;: [
+      {
+        &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;assessment_status&quot;: &quot;not_assessed&quot;,
+        &quot;author&quot;: {
+          &quot;id&quot;: &quot;fixture-clinician&quot;,
+          &quot;role&quot;: &quot;clinician&quot;
+        },
+        &quot;evidence_refs&quot;: [
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+            }
+          }
+        ],
+        &quot;module_id&quot;: &quot;clinical.exam&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;observation_id&quot;: &quot;observation-1b86a7d8c293efea72d9a7866de30cb9&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;reason_codes&quot;: [
+          &quot;clinical_assessment_missing&quot;
+        ],
+        &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+        &quot;reviewed_result_id&quot;: null,
+        &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;source_selector&quot;: {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+        },
+        &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;value&quot;: null
+      }
+    ],
+    &quot;reason_codes&quot;: [
+      &quot;clinical_assessment_missing&quot;
+    ],
+    &quot;selection&quot;: null
+  },
+  &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;: {
+    &quot;accepted&quot;: {
+      &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+      &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+      &quot;assessment_status&quot;: &quot;assessed&quot;,
+      &quot;author&quot;: {
+        &quot;id&quot;: &quot;fixture-clinician&quot;,
+        &quot;role&quot;: &quot;clinician&quot;
+      },
+      &quot;evidence_refs&quot;: [
+        {
+          &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+          }
+        }
+      ],
+      &quot;module_id&quot;: &quot;clinical.exam&quot;,
+      &quot;module_version&quot;: &quot;0.1.0&quot;,
+      &quot;observation_id&quot;: &quot;observation-c36ba58069fb95d21b5b6b250e0c01b2&quot;,
+      &quot;origin&quot;: &quot;synthetic_demo&quot;,
+      &quot;reason_codes&quot;: [],
+      &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+      &quot;reviewed_result_id&quot;: null,
+      &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+      &quot;source_selector&quot;: {
+        &quot;kind&quot;: &quot;json&quot;,
+        &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+      },
+      &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+      &quot;value&quot;: true
+    },
+    &quot;candidates&quot;: [
+      {
+        &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;assessment_status&quot;: &quot;assessed&quot;,
+        &quot;author&quot;: {
+          &quot;id&quot;: &quot;fixture-clinician&quot;,
+          &quot;role&quot;: &quot;clinician&quot;
+        },
+        &quot;evidence_refs&quot;: [
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+            }
+          }
+        ],
+        &quot;module_id&quot;: &quot;clinical.exam&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;observation_id&quot;: &quot;observation-c36ba58069fb95d21b5b6b250e0c01b2&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;reason_codes&quot;: [],
+        &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+        &quot;reviewed_result_id&quot;: null,
+        &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;source_selector&quot;: {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+        },
+        &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;value&quot;: true
+      }
+    ],
+    &quot;reason_codes&quot;: [],
+    &quot;selection&quot;: null
+  },
+  &quot;clinical.specific_cause_warning_signs_absent&quot;: {
+    &quot;accepted&quot;: {
+      &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+      &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+      &quot;assessment_status&quot;: &quot;assessed&quot;,
+      &quot;author&quot;: {
+        &quot;id&quot;: &quot;fixture-clinician&quot;,
+        &quot;role&quot;: &quot;clinician&quot;
+      },
+      &quot;evidence_refs&quot;: [
+        {
+          &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+          }
+        }
+      ],
+      &quot;module_id&quot;: &quot;clinical.exam&quot;,
+      &quot;module_version&quot;: &quot;0.1.0&quot;,
+      &quot;observation_id&quot;: &quot;observation-36a3689e569e24548fb730e4e1f8c76f&quot;,
+      &quot;origin&quot;: &quot;synthetic_demo&quot;,
+      &quot;reason_codes&quot;: [],
+      &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+      &quot;reviewed_result_id&quot;: null,
+      &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+      &quot;source_selector&quot;: {
+        &quot;kind&quot;: &quot;json&quot;,
+        &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+      },
+      &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+      &quot;value&quot;: true
+    },
+    &quot;candidates&quot;: [
+      {
+        &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;assessment_status&quot;: &quot;assessed&quot;,
+        &quot;author&quot;: {
+          &quot;id&quot;: &quot;fixture-clinician&quot;,
+          &quot;role&quot;: &quot;clinician&quot;
+        },
+        &quot;evidence_refs&quot;: [
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+            }
+          }
+        ],
+        &quot;module_id&quot;: &quot;clinical.exam&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;observation_id&quot;: &quot;observation-36a3689e569e24548fb730e4e1f8c76f&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;reason_codes&quot;: [],
+        &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+        &quot;reviewed_result_id&quot;: null,
+        &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;source_selector&quot;: {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+        },
+        &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;value&quot;: true
+      }
+    ],
+    &quot;reason_codes&quot;: [],
+    &quot;selection&quot;: null
+  },
+  &quot;imaging.study_status&quot;: {
+    &quot;accepted&quot;: {
+      &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+      &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+      &quot;assessment_status&quot;: &quot;assessed&quot;,
+      &quot;author&quot;: {
+        &quot;id&quot;: &quot;fixture-clinician&quot;,
+        &quot;role&quot;: &quot;clinician&quot;
+      },
+      &quot;evidence_refs&quot;: [
+        {
+          &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+          }
+        }
+      ],
+      &quot;module_id&quot;: &quot;clinical.exam&quot;,
+      &quot;module_version&quot;: &quot;0.1.0&quot;,
+      &quot;observation_id&quot;: &quot;observation-709b1d772f0b4223bd049288739b956a&quot;,
+      &quot;origin&quot;: &quot;synthetic_demo&quot;,
+      &quot;reason_codes&quot;: [],
+      &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+      &quot;reviewed_result_id&quot;: null,
+      &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+      &quot;source_selector&quot;: {
+        &quot;kind&quot;: &quot;json&quot;,
+        &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+      },
+      &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+      &quot;value&quot;: &quot;performed_result_available&quot;
+    },
+    &quot;candidates&quot;: [
+      {
+        &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;assessment_status&quot;: &quot;assessed&quot;,
+        &quot;author&quot;: {
+          &quot;id&quot;: &quot;fixture-clinician&quot;,
+          &quot;role&quot;: &quot;clinician&quot;
+        },
+        &quot;evidence_refs&quot;: [
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+            }
+          }
+        ],
+        &quot;module_id&quot;: &quot;clinical.exam&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;observation_id&quot;: &quot;observation-709b1d772f0b4223bd049288739b956a&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;reason_codes&quot;: [],
+        &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+        &quot;reviewed_result_id&quot;: null,
+        &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;source_selector&quot;: {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+        },
+        &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;value&quot;: &quot;performed_result_available&quot;
+      }
+    ],
+    &quot;reason_codes&quot;: [],
+    &quot;selection&quot;: null
+  }
+}</pre></details><details><summary>Техническое сопоставление модулей</summary><pre>{
+  &quot;pairs&quot;: [
+    {
+      &quot;evidence_refs&quot;: [
+        {
+          &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+          }
+        },
+        {
+          &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+          }
+        },
+        {
+          &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+          }
+        },
+        {
+          &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+          }
+        },
+        {
+          &quot;artifact_id&quot;: &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;,
+          &quot;selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/value&quot;
+          }
+        }
+      ],
+      &quot;left_result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+      &quot;operations&quot;: [
+        {
+          &quot;evidence_refs&quot;: [
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/value&quot;
+              }
+            }
+          ],
+          &quot;kind&quot;: &quot;semantic_region&quot;,
+          &quot;reasons&quot;: [
+            &quot;anatomical_side_unknown&quot;
+          ],
+          &quot;status&quot;: &quot;unknown&quot;
+        },
+        {
+          &quot;evidence_refs&quot;: [
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/value&quot;
+              }
+            }
+          ],
+          &quot;kind&quot;: &quot;event_window&quot;,
+          &quot;reasons&quot;: [
+            &quot;acquisition_metadata_missing&quot;
+          ],
+          &quot;status&quot;: &quot;unknown&quot;
+        },
+        {
+          &quot;evidence_refs&quot;: [
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+              }
+            },
+            {
+              &quot;artifact_id&quot;: &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/value&quot;
+              }
+            }
+          ],
+          &quot;kind&quot;: &quot;spatial_overlay&quot;,
+          &quot;reasons&quot;: [
+            &quot;frame_metadata_missing&quot;
+          ],
+          &quot;status&quot;: &quot;unknown&quot;
+        }
+      ],
+      &quot;reasons&quot;: [
+        &quot;metadata_missing&quot;,
+        &quot;synthetic_fixture_linkage_only&quot;
+      ],
+      &quot;right_result_id&quot;: &quot;result-c6b20584b2a0149517815a51e2e2e1a5&quot;,
+      &quot;status&quot;: &quot;unknown&quot;
+    }
+  ],
+  &quot;schema_version&quot;: &quot;1.0&quot;,
+  &quot;snapshot_id&quot;: &quot;snapshot-04e49b0709466591d3cf73c0b0a57ef867145570a260cbdfd9d0109b3b1b3be3&quot;,
+  &quot;warnings&quot;: [
+    {
+      &quot;code&quot;: &quot;technical_comparison_only&quot;,
+      &quot;message&quot;: &quot;Compatibility applies to the specified technical operation; it is not medical coherence or a diagnosis.&quot;
+    }
+  ]
+}</pre></details><details><summary>Неизвестные данные и ограничения</summary><pre>[
+  {
+    &quot;code&quot;: &quot;clinical_assessment_missing&quot;,
+    &quot;concept&quot;: &quot;clinical.imaging_clinical_concordance&quot;,
+    &quot;message&quot;: &quot;The clinical fact is unknown or inapplicable; inspect its frozen lineage reasons.&quot;
+  }
+]</pre></details><details><summary>Замороженный отчёт JSON</summary><pre>{
+  &quot;adapter_version&quot;: &quot;0.1.0&quot;,
+  &quot;case&quot;: {
+    &quot;case_id&quot;: &quot;case-c7673201bbb5f5e51c2572dcca838de3&quot;,
+    &quot;facts&quot;: {
+      &quot;clinical.imaging_clinical_concordance&quot;: {
+        &quot;assessment_ref&quot;: null,
+        &quot;origin&quot;: null,
+        &quot;value&quot;: null
+      },
+      &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;: {
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;value&quot;: true
+      },
+      &quot;clinical.specific_cause_warning_signs_absent&quot;: {
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;value&quot;: true
+      },
+      &quot;imaging.study_status&quot;: {
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;value&quot;: &quot;performed_result_available&quot;
+      }
+    },
+    &quot;population&quot;: &quot;adult&quot;
+  },
+  &quot;catalog_sha256&quot;: &quot;9b1a411fa202082960834aecf3c91def8ade681eb0395498992833393405bbb0&quot;,
+  &quot;catalog_snapshot&quot;: {
+    &quot;rules&quot;: [
+      {
+        &quot;clinical_review_status&quot;: &quot;requires_clinical_review&quot;,
+        &quot;condition&quot;: {
+          &quot;all&quot;: [
+            {
+              &quot;citations&quot;: [
+                {
+                  &quot;doc_id&quot;: &quot;777_1&quot;,
+                  &quot;quote_id&quot;: &quot;triad_1&quot;
+                }
+              ],
+              &quot;expected&quot;: true,
+              &quot;fact&quot;: &quot;clinical.specific_cause_warning_signs_absent&quot;,
+              &quot;id&quot;: &quot;specific_cause_warning_signs_absent&quot;,
+              &quot;label&quot;: &quot;Врач оценил и не выявил настораживающих признаков специфической причины&quot;,
+              &quot;operator&quot;: &quot;eq&quot;
+            },
+            {
+              &quot;citations&quot;: [
+                {
+                  &quot;doc_id&quot;: &quot;777_1&quot;,
+                  &quot;quote_id&quot;: &quot;triad_2&quot;
+                }
+              ],
+              &quot;expected&quot;: true,
+              &quot;fact&quot;: &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;,
+              &quot;id&quot;: &quot;radiculopathy_signs_and_tension_tests_present&quot;,
+              &quot;label&quot;: &quot;Врач установил признаки радикулопатии и положительные тесты натяжения&quot;,
+              &quot;operator&quot;: &quot;eq&quot;
+            },
+            {
+              &quot;any&quot;: [
+                {
+                  &quot;citations&quot;: [
+                    {
+                      &quot;doc_id&quot;: &quot;777_1&quot;,
+                      &quot;quote_id&quot;: &quot;triad_3&quot;
+                    }
+                  ],
+                  &quot;expected&quot;: &quot;not_performed&quot;,
+                  &quot;fact&quot;: &quot;imaging.study_status&quot;,
+                  &quot;id&quot;: &quot;imaging_not_performed&quot;,
+                  &quot;label&quot;: &quot;Известно, что исследование нейровизуализации не выполнялось&quot;,
+                  &quot;operator&quot;: &quot;eq&quot;
+                },
+                {
+                  &quot;all&quot;: [
+                    {
+                      &quot;citations&quot;: [
+                        {
+                          &quot;doc_id&quot;: &quot;777_1&quot;,
+                          &quot;quote_id&quot;: &quot;triad_3&quot;
+                        }
+                      ],
+                      &quot;expected&quot;: &quot;performed_result_available&quot;,
+                      &quot;fact&quot;: &quot;imaging.study_status&quot;,
+                      &quot;id&quot;: &quot;imaging_result_available&quot;,
+                      &quot;label&quot;: &quot;Исследование выполнено, результат доступен для клинического сопоставления&quot;,
+                      &quot;operator&quot;: &quot;eq&quot;
+                    },
+                    {
+                      &quot;citations&quot;: [
+                        {
+                          &quot;doc_id&quot;: &quot;777_1&quot;,
+                          &quot;quote_id&quot;: &quot;triad_3&quot;
+                        }
+                      ],
+                      &quot;expected&quot;: true,
+                      &quot;fact&quot;: &quot;clinical.imaging_clinical_concordance&quot;,
+                      &quot;id&quot;: &quot;imaging_clinical_concordance&quot;,
+                      &quot;label&quot;: &quot;Врач подтвердил соответствие результатов нейровизуализации клинике&quot;,
+                      &quot;operator&quot;: &quot;eq&quot;
+                    }
+                  ],
+                  &quot;id&quot;: &quot;available_imaging_concordant&quot;
+                }
+              ],
+              &quot;id&quot;: &quot;imaging_when_available&quot;,
+              &quot;label&quot;: &quot;Сопоставление нейровизуализации с клинической картиной при наличии результатов&quot;
+            }
+          ],
+          &quot;id&quot;: &quot;diagnostic_triad&quot;
+        },
+        &quot;diagnostic_output&quot;: &quot;hypothesis_support_only&quot;,
+        &quot;formalization_status&quot;: &quot;draft_pending_clinical_validation&quot;,
+        &quot;id&quot;: &quot;ru_777_radiculopathy_triad&quot;,
+        &quot;population&quot;: &quot;adults&quot;,
+        &quot;profile&quot;: &quot;RU-research&quot;,
+        &quot;title&quot;: &quot;Поддержка гипотезы дискогенной пояснично-крестцовой радикулопатии&quot;,
+        &quot;version&quot;: &quot;0.1.0&quot;
+      }
+    ],
+    &quot;sources&quot;: {
+      &quot;documents&quot;: [
+        {
+          &quot;approval_year&quot;: 2023,
+          &quot;guideline_version&quot;: 1,
+          &quot;id&quot;: &quot;777_1&quot;,
+          &quot;jurisdiction&quot;: &quot;RU&quot;,
+          &quot;metadata_observed_on&quot;: &quot;2026-10-08&quot;,
+          &quot;metadata_snapshot&quot;: {
+            &quot;NPC_approved&quot;: true,
+            &quot;apply_status&quot;: &quot;Применяется&quot;,
+            &quot;publish_date&quot;: &quot;2023-12-07T13:29:50.693&quot;
+          },
+          &quot;metadata_url&quot;: &quot;https://apicr.minzdrav.gov.ru/api.ashx?op=GetClinrec2&amp;id=777_1&quot;,
+          &quot;pdf_sha256&quot;: &quot;1a2ef3ab07ae020a2e75ec56fadabce6b39e1dc37e74a29b87deb250ca2f94aa&quot;,
+          &quot;pdf_url&quot;: &quot;https://apicr.minzdrav.gov.ru/api.ashx?id=777_1&amp;op=GetClinrecPdf&quot;,
+          &quot;population&quot;: &quot;adults&quot;,
+          &quot;publisher&quot;: &quot;Рубрикатор клинических рекомендаций Минздрава России&quot;,
+          &quot;quote_verification&quot;: &quot;Fragments checked against official PDF, printed page 12; quotation whitespace normalized.&quot;,
+          &quot;quotes&quot;: [
+            {
+              &quot;evidence_level&quot;: 5,
+              &quot;exact_quote&quot;: &quot;не выявлено признаков, настораживающих в отношении специфических причин&quot;,
+              &quot;id&quot;: &quot;triad_1&quot;,
+              &quot;locator&quot;: &quot;Раздел 2.2, диагностическая триада, пункт 1; фрагмент&quot;,
+              &quot;page&quot;: 12,
+              &quot;recommendation_strength&quot;: &quot;C&quot;
+            },
+            {
+              &quot;evidence_level&quot;: 5,
+              &quot;exact_quote&quot;: &quot;выявлены признаки ДПКР, положительные тесты натяжения&quot;,
+              &quot;id&quot;: &quot;triad_2&quot;,
+              &quot;locator&quot;: &quot;Раздел 2.2, диагностическая триада, пункт 2; фрагмент&quot;,
+              &quot;page&quot;: 12,
+              &quot;recommendation_strength&quot;: &quot;C&quot;
+            },
+            {
+              &quot;evidence_level&quot;: 5,
+              &quot;exact_quote&quot;: &quot;Результаты нейровизуализации (при их наличии) имеют прямую корреляцию с клинической картиной&quot;,
+              &quot;id&quot;: &quot;triad_3&quot;,
+              &quot;locator&quot;: &quot;Раздел 2.2, диагностическая триада, пункт 3; фрагмент&quot;,
+              &quot;page&quot;: 12,
+              &quot;recommendation_strength&quot;: &quot;C&quot;
+            }
+          ],
+          &quot;title&quot;: &quot;Дискогенная пояснично-крестцовая радикулопатия&quot;
+        }
+      ],
+      &quot;schema_version&quot;: &quot;1.0&quot;
+    }
+  },
+  &quot;clinical_report&quot;: {
+    &quot;case_id&quot;: &quot;case-c7673201bbb5f5e51c2572dcca838de3&quot;,
+    &quot;catalog_sha256&quot;: &quot;9b1a411fa202082960834aecf3c91def8ade681eb0395498992833393405bbb0&quot;,
+    &quot;clinical_profile&quot;: &quot;RU-research&quot;,
+    &quot;clinical_review_status&quot;: &quot;requires_clinical_review&quot;,
+    &quot;facts_provenance&quot;: {
+      &quot;clinical.imaging_clinical_concordance&quot;: {
+        &quot;assessment_ref&quot;: null,
+        &quot;origin&quot;: null
+      },
+      &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;: {
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;
+      },
+      &quot;clinical.specific_cause_warning_signs_absent&quot;: {
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;
+      },
+      &quot;imaging.study_status&quot;: {
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;
+      }
+    },
+    &quot;formalization_status&quot;: &quot;draft_pending_clinical_validation&quot;,
+    &quot;mode&quot;: &quot;research_only&quot;,
+    &quot;population&quot;: &quot;adult&quot;,
+    &quot;results&quot;: [
+      {
+        &quot;citations&quot;: [
+          {
+            &quot;doc_id&quot;: &quot;777_1&quot;,
+            &quot;exact_quote&quot;: &quot;не выявлено признаков, настораживающих в отношении специфических причин&quot;,
+            &quot;locator&quot;: &quot;Раздел 2.2, диагностическая триада, пункт 1; фрагмент&quot;,
+            &quot;page&quot;: 12,
+            &quot;quote_id&quot;: &quot;triad_1&quot;
+          },
+          {
+            &quot;doc_id&quot;: &quot;777_1&quot;,
+            &quot;exact_quote&quot;: &quot;выявлены признаки ДПКР, положительные тесты натяжения&quot;,
+            &quot;locator&quot;: &quot;Раздел 2.2, диагностическая триада, пункт 2; фрагмент&quot;,
+            &quot;page&quot;: 12,
+            &quot;quote_id&quot;: &quot;triad_2&quot;
+          },
+          {
+            &quot;doc_id&quot;: &quot;777_1&quot;,
+            &quot;exact_quote&quot;: &quot;Результаты нейровизуализации (при их наличии) имеют прямую корреляцию с клинической картиной&quot;,
+            &quot;locator&quot;: &quot;Раздел 2.2, диагностическая триада, пункт 3; фрагмент&quot;,
+            &quot;page&quot;: 12,
+            &quot;quote_id&quot;: &quot;triad_3&quot;
+          }
+        ],
+        &quot;clinical_review_status&quot;: &quot;requires_clinical_review&quot;,
+        &quot;decisive_missing_fact_ids&quot;: [
+          &quot;clinical.imaging_clinical_concordance&quot;
+        ],
+        &quot;fact_ids&quot;: [
+          &quot;clinical.imaging_clinical_concordance&quot;,
+          &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;,
+          &quot;clinical.specific_cause_warning_signs_absent&quot;,
+          &quot;imaging.study_status&quot;
+        ],
+        &quot;imaging_concordance_status&quot;: &quot;not_assessed&quot;,
+        &quot;input_facts&quot;: {
+          &quot;clinical.imaging_clinical_concordance&quot;: null,
+          &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;: true,
+          &quot;clinical.specific_cause_warning_signs_absent&quot;: true,
+          &quot;imaging.study_status&quot;: &quot;performed_result_available&quot;
+        },
+        &quot;interpretation&quot;: &quot;Для проверки условий правила недостаточно данных.&quot;,
+        &quot;leaves&quot;: [
+          {
+            &quot;citation_refs&quot;: [
+              {
+                &quot;doc_id&quot;: &quot;777_1&quot;,
+                &quot;quote_id&quot;: &quot;triad_1&quot;
+              }
+            ],
+            &quot;decisive_missing_fact_ids&quot;: [],
+            &quot;expected&quot;: true,
+            &quot;fact_id&quot;: &quot;clinical.specific_cause_warning_signs_absent&quot;,
+            &quot;leaf_id&quot;: &quot;specific_cause_warning_signs_absent&quot;,
+            &quot;observed&quot;: true,
+            &quot;operator&quot;: &quot;eq&quot;,
+            &quot;present&quot;: true,
+            &quot;unknown_reason&quot;: null,
+            &quot;value&quot;: &quot;true&quot;
+          },
+          {
+            &quot;citation_refs&quot;: [
+              {
+                &quot;doc_id&quot;: &quot;777_1&quot;,
+                &quot;quote_id&quot;: &quot;triad_2&quot;
+              }
+            ],
+            &quot;decisive_missing_fact_ids&quot;: [],
+            &quot;expected&quot;: true,
+            &quot;fact_id&quot;: &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;,
+            &quot;leaf_id&quot;: &quot;radiculopathy_signs_and_tension_tests_present&quot;,
+            &quot;observed&quot;: true,
+            &quot;operator&quot;: &quot;eq&quot;,
+            &quot;present&quot;: true,
+            &quot;unknown_reason&quot;: null,
+            &quot;value&quot;: &quot;true&quot;
+          },
+          {
+            &quot;citation_refs&quot;: [
+              {
+                &quot;doc_id&quot;: &quot;777_1&quot;,
+                &quot;quote_id&quot;: &quot;triad_3&quot;
+              }
+            ],
+            &quot;decisive_missing_fact_ids&quot;: [],
+            &quot;expected&quot;: &quot;not_performed&quot;,
+            &quot;fact_id&quot;: &quot;imaging.study_status&quot;,
+            &quot;leaf_id&quot;: &quot;imaging_not_performed&quot;,
+            &quot;observed&quot;: &quot;performed_result_available&quot;,
+            &quot;operator&quot;: &quot;eq&quot;,
+            &quot;present&quot;: true,
+            &quot;unknown_reason&quot;: null,
+            &quot;value&quot;: &quot;false&quot;
+          },
+          {
+            &quot;citation_refs&quot;: [
+              {
+                &quot;doc_id&quot;: &quot;777_1&quot;,
+                &quot;quote_id&quot;: &quot;triad_3&quot;
+              }
+            ],
+            &quot;decisive_missing_fact_ids&quot;: [],
+            &quot;expected&quot;: &quot;performed_result_available&quot;,
+            &quot;fact_id&quot;: &quot;imaging.study_status&quot;,
+            &quot;leaf_id&quot;: &quot;imaging_result_available&quot;,
+            &quot;observed&quot;: &quot;performed_result_available&quot;,
+            &quot;operator&quot;: &quot;eq&quot;,
+            &quot;present&quot;: true,
+            &quot;unknown_reason&quot;: null,
+            &quot;value&quot;: &quot;true&quot;
+          },
+          {
+            &quot;citation_refs&quot;: [
+              {
+                &quot;doc_id&quot;: &quot;777_1&quot;,
+                &quot;quote_id&quot;: &quot;triad_3&quot;
+              }
+            ],
+            &quot;decisive_missing_fact_ids&quot;: [
+              &quot;clinical.imaging_clinical_concordance&quot;
+            ],
+            &quot;expected&quot;: true,
+            &quot;fact_id&quot;: &quot;clinical.imaging_clinical_concordance&quot;,
+            &quot;leaf_id&quot;: &quot;imaging_clinical_concordance&quot;,
+            &quot;observed&quot;: null,
+            &quot;operator&quot;: &quot;eq&quot;,
+            &quot;present&quot;: true,
+            &quot;unknown_reason&quot;: &quot;null&quot;,
+            &quot;value&quot;: &quot;unknown&quot;
+          }
+        ],
+        &quot;missing_fact_ids&quot;: [
+          &quot;clinical.imaging_clinical_concordance&quot;
+        ],
+        &quot;next_action&quot;: &quot;complete_missing_clinical_assessments_then_review&quot;,
+        &quot;rule_id&quot;: &quot;ru_777_radiculopathy_triad&quot;,
+        &quot;rule_version&quot;: &quot;0.1.0&quot;,
+        &quot;status&quot;: &quot;indeterminate&quot;,
+        &quot;trace&quot;: {
+          &quot;children&quot;: [
+            {
+              &quot;citation_refs&quot;: [
+                {
+                  &quot;doc_id&quot;: &quot;777_1&quot;,
+                  &quot;quote_id&quot;: &quot;triad_1&quot;
+                }
+              ],
+              &quot;decisive_missing_fact_ids&quot;: [],
+              &quot;expected&quot;: true,
+              &quot;fact_id&quot;: &quot;clinical.specific_cause_warning_signs_absent&quot;,
+              &quot;leaf_id&quot;: &quot;specific_cause_warning_signs_absent&quot;,
+              &quot;observed&quot;: true,
+              &quot;operator&quot;: &quot;eq&quot;,
+              &quot;present&quot;: true,
+              &quot;unknown_reason&quot;: null,
+              &quot;value&quot;: &quot;true&quot;
+            },
+            {
+              &quot;citation_refs&quot;: [
+                {
+                  &quot;doc_id&quot;: &quot;777_1&quot;,
+                  &quot;quote_id&quot;: &quot;triad_2&quot;
+                }
+              ],
+              &quot;decisive_missing_fact_ids&quot;: [],
+              &quot;expected&quot;: true,
+              &quot;fact_id&quot;: &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;,
+              &quot;leaf_id&quot;: &quot;radiculopathy_signs_and_tension_tests_present&quot;,
+              &quot;observed&quot;: true,
+              &quot;operator&quot;: &quot;eq&quot;,
+              &quot;present&quot;: true,
+              &quot;unknown_reason&quot;: null,
+              &quot;value&quot;: &quot;true&quot;
+            },
+            {
+              &quot;children&quot;: [
+                {
+                  &quot;citation_refs&quot;: [
+                    {
+                      &quot;doc_id&quot;: &quot;777_1&quot;,
+                      &quot;quote_id&quot;: &quot;triad_3&quot;
+                    }
+                  ],
+                  &quot;decisive_missing_fact_ids&quot;: [],
+                  &quot;expected&quot;: &quot;not_performed&quot;,
+                  &quot;fact_id&quot;: &quot;imaging.study_status&quot;,
+                  &quot;leaf_id&quot;: &quot;imaging_not_performed&quot;,
+                  &quot;observed&quot;: &quot;performed_result_available&quot;,
+                  &quot;operator&quot;: &quot;eq&quot;,
+                  &quot;present&quot;: true,
+                  &quot;unknown_reason&quot;: null,
+                  &quot;value&quot;: &quot;false&quot;
+                },
+                {
+                  &quot;children&quot;: [
+                    {
+                      &quot;citation_refs&quot;: [
+                        {
+                          &quot;doc_id&quot;: &quot;777_1&quot;,
+                          &quot;quote_id&quot;: &quot;triad_3&quot;
+                        }
+                      ],
+                      &quot;decisive_missing_fact_ids&quot;: [],
+                      &quot;expected&quot;: &quot;performed_result_available&quot;,
+                      &quot;fact_id&quot;: &quot;imaging.study_status&quot;,
+                      &quot;leaf_id&quot;: &quot;imaging_result_available&quot;,
+                      &quot;observed&quot;: &quot;performed_result_available&quot;,
+                      &quot;operator&quot;: &quot;eq&quot;,
+                      &quot;present&quot;: true,
+                      &quot;unknown_reason&quot;: null,
+                      &quot;value&quot;: &quot;true&quot;
+                    },
+                    {
+                      &quot;citation_refs&quot;: [
+                        {
+                          &quot;doc_id&quot;: &quot;777_1&quot;,
+                          &quot;quote_id&quot;: &quot;triad_3&quot;
+                        }
+                      ],
+                      &quot;decisive_missing_fact_ids&quot;: [
+                        &quot;clinical.imaging_clinical_concordance&quot;
+                      ],
+                      &quot;expected&quot;: true,
+                      &quot;fact_id&quot;: &quot;clinical.imaging_clinical_concordance&quot;,
+                      &quot;leaf_id&quot;: &quot;imaging_clinical_concordance&quot;,
+                      &quot;observed&quot;: null,
+                      &quot;operator&quot;: &quot;eq&quot;,
+                      &quot;present&quot;: true,
+                      &quot;unknown_reason&quot;: &quot;null&quot;,
+                      &quot;value&quot;: &quot;unknown&quot;
+                    }
+                  ],
+                  &quot;decisive_missing_fact_ids&quot;: [
+                    &quot;clinical.imaging_clinical_concordance&quot;
+                  ],
+                  &quot;operator&quot;: &quot;all&quot;,
+                  &quot;value&quot;: &quot;unknown&quot;
+                }
+              ],
+              &quot;decisive_missing_fact_ids&quot;: [
+                &quot;clinical.imaging_clinical_concordance&quot;
+              ],
+              &quot;operator&quot;: &quot;any&quot;,
+              &quot;value&quot;: &quot;unknown&quot;
+            }
+          ],
+          &quot;decisive_missing_fact_ids&quot;: [
+            &quot;clinical.imaging_clinical_concordance&quot;
+          ],
+          &quot;operator&quot;: &quot;all&quot;,
+          &quot;value&quot;: &quot;unknown&quot;
+        },
+        &quot;value&quot;: &quot;unknown&quot;
+      }
+    ],
+    &quot;schema_version&quot;: &quot;1.0&quot;,
+    &quot;software_version&quot;: &quot;0.1.0&quot;,
+    &quot;source_documents&quot;: [
+      {
+        &quot;approval_year&quot;: 2023,
+        &quot;guideline_version&quot;: 1,
+        &quot;id&quot;: &quot;777_1&quot;,
+        &quot;jurisdiction&quot;: &quot;RU&quot;,
+        &quot;metadata_observed_on&quot;: &quot;2026-10-08&quot;,
+        &quot;metadata_snapshot&quot;: {
+          &quot;NPC_approved&quot;: true,
+          &quot;apply_status&quot;: &quot;Применяется&quot;,
+          &quot;publish_date&quot;: &quot;2023-12-07T13:29:50.693&quot;
+        },
+        &quot;metadata_url&quot;: &quot;https://apicr.minzdrav.gov.ru/api.ashx?op=GetClinrec2&amp;id=777_1&quot;,
+        &quot;pdf_sha256&quot;: &quot;1a2ef3ab07ae020a2e75ec56fadabce6b39e1dc37e74a29b87deb250ca2f94aa&quot;,
+        &quot;pdf_url&quot;: &quot;https://apicr.minzdrav.gov.ru/api.ashx?id=777_1&amp;op=GetClinrecPdf&quot;,
+        &quot;population&quot;: &quot;adults&quot;,
+        &quot;publisher&quot;: &quot;Рубрикатор клинических рекомендаций Минздрава России&quot;,
+        &quot;quote_verification&quot;: &quot;Fragments checked against official PDF, printed page 12; quotation whitespace normalized.&quot;,
+        &quot;title&quot;: &quot;Дискогенная пояснично-крестцовая радикулопатия&quot;
+      }
+    ],
+    &quot;synthetic_demo&quot;: true
+  },
+  &quot;comparison&quot;: {
+    &quot;pairs&quot;: [
+      {
+        &quot;evidence_refs&quot;: [
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+            }
+          },
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+            }
+          },
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+            }
+          },
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+            }
+          },
+          {
+            &quot;artifact_id&quot;: &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/value&quot;
+            }
+          }
+        ],
+        &quot;left_result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+        &quot;operations&quot;: [
+          {
+            &quot;evidence_refs&quot;: [
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/value&quot;
+                }
+              }
+            ],
+            &quot;kind&quot;: &quot;semantic_region&quot;,
+            &quot;reasons&quot;: [
+              &quot;anatomical_side_unknown&quot;
+            ],
+            &quot;status&quot;: &quot;unknown&quot;
+          },
+          {
+            &quot;evidence_refs&quot;: [
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/value&quot;
+                }
+              }
+            ],
+            &quot;kind&quot;: &quot;event_window&quot;,
+            &quot;reasons&quot;: [
+              &quot;acquisition_metadata_missing&quot;
+            ],
+            &quot;status&quot;: &quot;unknown&quot;
+          },
+          {
+            &quot;evidence_refs&quot;: [
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+                }
+              },
+              {
+                &quot;artifact_id&quot;: &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;,
+                &quot;selector&quot;: {
+                  &quot;kind&quot;: &quot;json&quot;,
+                  &quot;pointer&quot;: &quot;/value&quot;
+                }
+              }
+            ],
+            &quot;kind&quot;: &quot;spatial_overlay&quot;,
+            &quot;reasons&quot;: [
+              &quot;frame_metadata_missing&quot;
+            ],
+            &quot;status&quot;: &quot;unknown&quot;
+          }
+        ],
+        &quot;reasons&quot;: [
+          &quot;metadata_missing&quot;,
+          &quot;synthetic_fixture_linkage_only&quot;
+        ],
+        &quot;right_result_id&quot;: &quot;result-c6b20584b2a0149517815a51e2e2e1a5&quot;,
+        &quot;status&quot;: &quot;unknown&quot;
+      }
+    ],
+    &quot;schema_version&quot;: &quot;1.0&quot;,
+    &quot;snapshot_id&quot;: &quot;snapshot-04e49b0709466591d3cf73c0b0a57ef867145570a260cbdfd9d0109b3b1b3be3&quot;,
+    &quot;warnings&quot;: [
+      {
+        &quot;code&quot;: &quot;technical_comparison_only&quot;,
+        &quot;message&quot;: &quot;Compatibility applies to the specified technical operation; it is not medical coherence or a diagnosis.&quot;
+      }
+    ]
+  },
+  &quot;content_sha256&quot;: &quot;243042a85ddd17a271a2ba76ab8170b2adffde42a25711c19db8745b108a2604&quot;,
+  &quot;lineage&quot;: {
+    &quot;clinical.imaging_clinical_concordance&quot;: {
+      &quot;accepted&quot;: null,
+      &quot;candidates&quot;: [
+        {
+          &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+          &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+          &quot;assessment_status&quot;: &quot;not_assessed&quot;,
+          &quot;author&quot;: {
+            &quot;id&quot;: &quot;fixture-clinician&quot;,
+            &quot;role&quot;: &quot;clinician&quot;
+          },
+          &quot;evidence_refs&quot;: [
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+              }
+            }
+          ],
+          &quot;module_id&quot;: &quot;clinical.exam&quot;,
+          &quot;module_version&quot;: &quot;0.1.0&quot;,
+          &quot;observation_id&quot;: &quot;observation-1b86a7d8c293efea72d9a7866de30cb9&quot;,
+          &quot;origin&quot;: &quot;synthetic_demo&quot;,
+          &quot;reason_codes&quot;: [
+            &quot;clinical_assessment_missing&quot;
+          ],
+          &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+          &quot;reviewed_result_id&quot;: null,
+          &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;source_selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/clinical.imaging_clinical_concordance&quot;
+          },
+          &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;value&quot;: null
+        }
+      ],
+      &quot;reason_codes&quot;: [
+        &quot;clinical_assessment_missing&quot;
+      ],
+      &quot;selection&quot;: null
+    },
+    &quot;clinical.radiculopathy_signs_and_positive_tension_tests&quot;: {
+      &quot;accepted&quot;: {
+        &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;assessment_status&quot;: &quot;assessed&quot;,
+        &quot;author&quot;: {
+          &quot;id&quot;: &quot;fixture-clinician&quot;,
+          &quot;role&quot;: &quot;clinician&quot;
+        },
+        &quot;evidence_refs&quot;: [
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+            }
+          }
+        ],
+        &quot;module_id&quot;: &quot;clinical.exam&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;observation_id&quot;: &quot;observation-c36ba58069fb95d21b5b6b250e0c01b2&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;reason_codes&quot;: [],
+        &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+        &quot;reviewed_result_id&quot;: null,
+        &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;source_selector&quot;: {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+        },
+        &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;value&quot;: true
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+          &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+          &quot;assessment_status&quot;: &quot;assessed&quot;,
+          &quot;author&quot;: {
+            &quot;id&quot;: &quot;fixture-clinician&quot;,
+            &quot;role&quot;: &quot;clinician&quot;
+          },
+          &quot;evidence_refs&quot;: [
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+              }
+            }
+          ],
+          &quot;module_id&quot;: &quot;clinical.exam&quot;,
+          &quot;module_version&quot;: &quot;0.1.0&quot;,
+          &quot;observation_id&quot;: &quot;observation-c36ba58069fb95d21b5b6b250e0c01b2&quot;,
+          &quot;origin&quot;: &quot;synthetic_demo&quot;,
+          &quot;reason_codes&quot;: [],
+          &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+          &quot;reviewed_result_id&quot;: null,
+          &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;source_selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/clinical.radiculopathy_signs_and_positive_tension_tests&quot;
+          },
+          &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;value&quot;: true
+        }
+      ],
+      &quot;reason_codes&quot;: [],
+      &quot;selection&quot;: null
+    },
+    &quot;clinical.specific_cause_warning_signs_absent&quot;: {
+      &quot;accepted&quot;: {
+        &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;assessment_status&quot;: &quot;assessed&quot;,
+        &quot;author&quot;: {
+          &quot;id&quot;: &quot;fixture-clinician&quot;,
+          &quot;role&quot;: &quot;clinician&quot;
+        },
+        &quot;evidence_refs&quot;: [
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+            }
+          }
+        ],
+        &quot;module_id&quot;: &quot;clinical.exam&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;observation_id&quot;: &quot;observation-36a3689e569e24548fb730e4e1f8c76f&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;reason_codes&quot;: [],
+        &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+        &quot;reviewed_result_id&quot;: null,
+        &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;source_selector&quot;: {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+        },
+        &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;value&quot;: true
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+          &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+          &quot;assessment_status&quot;: &quot;assessed&quot;,
+          &quot;author&quot;: {
+            &quot;id&quot;: &quot;fixture-clinician&quot;,
+            &quot;role&quot;: &quot;clinician&quot;
+          },
+          &quot;evidence_refs&quot;: [
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+              }
+            }
+          ],
+          &quot;module_id&quot;: &quot;clinical.exam&quot;,
+          &quot;module_version&quot;: &quot;0.1.0&quot;,
+          &quot;observation_id&quot;: &quot;observation-36a3689e569e24548fb730e4e1f8c76f&quot;,
+          &quot;origin&quot;: &quot;synthetic_demo&quot;,
+          &quot;reason_codes&quot;: [],
+          &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+          &quot;reviewed_result_id&quot;: null,
+          &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;source_selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/clinical.specific_cause_warning_signs_absent&quot;
+          },
+          &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;value&quot;: true
+        }
+      ],
+      &quot;reason_codes&quot;: [],
+      &quot;selection&quot;: null
+    },
+    &quot;imaging.study_status&quot;: {
+      &quot;accepted&quot;: {
+        &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+        &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+        &quot;assessment_status&quot;: &quot;assessed&quot;,
+        &quot;author&quot;: {
+          &quot;id&quot;: &quot;fixture-clinician&quot;,
+          &quot;role&quot;: &quot;clinician&quot;
+        },
+        &quot;evidence_refs&quot;: [
+          {
+            &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+            &quot;selector&quot;: {
+              &quot;kind&quot;: &quot;json&quot;,
+              &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+            }
+          }
+        ],
+        &quot;module_id&quot;: &quot;clinical.exam&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;observation_id&quot;: &quot;observation-709b1d772f0b4223bd049288739b956a&quot;,
+        &quot;origin&quot;: &quot;synthetic_demo&quot;,
+        &quot;reason_codes&quot;: [],
+        &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+        &quot;reviewed_result_id&quot;: null,
+        &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;source_selector&quot;: {
+          &quot;kind&quot;: &quot;json&quot;,
+          &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+        },
+        &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+        &quot;value&quot;: &quot;performed_result_available&quot;
+      },
+      &quot;candidates&quot;: [
+        {
+          &quot;acquired_at&quot;: &quot;2026-10-09T10:05:00+03:00&quot;,
+          &quot;assessment_ref&quot;: &quot;exam-before-review-assessment&quot;,
+          &quot;assessment_status&quot;: &quot;assessed&quot;,
+          &quot;author&quot;: {
+            &quot;id&quot;: &quot;fixture-clinician&quot;,
+            &quot;role&quot;: &quot;clinician&quot;
+          },
+          &quot;evidence_refs&quot;: [
+            {
+              &quot;artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+              &quot;selector&quot;: {
+                &quot;kind&quot;: &quot;json&quot;,
+                &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+              }
+            }
+          ],
+          &quot;module_id&quot;: &quot;clinical.exam&quot;,
+          &quot;module_version&quot;: &quot;0.1.0&quot;,
+          &quot;observation_id&quot;: &quot;observation-709b1d772f0b4223bd049288739b956a&quot;,
+          &quot;origin&quot;: &quot;synthetic_demo&quot;,
+          &quot;reason_codes&quot;: [],
+          &quot;result_id&quot;: &quot;result-8bddd7432eb92e3668e8e3dd7ad1ed78&quot;,
+          &quot;reviewed_result_id&quot;: null,
+          &quot;source_artifact_id&quot;: &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;source_selector&quot;: {
+            &quot;kind&quot;: &quot;json&quot;,
+            &quot;pointer&quot;: &quot;/facts/imaging.study_status&quot;
+          },
+          &quot;source_sha256&quot;: &quot;54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;,
+          &quot;value&quot;: &quot;performed_result_available&quot;
+        }
+      ],
+      &quot;reason_codes&quot;: [],
+      &quot;selection&quot;: null
+    }
+  },
+  &quot;manifest&quot;: {
+    &quot;clinical_selection&quot;: {},
+    &quot;episode_id&quot;: &quot;synthetic-report-episode&quot;,
+    &quot;linkage&quot;: &quot;synthetic_linked&quot;,
+    &quot;linkage_evidence_artifact_id&quot;: null,
+    &quot;mode&quot;: &quot;synthetic&quot;,
+    &quot;modules&quot;: [
+      {
+        &quot;input_artifact_ids&quot;: [
+          &quot;artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53&quot;
+        ],
+        &quot;module_id&quot;: &quot;mri.anatomy&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;parameters&quot;: {}
+      },
+      {
+        &quot;input_artifact_ids&quot;: [
+          &quot;artifact-54be384bb4b916d82769cabe5028f749aefdf9ace5c220e7babe83ca0f870745&quot;
+        ],
+        &quot;module_id&quot;: &quot;clinical.exam&quot;,
+        &quot;module_version&quot;: &quot;0.1.0&quot;,
+        &quot;parameters&quot;: {}
+      }
+    ],
+    &quot;population&quot;: &quot;adult&quot;,
+    &quot;protocol_id&quot;: null,
+    &quot;reuse_result_ids&quot;: [],
+    &quot;schema_version&quot;: &quot;1.0&quot;
+  },
+  &quot;report_id&quot;: &quot;report-243042a85ddd17a271a2ba76ab8170b2adffde42a25711c19db8745b108a2604&quot;,
+  &quot;schema_version&quot;: &quot;1.0&quot;,
+  &quot;selection&quot;: {},
+  &quot;snapshot_id&quot;: &quot;snapshot-04e49b0709466591d3cf73c0b0a57ef867145570a260cbdfd9d0109b3b1b3be3&quot;,
+  &quot;warnings&quot;: [
+    {
+      &quot;code&quot;: &quot;clinical_assessment_missing&quot;,
+      &quot;concept&quot;: &quot;clinical.imaging_clinical_concordance&quot;,
+      &quot;message&quot;: &quot;The clinical fact is unknown or inapplicable; inspect its frozen lineage reasons.&quot;
+    }
+  ]
+}</pre></details></body></html>

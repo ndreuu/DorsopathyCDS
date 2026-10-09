@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.0",
+  "snapshot_id": "snapshot-ced01f4a50567dbbb1ac6605d469e96c897fc95141a11d48368ad920bd51a359",
+  "pairs": [
+    {
+      "left_result_id": "result-0d701e853abba3130640c2d951836786",
+      "right_result_id": "result-22353a70a398ed345684d69798f3cc53",
+      "status": "compatible",
+      "operations": [
+        {
+          "kind": "semantic_region",
+          "status": "compatible",
+          "reasons": [
+            "coarse_region_only_not_registration"
+          ],
+          "evidence_refs": [
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "event_window",
+          "status": "compatible",
+          "reasons": [
+            "declared_common_event_window_only"
+          ],
+          "evidence_refs": [
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            }
+          ],
+          "window": {
+            "start": "2026-10-09T10:00:00+03:00",
+            "end": "2026-10-09T10:01:00+03:00",
+            "clock_domain": "fixture-clock",
+            "event_id": "event-one",
+            "pose_id": "standing"
+          }
+        },
+        {
+          "kind": "spatial_overlay",
+          "status": "compatible",
+          "reasons": [
+            "declared_shared_calibrated_frame_only"
+          ],
+          "evidence_refs": [
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            },
+            {
+              "artifact_id": "artifact-0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+              "selector": {
+                "kind": "json",
+                "pointer": "/calibration"
+              }
+            },
+            {
+              "artifact_id": "artifact-0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+              "selector": {
+                "kind": "json",
+                "pointer": "/calibration"
+              }
+            }
+          ]
+        }
+      ],
+      "reasons": [
+        "synthetic_fixture_linkage_only"
+      ],
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "selector": {
+            "kind": "json",
+            "pointer": "/comparison_metadata"
+          }
+        },
+        {
+          "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "selector": {
+            "kind": "json",
+            "pointer": "/comparison_metadata"
+          }
+        },
+        {
+          "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "selector": {
+            "kind": "json",
+            "pointer": "/comparison_metadata"
+          }
+        },
+        {
+          "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "selector": {
+            "kind": "json",
+            "pointer": "/comparison_metadata"
+          }
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "code": "technical_comparison_only",
+      "message": "Compatibility applies to the specified technical operation; it is not medical coherence or a diagnosis."
+    }
+  ]
+}

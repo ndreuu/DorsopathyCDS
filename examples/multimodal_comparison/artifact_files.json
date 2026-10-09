@@ -1,0 +1,35 @@
+[
+  {
+    "artifact": {
+      "artifact_id": "artifact-0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+      "storage_key": "artifacts/0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+      "sha256": "0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+      "media_type": "application/json",
+      "size_bytes": 59,
+      "role": "source"
+    },
+    "filename": "blobs/0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923.json"
+  },
+  {
+    "artifact": {
+      "artifact_id": "artifact-15bdabd9c6dc9068fd8f0fbb1338789bbc58d11c3b1e114ecd2c3fd9d0b71e14",
+      "storage_key": "artifacts/15bdabd9c6dc9068fd8f0fbb1338789bbc58d11c3b1e114ecd2c3fd9d0b71e14",
+      "sha256": "15bdabd9c6dc9068fd8f0fbb1338789bbc58d11c3b1e114ecd2c3fd9d0b71e14",
+      "media_type": "application/json",
+      "size_bytes": 734,
+      "role": "derived"
+    },
+    "filename": "blobs/15bdabd9c6dc9068fd8f0fbb1338789bbc58d11c3b1e114ecd2c3fd9d0b71e14.json"
+  },
+  {
+    "artifact": {
+      "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+      "storage_key": "artifacts/f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+      "sha256": "f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+      "media_type": "application/json",
+      "size_bytes": 734,
+      "role": "derived"
+    },
+    "filename": "blobs/f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6.json"
+  }
+]

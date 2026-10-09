@@ -1,0 +1,29 @@
+{
+  "clinical_selection": {},
+  "episode_id": "synthetic-report-episode",
+  "linkage": "synthetic_linked",
+  "linkage_evidence_artifact_id": null,
+  "mode": "synthetic",
+  "modules": [
+    {
+      "input_artifact_ids": [
+        "artifact-436ca422be650fd43a5935b92ce6150111bf38e0580f6142bb7237d06c8c0f53"
+      ],
+      "module_id": "mri.anatomy",
+      "module_version": "0.1.0",
+      "parameters": {}
+    },
+    {
+      "input_artifact_ids": [
+        "artifact-e21a97fb2bf9b35b02c8f5af7ebc821e313c06630dc2ebdc9ab4f43bbd9f7229"
+      ],
+      "module_id": "clinical.exam",
+      "module_version": "0.1.0",
+      "parameters": {}
+    }
+  ],
+  "population": "adult",
+  "protocol_id": null,
+  "reuse_result_ids": [],
+  "schema_version": "1.0"
+}

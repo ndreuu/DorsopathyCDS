@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "episode_id": "synthetic-report-episode",
+  "result_ids": [
+    "result-0d701e853abba3130640c2d951836786",
+    "result-22353a70a398ed345684d69798f3cc53"
+  ],
+  "results": [
+    {
+      "schema_version": "1.0",
+      "result_id": "result-0d701e853abba3130640c2d951836786",
+      "job_id": "fixture.right-job",
+      "episode_id": "synthetic-report-episode",
+      "module_id": "fixture.right",
+      "module_version": "0.1.0",
+      "status": "complete",
+      "observations": [
+        {
+          "observation_id": "observation-ecac0823f1f46fc07d1f4a6647be6447",
+          "concept": "fixture.distance",
+          "assessment_status": "assessed",
+          "value": 10,
+          "unit": "mm",
+          "anatomy": {
+            "region": "lower_back",
+            "side": "midline",
+            "level": null,
+            "numbering_status": "not_applicable"
+          },
+          "quality": "usable",
+          "origin": "synthetic_demo",
+          "method": "synthetic-geometry",
+          "acquired_at": "2026-10-09T10:00:00+03:00",
+          "coordinate_frame": "fixture-common-frame",
+          "evidence_refs": [
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            }
+          ],
+          "model": null
+        }
+      ],
+      "artifacts": [
+        {
+          "artifact_id": "artifact-0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+          "storage_key": "artifacts/0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+          "sha256": "0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+          "media_type": "application/json",
+          "size_bytes": 59,
+          "role": "source"
+        },
+        {
+          "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "storage_key": "artifacts/f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "sha256": "f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "media_type": "application/json",
+          "size_bytes": 734,
+          "role": "derived"
+        }
+      ],
+      "warnings": [],
+      "error": null
+    },
+    {
+      "schema_version": "1.0",
+      "result_id": "result-22353a70a398ed345684d69798f3cc53",
+      "job_id": "fixture.left-job",
+      "episode_id": "synthetic-report-episode",
+      "module_id": "fixture.left",
+      "module_version": "0.1.0",
+      "status": "complete",
+      "observations": [
+        {
+          "observation_id": "observation-aba8012fa9859e6eec3a74ca8b4b2999",
+          "concept": "fixture.distance",
+          "assessment_status": "assessed",
+          "value": 10,
+          "unit": "mm",
+          "anatomy": {
+            "region": "lower_back",
+            "side": "midline",
+            "level": null,
+            "numbering_status": "not_applicable"
+          },
+          "quality": "usable",
+          "origin": "synthetic_demo",
+          "method": "synthetic-geometry",
+          "acquired_at": "2026-10-09T10:00:00+03:00",
+          "coordinate_frame": "fixture-common-frame",
+          "evidence_refs": [
+            {
+              "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+              "selector": {
+                "kind": "json",
+                "pointer": "/comparison_metadata"
+              }
+            }
+          ],
+          "model": null
+        }
+      ],
+      "artifacts": [
+        {
+          "artifact_id": "artifact-0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+          "storage_key": "artifacts/0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+          "sha256": "0019c65ea051a2d2d214ed7f44e8301734d90a85891c4cacc3b8879f6fd51923",
+          "media_type": "application/json",
+          "size_bytes": 59,
+          "role": "source"
+        },
+        {
+          "artifact_id": "artifact-f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "storage_key": "artifacts/f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "sha256": "f9f6827998e3ac096d4f71ba869fb70d44a2e0db02f5a1f77b5381de8196cba6",
+          "media_type": "application/json",
+          "size_bytes": 734,
+          "role": "derived"
+        }
+      ],
+      "warnings": [],
+      "error": null
+    }
+  ],
+  "snapshot_id": "snapshot-ced01f4a50567dbbb1ac6605d469e96c897fc95141a11d48368ad920bd51a359",
+  "content_sha256": "ced01f4a50567dbbb1ac6605d469e96c897fc95141a11d48368ad920bd51a359"
+}
