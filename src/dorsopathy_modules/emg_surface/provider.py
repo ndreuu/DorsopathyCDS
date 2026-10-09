@@ -157,7 +157,7 @@ class EMGSurfaceProvider:
                  'mvc_reference':None,'measurements':measures,'comparison_metadata':comparison}
         measurement_ref=add_json(context,summary);observations=[]
         for item in measures:
-            local={**data,'anatomy':{**data['anatomy'],'region':item['channel']['muscle'],'side':item['channel']['side']}}
+            local={**data,'anatomy':{**data['anatomy'],'side':item['channel']['side']}}
             evidence=[{'artifact_id':csv_source['artifact_id'],'selector':{'kind':'sample_interval','channel_id':item['channel']['id'],'sample_start':item['sample_start'],'sample_stop_exclusive':item['sample_stop_exclusive']}},
                       {'artifact_id':measurement_ref['artifact_id'],'selector':{'kind':'measurement','measurement_id':item['id'],'frame_index':0}},
                       {'artifact_id':previews[1]['artifact_id'],'selector':{'kind':'image','frame_index':0,'coordinate_frame':None}}]

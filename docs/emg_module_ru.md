@@ -15,6 +15,8 @@ Request содержит два source ArtifactRefs, parameters пусты. Ко
 Manifest сохраняет sample_rate_hz (или null), каналы/сторону/мышцу, placement
 (или null), общий uV_per_unit calibration для объявленных channels, ADC rails
 в исходных units (или null), pose/protocol/source time/clock и processing.
+Observation сохраняет исходную body region, например lower_back, и сторону
+канала. Название мышцы остаётся в channel evidence, не заменяет регион тела.
 Каналы с разным gain требуют предварительно нормализованного экспорта/нового
 профиля; один средний gain не применяется к разным неизвестным каналам.
 Known calibration требует source/author_id, но software не поверяет прибор.

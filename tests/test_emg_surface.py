@@ -52,6 +52,13 @@ class EMGTests(unittest.TestCase):
         self.assertIsNone(result['observations'][0]['value'])
         self.assertEqual(result['observations'][1]['value'],125)
 
+    def test_body_region_is_preserved_and_muscle_stays_in_channel_evidence(self):
+        result=self.execute()
+        self.assertEqual([obs['anatomy']['region'] for obs in result['observations']],['lower_back']*4)
+        self.assertEqual([obs['anatomy']['side'] for obs in result['observations']],['left','left','right','right'])
+        summary=next(json.loads(self.store.read(ref)) for ref in result['artifacts'] if ref['media_type']=='application/json' and json.loads(self.store.read(ref)).get('source_kind')=='emg.measurements.v1')
+        self.assertEqual([item['channel']['muscle'] for item in summary['measurements']],['erector_spinae_longissimus']*2)
+
     def test_unknown_sampling_rate_blocks_frequency_and_marks_window_quality_unknown(self):
         data=deepcopy(self.data);data['sample_rate_hz']=None
         result=self.execute(data)
