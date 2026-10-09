@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "job_id": "synthetic-mri-fixture",
+  "episode_id": "synthetic-episode",
+  "module_id": "mri.anatomy",
+  "module_version": "0.1.0",
+  "input_artifacts": [
+    {
+      "artifact_id": "artifact-04b0a101e475dacf5db5925b0f30915fea9ee172637837b7dd8fc536c9cf1046",
+      "storage_key": "artifacts/04b0a101e475dacf5db5925b0f30915fea9ee172637837b7dd8fc536c9cf1046",
+      "sha256": "04b0a101e475dacf5db5925b0f30915fea9ee172637837b7dd8fc536c9cf1046",
+      "media_type": "application/json",
+      "size_bytes": 6266,
+      "role": "source"
+    }
+  ],
+  "parameters": {},
+  "protocol_id": "synthetic-native-plane-v1"
+}

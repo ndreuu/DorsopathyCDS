@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "result_id": "result-2776b97ae3b5fa982259754444137c2f",
+  "job_id": "synthetic-mri-fixture",
+  "episode_id": "synthetic-episode",
+  "module_id": "mri.anatomy",
+  "module_version": "0.1.0",
+  "status": "complete",
+  "observations": [
+    {
+      "observation_id": "observation-9facd62124931ac851695c252b091880",
+      "concept": "spine.canal.cross_sectional_area",
+      "assessment_status": "assessed",
+      "value": 4.800000000000001,
+      "unit": "mm2",
+      "anatomy": {
+        "region": "lumbar_spine",
+        "side": "midline",
+        "level": "L4-L5",
+        "numbering_status": "needs_confirmation"
+      },
+      "quality": "usable",
+      "origin": "synthetic_demo",
+      "method": "binary-mask-native-plane-pixel-count",
+      "acquired_at": null,
+      "coordinate_frame": "DICOM-LPS-mm",
+      "evidence_refs": [
+        {
+          "artifact_id": "artifact-04b0a101e475dacf5db5925b0f30915fea9ee172637837b7dd8fc536c9cf1046",
+          "selector": {
+            "kind": "json",
+            "pointer": "/frames/0/measurements/0"
+          }
+        },
+        {
+          "artifact_id": "artifact-a8fff1cc5507ec3d553cd0df6785110506fc0889dc6bbb0f554277007b69cdac",
+          "selector": {
+            "kind": "measurement",
+            "measurement_id": "synthetic-canal-L4-L5",
+            "frame_index": 0
+          }
+        },
+        {
+          "artifact_id": "artifact-c837690260edab44bf197abee0c1a6b7e888bb4e95e631b31e42d95e7c44c6ce",
+          "selector": {
+            "kind": "image",
+            "frame_index": 0,
+            "coordinate_frame": "DICOM-LPS-mm"
+          }
+        },
+        {
+          "artifact_id": "artifact-0ce3c1203fd7c47287971e2fa24fdf07bd30b5ccf200abf733293f4847910e74",
+          "selector": {
+            "kind": "image",
+            "frame_index": 0,
+            "coordinate_frame": "DICOM-LPS-mm"
+          }
+        },
+        {
+          "artifact_id": "artifact-a2ca1cadcafca1818f7fd215a27023786b86a49f099f435de1afd3d7e66e8864",
+          "selector": {
+            "kind": "image",
+            "frame_index": 0,
+            "coordinate_frame": "DICOM-LPS-mm"
+          }
+        }
+      ],
+      "model": null
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "artifact-04b0a101e475dacf5db5925b0f30915fea9ee172637837b7dd8fc536c9cf1046",
+      "storage_key": "artifacts/04b0a101e475dacf5db5925b0f30915fea9ee172637837b7dd8fc536c9cf1046",
+      "sha256": "04b0a101e475dacf5db5925b0f30915fea9ee172637837b7dd8fc536c9cf1046",
+      "media_type": "application/json",
+      "size_bytes": 6266,
+      "role": "source"
+    },
+    {
+      "artifact_id": "artifact-c837690260edab44bf197abee0c1a6b7e888bb4e95e631b31e42d95e7c44c6ce",
+      "storage_key": "artifacts/c837690260edab44bf197abee0c1a6b7e888bb4e95e631b31e42d95e7c44c6ce",
+      "sha256": "c837690260edab44bf197abee0c1a6b7e888bb4e95e631b31e42d95e7c44c6ce",
+      "media_type": "image/png",
+      "size_bytes": 224,
+      "role": "derived"
+    },
+    {
+      "artifact_id": "artifact-0ce3c1203fd7c47287971e2fa24fdf07bd30b5ccf200abf733293f4847910e74",
+      "storage_key": "artifacts/0ce3c1203fd7c47287971e2fa24fdf07bd30b5ccf200abf733293f4847910e74",
+      "sha256": "0ce3c1203fd7c47287971e2fa24fdf07bd30b5ccf200abf733293f4847910e74",
+      "media_type": "image/png",
+      "size_bytes": 75,
+      "role": "derived"
+    },
+    {
+      "artifact_id": "artifact-a2ca1cadcafca1818f7fd215a27023786b86a49f099f435de1afd3d7e66e8864",
+      "storage_key": "artifacts/a2ca1cadcafca1818f7fd215a27023786b86a49f099f435de1afd3d7e66e8864",
+      "sha256": "a2ca1cadcafca1818f7fd215a27023786b86a49f099f435de1afd3d7e66e8864",
+      "media_type": "image/png",
+      "size_bytes": 512,
+      "role": "derived"
+    },
+    {
+      "artifact_id": "artifact-a8fff1cc5507ec3d553cd0df6785110506fc0889dc6bbb0f554277007b69cdac",
+      "storage_key": "artifacts/a8fff1cc5507ec3d553cd0df6785110506fc0889dc6bbb0f554277007b69cdac",
+      "sha256": "a8fff1cc5507ec3d553cd0df6785110506fc0889dc6bbb0f554277007b69cdac",
+      "media_type": "application/json",
+      "size_bytes": 2997,
+      "role": "derived"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "anatomy_only",
+      "message": "Anatomical masks and geometric measurements are not herniation, stenosis grade, conus or dural-sac assessment."
+    },
+    {
+      "code": "registration_not_confirmed",
+      "message": "Cross-series registration has not been confirmed."
+    }
+  ],
+  "error": null
+}
