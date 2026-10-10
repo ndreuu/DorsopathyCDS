@@ -6,6 +6,8 @@ from .api_contracts import opaque_id
 from .contracts import ContractError, loads_json
 
 LABELS = {
+ 'spine.central_stenosis.grade':'Центральный стеноз: категория модели',
+ 'spine.disc.herniation.present':'Грыжа: категория модели',
  'spine.canal.cross_sectional_area':'Площадь канала',
  'spine.canal.ap_extent':'AP-размер канала',
  'spine.disc.mask_volume':'Объём маски диска',
@@ -79,7 +81,7 @@ def render_catalog(data,application):
             if obs['assessment_status']!='assessed':unknown+=1;continue
             if len(rows)>=8:continue
             anatomy=obs['anatomy'];where=' · '.join(str(anatomy[k]) for k in ('level','side') if anatomy.get(k) and anatomy[k]!='not_applicable')
-            value=obs['value'];value=(format(value,'.3f').rstrip('0').rstrip('.').replace('.',',') if type(value) in (int,float) else str(value))
+            value=obs['value'];value=({'none':'Нет компрессии','mild':'Лёгкая','moderate':'Умеренная','severe':'Тяжёлая'}.get(value,value) if obs['concept']=='spine.central_stenosis.grade' else ('Да' if value else 'Нет') if type(value) is bool else value);value=(format(value,'.3f').rstrip('0').rstrip('.').replace('.',',') if type(value) in (int,float) else str(value))
             rows.append('<tr><td>'+esc(LABELS.get(obs['concept'],obs['concept']))+'<small>'+esc(where)+'</small></td><td>'+esc(value)+' '+esc(UNITS.get(obs['unit'],obs['unit'] or ''))+'</td></tr>')
         source=item['source']
         cards.append('<article><div class="eyebrow">РЕАЛЬНЫЙ ВХОД · '+esc(item['module_id'])+'</div><h2>'+esc(item['title'])+'</h2><p>'+esc(item['description'])+'</p><div class="gallery">'+''.join(images)+'</div><table>'+''.join(rows)+'</table><p class="muted">Не оценено: '+str(unknown)+' наблюдений. Результат: '+esc(result['status'])+'.</p><ul>'+''.join('<li>'+esc(note)+'</li>' for note in item['notes'])+'</ul><div class="actions"><a class="button" href="/#run='+item['run_id']+'">Снимки, все измерения и JSON →</a><a href="'+esc(source['url'])+'" target="_blank" rel="noopener noreferrer">'+esc(source['title'])+'</a><small>'+esc(source['license'])+'</small></div></article>')

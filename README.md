@@ -44,6 +44,10 @@ PYTHONPATH=src python3 -m dorsopathy_platform serve --store var/multimodal --por
 на реальном открытом MRI проверен отдельно. Контуры анатомии/ROI не означают
 автоматическое обнаружение грыжи. [Что реализовано](docs/implementation_status_ru.md).
 
+Отдельный свежий SpineNet inference на публичной sagittal T2 уже завершён:
+[оценки стеноза и грыжи, evidence и изолированный runtime](docs/mri_pathology_ru.md).
+Модельные категории требуют проверки и не заполняют клиническое правило.
+
 ```sh
 PYTHONPATH=src python3 -m dorsopathy_platform run-flow \
   --store var/cli-example --output var/cli-example-report.json
