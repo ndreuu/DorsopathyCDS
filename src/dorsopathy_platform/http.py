@@ -25,8 +25,9 @@ class LimitedBody:
 
 class PlatformServer(ThreadingHTTPServer):
     daemon_threads = True
-    def __init__(self, address, application):
+    def __init__(self, address, application, example_catalog=None):
         self.application = application
+        self.example_catalog = example_catalog
         super().__init__(address, Handler)
 
 class Handler(BaseHTTPRequestHandler):
@@ -92,6 +93,13 @@ class Handler(BaseHTTPRequestHandler):
             if not posting and path == '/':
                 page = (Path(__file__).parent/'web/index.html').read_bytes()
                 return self._respond(200, page, 'text/html; charset=utf-8')
+            if not posting and path == '/real-examples' and self.server.example_catalog is not None:
+                from .real_examples import read_catalog, render_catalog
+                try:
+                    page=render_catalog(read_catalog(self.server.example_catalog),app)
+                except (OSError,ValueError,ContractError,StorageError):
+                    return self._respond(503,{'error':'example_catalog_unavailable'})
+                return self._respond(200,page,'text/html; charset=utf-8')
             if not posting and path == '/health':
                 return self._respond(200, {'status':'ok','mode':'research_only','schema_version':'1.0'})
             if not posting and path == '/modules':
@@ -159,7 +167,7 @@ class Handler(BaseHTTPRequestHandler):
         except Exception:
             self._respond(500,{'error':'internal_error'})
 
-def create_server(application,host='127.0.0.1',port=8766):
+def create_server(application,host='127.0.0.1',port=8766,example_catalog=None):
     try:
         if not ipaddress.ip_address(host).is_loopback: raise ValueError
     except ValueError:
@@ -169,5 +177,5 @@ def create_server(application,host='127.0.0.1',port=8766):
     if ':' in host:
         import socket
         class IPv6PlatformServer(PlatformServer): address_family=socket.AF_INET6
-        return IPv6PlatformServer((host,port),application)
-    return PlatformServer((host,port),application)
+        return IPv6PlatformServer((host,port),application,example_catalog)
+    return PlatformServer((host,port),application,example_catalog)

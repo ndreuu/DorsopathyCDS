@@ -48,7 +48,10 @@ PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_thermography.py' -
 ## Vendor/data gates
 
 System Python не содержит ExifTool, Rscript/Thermimage, NumPy/Pillow; dependencies
-не устанавливались. Реальное FLIR radiometric conversion/capture **не реализованы**.
+не устанавливались. Device capture и vendor parser в provider **не реализованы**. Отдельный
+локальный converter проверен на настоящем radiometric FLIR кадре спины,
+с file-specific коэффициентами и spot check; decoded matrix прошла provider.
+Права на пример unknown, clinical ground truth отсутствует. [Демо](real_data_demo_ru.md).
 Ordinary false-color JPEG отклоняется, а не становится температурной матрицей.
 Будущий converter должен работать отдельно и сохранять camera/file constants,
 условия/corrections/provenance, затем публиковать этот decoded source profile.

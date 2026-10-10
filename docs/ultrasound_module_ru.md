@@ -61,8 +61,9 @@ Global PixelSpacing вместо region scale не используется. Map
 synthetic decoded metadata; **DICOM worker/pixel decode не подключён**,
 pydicom/Pillow в system environment отсутствуют.
 
-Generic recorded PNG importer реализован. Реальный lumbar frame с проверенными
-X/Y calibration/annotations/reference measurements не получен; data gate открыт.
+Generic recorded PNG importer реализован. Настоящий lumbar PNG URS35_H3 из KU Leuven RDR проверен с опубликованными X/Y
+калибровкой и crop; линия/ROI технические и ручные, не clinical ground truth.
+[Реальный пример и ограничения](real_data_demo_ru.md).
 [LUMINOUS](https://users.encs.concordia.ca/~impact/luminous-database/) — lumbar candidate,
 но лицензия внешнего архива и per-image scale не верифицированы; 8 cm depth
 не заменяет calibration. [Research report](../research/reuse/ultrasound/report_ru.md).

@@ -81,7 +81,9 @@ SciPy/WFDB/LibEMG не устанавливались. Reference FFT огран�
 
 [HipBridgeEMG](https://zenodo.org/records/17465228), CC BY 4.0, — подходящий recorded
 back-muscle кандидат, но source units/gain/ADC rails/MVC не подтверждены.
-Полный экспорт не импортировался; actual calibrated uV/import test остаётся gate.
+Выбраны и импортированы реальные 8192 отсчёта bilateral back-muscle trial;
+MDF проверена независимым DFT, RMS остаётся not_assessed. Полный экспорт
+и calibrated uV остаются отдельными gates. [Реальный пример](real_data_demo_ru.md).
 Hyser — forearm WFDB, не поясничный корпус; Shearer archives большие и не скачаны.
 Лицензии/проверенные headers — [research report](../research/reuse/emg/report_ru.md).
 Generic CSV profile не объявляется tested FREEEMG/Delsys/WFDB driver.

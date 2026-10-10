@@ -70,6 +70,7 @@ def main(argv=None):
     serve.add_argument('--store',type=Path,default=Path('var/multimodal'))
     serve.add_argument('--port',type=int,default=8766)
     serve.add_argument('--mri-config',type=Path)
+    serve.add_argument('--example-catalog',type=Path,help='Trusted local public-example catalog')
     flow = commands.add_parser('run-flow',help='Run the full synthetic example or a persisted manifest')
     flow.add_argument('--store',type=Path,default=Path('var/multimodal'))
     flow.add_argument('--manifest',type=Path)
@@ -89,7 +90,7 @@ def main(argv=None):
             app=create_application(args.store,args.mri_config)
             server=None
             try:
-                server=create_server(app,port=args.port)
+                server=create_server(app,port=args.port,example_catalog=args.example_catalog)
                 print('DorsopathyCDS modules: http://127.0.0.1:'+str(server.server_port)+'/',flush=True)
                 server.serve_forever()
             except KeyboardInterrupt:

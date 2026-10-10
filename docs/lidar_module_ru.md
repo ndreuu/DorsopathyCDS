@@ -60,9 +60,11 @@ PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_lidar_posture.py' 
 ```
 
 Численные и format/geometry tests выполнены на synthetic fixtures. Generic
-ASCII recorded import реализован; настоящий body scan/calibration не проверены.
+ASCII recorded import реализован; настоящий ToF body depth-кадр TEXEL прошёл import после отдельной конвертации
+с documented mm/intrinsics. Это частичная видимая поверхность, ручные точки
+и непроверенная погрешность; quality unreliable. [Реальный пример](real_data_demo_ru.md).
 [Texel](https://github.com/m-krivov/Texel-BodyScan-Dataset) остаётся data gate:
-parser MIT, corpus CC BY-NC 4.0, PLY unit неизвестна, archive не скачивался.
+parser MIT, corpus CC BY-NC 4.0, unit готового vendor PLY не предполагается; в демо выбран raw depth с отдельной метрической проекцией.
 Реальные данные в Git не добавлены. Open3D/Trimesh нужны для расширенных форматов,
 здесь не устанавливались и не копировались. Исследование вариантов —
 [report](../research/reuse/lidar/report_ru.md).

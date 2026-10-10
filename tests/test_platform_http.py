@@ -55,3 +55,18 @@ class PlatformHTTPTests(unittest.TestCase):
         self.assertEqual(self.req('POST','/episodes',b'{}',{'Content-Type':'application/json','Origin':'http://attacker.example'})[0],403)
         local='127.0.0.1:'+str(self.server.server_port)
         self.assertEqual(self.req('POST','/episodes',b'{}',{'Content-Type':'application/json','Origin':'http://'+local})[0],201)
+
+    def test_real_catalog_is_explicitly_configured_and_failures_are_scoped(self):
+        self.assertEqual(self.req('GET','/real-examples')[0],404)
+        catalog=Path(self.temp.name)/'public-examples.json'
+        self.server.example_catalog=catalog
+        self.assertEqual(self.req('GET','/real-examples')[0],503)
+        catalog.write_text(json.dumps({'schema_version':'1.0','examples':[],
+            'unavailable':[{'title':'ANI','reason':'No verified time-series input'}]}))
+        status,headers,body=self.req('GET','/real-examples')
+        self.assertEqual(status,200);self.assertIn('text/html',headers['Content-Type'])
+        self.assertIn(b'No verified time-series input',body)
+        self.assertEqual(self.req('GET','/real-examples?path=/etc/passwd')[0],404)
+        catalog.write_text('{broken')
+        self.assertEqual(self.req('GET','/real-examples')[0],503)
+        self.assertEqual(self.req('GET','/health')[0],200)

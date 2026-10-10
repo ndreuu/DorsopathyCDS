@@ -49,6 +49,11 @@ PYTHONPATH=src python3 -m dorsopathy_platform run-flow \
   --store var/cli-example --output var/cli-example-report.json
 ```
 
+Настоящие публичные МРТ, УЗИ поясницы, ЭМГ, радиометрический кадр спины и 3D depth
+уже прогнаны отдельными случаями. [Инструкция и происхождение реальных примеров](docs/real_data_demo_ru.md).
+Страница обзора: <http://127.0.0.1:8766/real-examples>; для неё добавить
+`--example-catalog var/real-inputs/catalog.json` при запуске сервера.
+
 Старая команда `demo` сохранена как минимальный пример двух синтетических провайдеров.
 
 ```sh
