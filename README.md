@@ -48,6 +48,11 @@ PYTHONPATH=src python3 -m dorsopathy_platform serve --store var/multimodal --por
 [оценки стеноза и грыжи, evidence и изолированный runtime](docs/mri_pathology_ru.md).
 Модельные категории требуют проверки и не заполняют клиническое правило.
 
+Цель для остальных модулей — исходные файлы → автоматическое извлечение
+признаков → проверяемые факты → применимое клиническое правило с цитатой.
+[Входы, аналитика, клиническая роль и независимые задания](docs/raw_modules_clinical_contract_ru.md)
+фиксируют, где пока нужны ручные ROI/ориентиры и какие методы требуют проверки.
+
 ```sh
 PYTHONPATH=src python3 -m dorsopathy_platform run-flow \
   --store var/cli-example --output var/cli-example-report.json
