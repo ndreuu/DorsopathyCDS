@@ -98,8 +98,8 @@ class ClinicalExamProvider:
         warnings = []
         if len(artifacts) == 2:
             reviewed = validate_result(_read_json(artifacts[1], context))
-            if (reviewed["module_id"], reviewed["module_version"]) != ("mri.anatomy", "0.1.0") or reviewed["status"] not in {"complete", "partial"}:
-                raise ContractError("Reviewed artifact must be an available mri.anatomy result")
+            if (reviewed["module_id"], reviewed["module_version"]) not in {("mri.anatomy", "0.1.0"), ("mri.pathology", "0.1.0")} or reviewed["status"] not in {"complete", "partial"}:
+                raise ContractError("Reviewed artifact must be an available supported MRI result")
             if reviewed["episode_id"] != request["episode_id"]:
                 raise ContractError("Reviewed MRI result belongs to a different episode")
             if known_concordance and reviewed["result_id"] != reviewed_id:

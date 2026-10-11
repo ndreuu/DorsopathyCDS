@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "complaints.screening.v2",
+  "mode": "synthetic_demo",
+  "origin": "synthetic_demo",
+  "acquired_at": "2026-10-10T12:00:00Z",
+  "form_id": "research-screening",
+  "form_version": "0.1.0",
+  "assessment_ref": "synthetic-screening-case",
+  "author": {
+    "id": "synthetic-patient",
+    "role": "patient"
+  },
+  "anatomy": {
+    "region": "lower_back",
+    "side": "unspecified"
+  },
+  "answers": {
+    "pain_intensity": {
+      "assessment_status": "assessed",
+      "value": 9,
+      "unit": "{score}"
+    },
+    "duration": {
+      "assessment_status": "not_assessed",
+      "value": null,
+      "unit": "d"
+    },
+    "severe_low_back_pain": {
+      "assessment_status": "assessed",
+      "value": true,
+      "unit": null
+    },
+    "leg_radiation": {
+      "assessment_status": "assessed",
+      "value": true,
+      "unit": null
+    },
+    "new_bladder_disturbance": {
+      "assessment_status": "assessed",
+      "value": false,
+      "unit": null
+    },
+    "new_bowel_disturbance": {
+      "assessment_status": "assessed",
+      "value": false,
+      "unit": null
+    },
+    "new_sexual_disturbance": {
+      "assessment_status": "assessed",
+      "value": false,
+      "unit": null
+    },
+    "new_perineal_numbness": {
+      "assessment_status": "assessed",
+      "value": true,
+      "unit": null
+    }
+  },
+  "bodymap": {
+    "assessment_status": "not_assessed",
+    "selected_regions": null
+  }
+}

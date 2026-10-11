@@ -9,7 +9,7 @@ from dorsopathy_platform.contracts import validate_result
 
 from .service import FACT_SCHEMA, STUDY_STATUSES
 
-ADAPTER_VERSION = "0.1.0"
+ADAPTER_VERSION = "0.2.0"
 _STUDY = "imaging.study_status"
 _CONCORDANCE = "clinical.imaging_clinical_concordance"
 _SOURCE_FIELDS = {"schema_version", "source_kind", "mode", "origin", "acquired_at", "assessment_ref", "author", "facts"}
@@ -95,7 +95,7 @@ def _candidate(result, observation, selected_by_id, artifacts):
             reviewed_id = fact["reviewed_result_id"]
             entry["reviewed_result_id"] = reviewed_id
             reviewed_result = selected_by_id.get(reviewed_id)
-            if reviewed_result is None or (reviewed_result["module_id"], reviewed_result["module_version"]) != ("mri.anatomy", "0.1.0") or reviewed_result["status"] not in {"complete", "partial"}:
+            if reviewed_result is None or (reviewed_result["module_id"], reviewed_result["module_version"]) not in {("mri.anatomy", "0.1.0"), ("mri.pathology", "0.1.0")} or reviewed_result["status"] not in {"complete", "partial"}:
                 entry["reason_codes"] = ["reviewed_mri_result_not_selected_or_available"]
                 return entry
             review_evidence = [item for item in observation["evidence_refs"] if item["selector"] == {"kind": "json", "pointer": "/result_id"}]
@@ -160,7 +160,7 @@ def build_case(snapshot, manifest, artifacts):
         lineage[concept]["accepted"] = None
         lineage[concept]["reason_codes"] = sorted(set(lineage[concept]["reason_codes"] + [reason]))
 
-    mri_results = [result for result in results if result["module_id"] == "mri.anatomy"]
+    mri_results = [result for result in results if result["module_id"] in {"mri.anatomy", "mri.pathology"}]
     if facts[_STUDY]["value"] == "not_performed" and mri_results:
         clear(_STUDY, "not_performed_contradicts_selected_mri")
         clear(_CONCORDANCE, "not_performed_contradicts_selected_mri")

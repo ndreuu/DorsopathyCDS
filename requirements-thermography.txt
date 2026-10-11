@@ -1,0 +1,6 @@
+# Raw thermography Python provider/worker uses Python's standard library only.
+# Install official ExifTool in an isolated trusted tool directory/environment;
+# ExifTool 13.59 (Perl Artistic OR GPL) was used in the local acceptance run.
+# Runtime command configured server-side, not through request parameters.
+# Thermimage raw2temp equations are an attributed GPL-3.0-or-later adaptation
+# in radiometry.py; no Python packages, R defaults or model weights are needed.

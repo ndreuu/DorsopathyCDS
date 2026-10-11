@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "documents": [
+    {
+      "id": "nice_ng127",
+      "title": "Suspected neurological conditions: recognition and referral",
+      "publisher": "NICE",
+      "guideline_version": "NG127; last updated 2023-10-02",
+      "approval_year": 2019,
+      "jurisdiction": "UK",
+      "population": "adults over 16; MVP adult only",
+      "pdf_url": "https://www.nice.org.uk/guidance/ng127/resources/suspected-neurological-conditions-recognition-and-referral-pdf-66141663923653",
+      "metadata_observed_on": "2026-10-10",
+      "pdf_sha256": "6f4d91987379568c38db99fb786c8a36296c5da5a841a09c7ca44915f6223713",
+      "quote_verification": "Checked against downloaded official 86-page PDF, copyright 2026; page 18, recommendation 1.7.3; whitespace normalized.",
+      "quotes": [
+        {
+          "id": "immediate_referral",
+          "exact_quote": "Refer immediately",
+          "page": 18,
+          "locator": "Recommendation 1.7.3; action fragment"
+        },
+        {
+          "id": "severe_radiating_pain",
+          "exact_quote": "severe low back pain radiating into the leg",
+          "page": 18,
+          "locator": "Recommendation 1.7.3; symptom fragment"
+        },
+        {
+          "id": "new_function_disturbance",
+          "exact_quote": "new-onset disturbance of bladder, bowel or sexual function",
+          "page": 18,
+          "locator": "Recommendation 1.7.3; symptom fragment"
+        },
+        {
+          "id": "new_perineal_numbness",
+          "exact_quote": "new-onset perineal numbness",
+          "page": 18,
+          "locator": "Recommendation 1.7.3; symptom fragment"
+        }
+      ],
+      "local_pdf_filename": "nice-ng127-2026-10-10.pdf"
+    },
+    {
+      "id": "aanem_surface",
+      "title": "Clinical utility of surface EMG",
+      "publisher": "AANEM; Muscle & Nerve",
+      "guideline_version": "2008 position paper",
+      "approval_year": 2008,
+      "pdf_url": "https://www.aanem.org/docs/default-source/documents/tech_rvw_surface_emg.pdf?sfvrsn=e90e8023_1",
+      "quotes": [
+        {
+          "id": "insufficient_specific_diagnosis",
+          "exact_quote": "there are insufficient data to support its utility for distinguishing between neuropathic and myopathic conditions or for the diagnosis of specific neuromuscular diseases.",
+          "page": 1,
+          "locator": "Abstract; printed page 1219"
+        }
+      ],
+      "local_pdf_filename": "aanem-surface.pdf",
+      "pdf_sha256": "b56d1efd3e777b8f3fddc421aafc2d5482ddcae4b4e31832269287669b5c6e8f",
+      "metadata_observed_on": "2026-10-11",
+      "quote_verification": "Checked against downloaded official PDF; whitespace and typographic ligatures normalized. Page is the 1-based PDF page."
+    },
+    {
+      "id": "fda_pmd200",
+      "title": "PMD-200 System De Novo decision summary",
+      "publisher": "FDA",
+      "guideline_version": "DEN210022",
+      "approval_year": null,
+      "pdf_url": "https://www.accessdata.fda.gov/cdrh_docs/reviews/DEN210022.pdf",
+      "quotes": [
+        {
+          "id": "anaesthesia_population",
+          "exact_quote": "assessment of changes in nociception levels in adult patients under general anesthesia",
+          "page": 1,
+          "locator": "Indications for Use"
+        }
+      ],
+      "local_pdf_filename": "fda-pmd200.pdf",
+      "pdf_sha256": "c26e66a0c07b879110969c69a3f5a7bd4ff8197df4d9923ecfdeb532013e5056",
+      "metadata_observed_on": "2026-10-11",
+      "quote_verification": "Checked against downloaded official PDF; whitespace and typographic ligatures normalized. Page is the 1-based PDF page.",
+      "date_de_novo_received": "2021-06-04"
+    }
+  ]
+}

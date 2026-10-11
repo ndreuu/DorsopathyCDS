@@ -32,14 +32,50 @@ def _trusted_worker_config(config_path, label):
     return tuple(command), timeout
 
 
-def build_registry(store,mri_config=None,pathology_config=None):
+_RAW_SPECS = {
+    'emg.surface': 'Surface EMG raw signal',
+    'thermography': 'Radiometric thermal image',
+    'ultrasound': 'Ultrasound automatic muscle segmentation',
+    'lidar.posture': 'Depth image external geometry',
+    'nociception': 'Nociception vendor export',
+}
+
+
+def _raw_worker_settings(path):
+    if path is None:
+        return {}
+    with Path(path).open('rb') as stream:
+        raw = stream.read(65537)
+    if len(raw) > 65536:
+        raise ValueError('Raw worker configuration exceeds limit')
+    config = loads_json(raw)
+    if type(config) is not dict or not config or set(config) - set(_RAW_SPECS):
+        raise ValueError('Unsupported raw worker module')
+    settings = {}
+    for module_id, entry in config.items():
+        if type(entry) is not dict or set(entry) != {'command', 'timeout_seconds'}:
+            raise ValueError('Invalid raw worker configuration')
+        command, timeout = entry['command'], entry['timeout_seconds']
+        if type(command) is not list or not command or any(
+            type(arg) is not str or not arg or '\x00' in arg for arg in command
+        ):
+            raise ValueError('Raw worker command must be trusted argv')
+        if type(timeout) not in (int, float) or not 1 <= timeout <= 3600 or not math.isfinite(timeout):
+            raise ValueError('Invalid raw worker timeout')
+        settings[module_id] = (tuple(command), timeout)
+    return settings
+
+
+def build_registry(store,mri_config=None,pathology_config=None,raw_workers_config=None):
     # Both files are trusted operator configuration, never uploaded job input.
     mri_settings = _trusted_worker_config(mri_config, 'MRI') if mri_config is not None else None
     pathology_settings = (
         _trusted_worker_config(pathology_config, 'MRI pathology')
         if pathology_config is not None else None
     )
+    raw_settings = _raw_worker_settings(raw_workers_config)
     from dorsopathy_modules.complaints import ComplaintsProvider
+    from dorsopathy_modules.complaints.screening import ScreeningComplaintsProvider
     from dorsopathy_modules.clinical_exam import ClinicalExamProvider
     from dorsopathy_modules.mri_anatomy import MRIAnatomyProvider
     from dorsopathy_modules.lidar_posture import LidarPostureProvider
@@ -53,13 +89,18 @@ def build_registry(store,mri_config=None,pathology_config=None):
         command, timeout = mri_settings
         process=ProcessProvider(mri.spec,command,Path(store)/'mri-workers',timeout_seconds=timeout)
         mri=MRIAnatomyProvider(live_provider=process)
-    providers = [ComplaintsProvider(),ClinicalExamProvider(),mri,LidarPostureProvider(),
+    providers = [ComplaintsProvider(),ScreeningComplaintsProvider(),ClinicalExamProvider(),mri,LidarPostureProvider(),
                  ThermographyProvider(),EMGSurfaceProvider(),UltrasoundProvider(),NociceptionProvider()]
     if pathology_settings is not None:
         command, timeout = pathology_settings
         providers.append(ProcessProvider(
             ProviderSpec('mri.pathology', '0.1.0', 'MRI pathology (SpineNet research)'),
             command, Path(store)/'mri-pathology-workers', timeout_seconds=timeout,
+        ))
+    for module_id, (command, timeout) in sorted(raw_settings.items()):
+        providers.append(ProcessProvider(
+            ProviderSpec(module_id, '0.2.0', _RAW_SPECS[module_id]), command,
+            Path(store)/('raw-' + module_id + '-workers'), timeout_seconds=timeout,
         ))
     registry=ModuleRegistry()
     for provider in providers:
@@ -68,16 +109,18 @@ def build_registry(store,mri_config=None,pathology_config=None):
 
 
 def create_application(store,mri_config=None,max_workers=4,max_upload_bytes=512*1024*1024,
-                       pathology_config=None):
+                       pathology_config=None,raw_workers_config=None):
     guard=RuntimeLock(store)
     dispatcher=None
     try:
         from dorsopathy_cds.episode_report import evaluate_snapshot
         from .comparison import compare_snapshot
         repo=SqliteRepository(Path(store));artifacts=ArtifactStore(Path(store))
-        registry=build_registry(store,mri_config,pathology_config=pathology_config)
+        registry=build_registry(store,mri_config,pathology_config=pathology_config,
+                                raw_workers_config=raw_workers_config)
         dispatcher=Dispatcher(repo,artifacts,registry,max_workers=max_workers,
-                              mri_module_ids=('mri.anatomy', 'mri.pathology'))
+                              mri_module_ids=('mri.anatomy', 'mri.pathology'),
+                              heavy_provider_ids=(('ultrasound', '0.2.0'),))
         def report_builder(snapshot,manifest,reader):
             comparison=compare_snapshot(snapshot,manifest,reader)
             return evaluate_snapshot(snapshot,manifest,reader,comparison=comparison)

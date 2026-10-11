@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "acquisition_mode": "synthetic",
+  "processing_mode": "fresh",
+  "origin": "synthetic_demo",
+  "subject_ref": "synthetic-subject-1",
+  "session_ref": "synthetic-session-1",
+  "protocol_id": "synthetic-static-v1",
+  "acquired_at": "2026-10-09T10:00:00Z",
+  "clock_domain": "UTC",
+  "pose": "static-demo",
+  "coordinate_frame": null,
+  "axes": null,
+  "anatomy": {
+    "region": "lower_back",
+    "side": "bilateral",
+    "level": null,
+    "numbering_status": "not_applicable"
+  },
+  "source_kind": "emg-raw-csv.v2",
+  "csv_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "sample_rate_hz": 1000,
+  "channels": [
+    {
+      "id": "left_es",
+      "column": "left_es",
+      "side": "left",
+      "muscle": "erector_spinae_longissimus",
+      "electrode_placement": null,
+      "calibration": {
+        "status": "verified",
+        "source": "synthetic_fixture",
+        "author_id": "demo-operator",
+        "uV_per_unit": 1
+      },
+      "adc_rails": {
+        "lower": -100,
+        "upper": 100
+      }
+    },
+    {
+      "id": "right_es",
+      "column": "right_es",
+      "side": "right",
+      "muscle": "erector_spinae_longissimus",
+      "electrode_placement": null,
+      "calibration": {
+        "status": "verified",
+        "source": "synthetic_fixture",
+        "author_id": "demo-operator",
+        "uV_per_unit": 1
+      },
+      "adc_rails": {
+        "lower": -100,
+        "upper": 100
+      }
+    }
+  ],
+  "calibration": {
+    "status": "verified",
+    "source": "synthetic waveform formula",
+    "author_id": "demo-operator"
+  },
+  "processing": {
+    "detrend": "constant",
+    "bandpass_hz": [
+      20,
+      450
+    ],
+    "butterworth_order": 4,
+    "notch": null,
+    "filter_pad_samples": 128,
+    "edge_guard_samples": 128,
+    "envelope_samples": 51,
+    "window_samples": 512,
+    "hop_samples": 512,
+    "welch_segment_samples": 256,
+    "welch_overlap_samples": 128,
+    "timing_tolerance_fraction": 0.01
+  },
+  "device": {
+    "manufacturer": null,
+    "model": null,
+    "serial": null,
+    "upstream_filtering": null
+  },
+  "export": {
+    "format": "csv",
+    "time_column": "time_s",
+    "ignored_columns": []
+  },
+  "events": []
+}

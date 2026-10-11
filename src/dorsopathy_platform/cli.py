@@ -71,6 +71,7 @@ def main(argv=None):
     serve.add_argument('--port',type=int,default=8766)
     serve.add_argument('--mri-config',type=Path)
     serve.add_argument('--mri-pathology-config',type=Path,help='Trusted local SpineNet worker configuration')
+    serve.add_argument('--raw-workers-config',type=Path,help='Trusted local raw sensor worker configurations')
     serve.add_argument('--example-catalog',type=Path,help='Trusted local public-example catalog')
     flow = commands.add_parser('run-flow',help='Run the full synthetic example or a persisted manifest')
     flow.add_argument('--store',type=Path,default=Path('var/multimodal'))
@@ -78,6 +79,7 @@ def main(argv=None):
     flow.add_argument('--idempotency-key')
     flow.add_argument('--mri-config',type=Path)
     flow.add_argument('--mri-pathology-config',type=Path,help='Trusted local SpineNet worker configuration')
+    flow.add_argument('--raw-workers-config',type=Path,help='Trusted local raw sensor worker configurations')
     flow.add_argument('--output',type=Path)
     flow.add_argument('--timeout',type=float,default=600)
     bundle = commands.add_parser('import-bundle',help='Import and run a locally normalized MRI replay')
@@ -89,7 +91,8 @@ def main(argv=None):
         if args.command == 'serve':
             from .bootstrap import create_application
             from .http import create_server
-            app=create_application(args.store,args.mri_config,pathology_config=args.mri_pathology_config)
+            app=create_application(args.store,args.mri_config,pathology_config=args.mri_pathology_config,
+                                   raw_workers_config=args.raw_workers_config)
             server=None
             try:
                 server=create_server(app,port=args.port,example_catalog=args.example_catalog)
@@ -114,7 +117,8 @@ def main(argv=None):
             from .bootstrap import create_application
             from .demo_flow import start_demo
             from .workflow import wait_for_run
-            app=create_application(args.store,args.mri_config,pathology_config=args.mri_pathology_config)
+            app=create_application(args.store,args.mri_config,pathology_config=args.mri_pathology_config,
+                                   raw_workers_config=args.raw_workers_config)
             try:
                 if args.manifest:
                     manifest=_load_json(args.manifest)

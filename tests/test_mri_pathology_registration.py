@@ -244,7 +244,7 @@ class MRIPathologyRegistrationTests(unittest.TestCase):
              redirect_stdout(io.StringIO()):
             self.assertEqual(main(['serve', '--store', str(store), '--mri-config', str(anatomy),
                                    '--mri-pathology-config', str(config)]), 0)
-        factory.assert_called_once_with(store, anatomy, pathology_config=config)
+        factory.assert_called_once_with(store, anatomy, pathology_config=config, raw_workers_config=None)
         server.server_close.assert_called_once_with()
         app.close.assert_called_once_with()
 
@@ -262,7 +262,7 @@ class MRIPathologyRegistrationTests(unittest.TestCase):
              redirect_stdout(io.StringIO()):
             self.assertEqual(main(['run-flow', '--store', str(store), '--mri-config', str(anatomy),
                                    '--mri-pathology-config', str(config)]), 0)
-        factory.assert_called_once_with(store, anatomy, pathology_config=config)
+        factory.assert_called_once_with(store, anatomy, pathology_config=config, raw_workers_config=None)
         app.close.assert_called_once_with()
 
     def test_cli_invalid_config_returns_safe_error(self):

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "nociception-vendor-csv.v2",
+  "csv_artifact_id": "bind-on-import",
+  "vendor_profile": "medasense-pmd200-summary-four-columns.v1",
+  "device": {"manufacturer": "Medasense", "model": "PMD-200", "software_version": null, "index_averaging_window_s": null},
+  "acquisition_mode": "recorded",
+  "origin": "automatically_measured",
+  "subject_ref": null,
+  "session_ref": null,
+  "protocol_id": null,
+  "clinical_context": "unknown",
+  "acquired_at": null,
+  "clock_domain": null,
+  "time_encoding": null,
+  "sampling_period_s": null,
+  "timing_tolerance_fraction": 0.1,
+  "missing_tokens": [""],
+  "calibration": {"status": "unknown", "source": null, "author_id": null},
+  "response_windows": {"baseline_s": 60, "response_s": 180},
+  "source_provenance": {"source_url": null, "source_revision": null, "license_status": "unknown", "license_identifier": null}
+}

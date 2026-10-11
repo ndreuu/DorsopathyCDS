@@ -1,0 +1,6 @@
+{
+  "nociception": {
+    "command": ["/absolute/trusted/python", "-m", "dorsopathy_workers.nociception"],
+    "timeout_seconds": 120
+  }
+}

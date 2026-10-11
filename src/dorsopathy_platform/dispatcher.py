@@ -1,4 +1,4 @@
-"""Long-lived persisted-job dispatcher with separate CPU and single-MRI lanes."""
+"""Long-lived persisted-job dispatcher with CPU workers and a single memory-heavy inference lane."""
 
 from __future__ import annotations
 
@@ -12,11 +12,13 @@ from .storage import TransitionError
 
 class Dispatcher:
     def __init__(self, repository, artifacts, registry, max_workers=4,
-                 mri_module_ids=("mri.anatomy",), recover=True):
+                 mri_module_ids=("mri.anatomy",), recover=True, heavy_provider_ids=()):
         if type(max_workers) is not int or not 1 <= max_workers <= 16:
             raise ValueError("Expected 1 to 16 CPU workers")
         if type(mri_module_ids) is not tuple or any(type(item) is not str or not item for item in mri_module_ids):
             raise ValueError("MRI lane requires a tuple of configured module IDs")
+        if type(heavy_provider_ids) is not tuple or any(type(item) is not tuple or len(item) != 2 or any(type(part) is not str or not part for part in item) for item in heavy_provider_ids):
+            raise ValueError('Heavy inference lane requires module/version tuples')
         if type(recover) is not bool:
             raise ValueError("Recovery option must be boolean")
         self.repository = repository
@@ -24,6 +26,7 @@ class Dispatcher:
         self.registry = registry
         self.runner = JobRunner(repository, artifacts, registry)
         self._mri_module_ids = frozenset(mri_module_ids)
+        self._heavy_provider_ids = frozenset(heavy_provider_ids)
         self._lock = threading.Lock()
         self._closed = False
         self._futures = {}
@@ -66,7 +69,8 @@ class Dispatcher:
             job = self.repository.get_job(job_id)
             if job["status"] != "queued":
                 return None
-            lane = self._mri if job["module_id"] in self._mri_module_ids else self._cpu
+            heavy = job['module_id'] in self._mri_module_ids or (job['module_id'], job['module_version']) in self._heavy_provider_ids
+            lane = self._mri if heavy else self._cpu
             future = lane.submit(self._execute, job_id)
             self._futures[job_id] = future
         # Register outside the lock: a completed Future invokes this immediately.

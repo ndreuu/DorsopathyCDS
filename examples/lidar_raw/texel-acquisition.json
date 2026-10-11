@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "lidar-depth.v2",
+  "acquisition_mode": "recorded",
+  "processing_mode": "fresh",
+  "origin": "automatically_measured",
+  "subject_ref": "texel-part1-man0",
+  "session_ref": "texel-part1-man0-depth-session",
+  "protocol_id": "texel-original-depth-v1",
+  "acquired_at": null,
+  "clock_domain": null,
+  "pose": "Single original standing ToF frame; clinical posture standardization unknown",
+  "coordinate_frame": "depth-camera-optical",
+  "axes": [
+    "camera_x_right",
+    "camera_y_down",
+    "camera_z_forward"
+  ],
+  "anatomy": {
+    "region": "external_body_surface",
+    "side": "unspecified",
+    "level": null,
+    "numbering_status": "not_applicable"
+  },
+  "calibration": {
+    "status": "verified",
+    "source": "Nominal Azure Kinect DEPTH16 unit is mm per Microsoft SDK; camera intrinsics are read from original TEXEL person.scan.xml. This declares published scale, not independent calibration accuracy.",
+    "author_id": "research-source-unit-review",
+    "mm_per_unit": 1
+  },
+  "depth_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "camera_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "camera_format": "texel.scan.xml.v1",
+  "device": {
+    "manufacturer": "Microsoft",
+    "model": "Azure Kinect DK",
+    "serial": null,
+    "sensor_modality": "time_of_flight"
+  },
+  "foreground": {
+    "method": "largest_depth_connected_component_v1",
+    "min_depth_units": 1200,
+    "max_depth_units": 2700,
+    "max_neighbor_delta_units": 75,
+    "min_component_pixels": 1000,
+    "point_grid_stride": 3
+  },
+  "anatomical_frame": {
+    "status": "unknown",
+    "up_vector_camera": null,
+    "source": null,
+    "author_id": null
+  },
+  "pca_axis_min_separation_ratio": 1.1
+}

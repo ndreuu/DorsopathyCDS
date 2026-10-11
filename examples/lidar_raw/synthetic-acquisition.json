@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "lidar-depth.v2",
+  "acquisition_mode": "synthetic",
+  "processing_mode": "fresh",
+  "origin": "synthetic_demo",
+  "subject_ref": "synthetic-depth-subject",
+  "session_ref": "synthetic-depth-session",
+  "protocol_id": "synthetic-depth-plane-v1",
+  "acquired_at": "2026-10-10T09:00:00Z",
+  "clock_domain": "UTC",
+  "pose": "synthetic front plane",
+  "coordinate_frame": "depth-camera-optical",
+  "axes": [
+    "camera_x_right",
+    "camera_y_down",
+    "camera_z_forward"
+  ],
+  "anatomy": {
+    "region": "external_body_surface",
+    "side": "unspecified",
+    "level": null,
+    "numbering_status": "not_applicable"
+  },
+  "calibration": {
+    "status": "verified",
+    "source": "Synthetic DEPTH16 fixture: one depth unit = one mm, pinhole formula",
+    "author_id": "synthetic-fixture-author",
+    "mm_per_unit": 1
+  },
+  "depth_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "camera_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "camera_format": "depth-camera-calibration.v1",
+  "device": {
+    "manufacturer": null,
+    "model": null,
+    "serial": null,
+    "sensor_modality": "synthetic"
+  },
+  "foreground": {
+    "method": "largest_depth_connected_component_v1",
+    "min_depth_units": 100,
+    "max_depth_units": 2000,
+    "max_neighbor_delta_units": 50,
+    "min_component_pixels": 100,
+    "point_grid_stride": 1
+  },
+  "anatomical_frame": {
+    "status": "verified",
+    "up_vector_camera": [
+      0,
+      -1,
+      0
+    ],
+    "source": "Synthetic fixture's explicitly defined up vector",
+    "author_id": "synthetic-fixture-author"
+  },
+  "pca_axis_min_separation_ratio": 1.1
+}

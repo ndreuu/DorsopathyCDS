@@ -1,0 +1,6 @@
+{
+  "thermography": {
+    "command": ["/absolute/trusted/python", "-m", "dorsopathy_workers.thermography", "--exiftool", "/absolute/trusted/exiftool", "--perl", "/usr/bin/perl"],
+    "timeout_seconds": 120
+  }
+}

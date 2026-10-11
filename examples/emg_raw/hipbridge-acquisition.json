@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "acquisition_mode": "recorded",
+  "processing_mode": "fresh",
+  "origin": "automatically_measured",
+  "subject_ref": "hipbridge-fd0f5636",
+  "session_ref": "hipbridge-fd0f5636-phe-1",
+  "protocol_id": "hipbridge-phe-v0.1",
+  "acquired_at": null,
+  "clock_domain": null,
+  "pose": "prone_hip_extension",
+  "coordinate_frame": null,
+  "axes": null,
+  "anatomy": {
+    "region": "back",
+    "side": "bilateral",
+    "level": null,
+    "numbering_status": "not_applicable"
+  },
+  "source_kind": "emg-raw-csv.v2",
+  "csv_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "sample_rate_hz": 1000,
+  "channels": [
+    {
+      "id": "left_es",
+      "column": "Left Erector spinae longissimus",
+      "side": "left",
+      "muscle": "erector_spinae_longissimus",
+      "electrode_placement": "Publisher reports SENIAM placement; exact vertebral level not provided",
+      "calibration": {
+        "status": "unknown",
+        "source": null,
+        "author_id": null,
+        "uV_per_unit": null
+      },
+      "adc_rails": null
+    },
+    {
+      "id": "right_es",
+      "column": "Right Erector spinae longissimus",
+      "side": "right",
+      "muscle": "erector_spinae_longissimus",
+      "electrode_placement": "Publisher reports SENIAM placement; exact vertebral level not provided",
+      "calibration": {
+        "status": "unknown",
+        "source": null,
+        "author_id": null,
+        "uV_per_unit": null
+      },
+      "adc_rails": null
+    }
+  ],
+  "calibration": {
+    "status": "unknown",
+    "source": null,
+    "author_id": null
+  },
+  "processing": {
+    "detrend": "constant",
+    "bandpass_hz": [
+      20,
+      450
+    ],
+    "butterworth_order": 4,
+    "notch": null,
+    "filter_pad_samples": 128,
+    "edge_guard_samples": 128,
+    "envelope_samples": 51,
+    "window_samples": 512,
+    "hop_samples": 512,
+    "welch_segment_samples": 256,
+    "welch_overlap_samples": 128,
+    "timing_tolerance_fraction": 0.01
+  },
+  "device": {
+    "manufacturer": "BTS Bioengineering",
+    "model": "FREEEMG",
+    "serial": null,
+    "upstream_filtering": null
+  },
+  "export": {
+    "format": "hipbridgeemg.v0.1",
+    "time_column": "Time",
+    "ignored_columns": [
+      "Frame",
+      "Left Rectus femoris",
+      "Right Rectus femoris",
+      "Right Gluteus maximus",
+      "Left Gluteus maximus",
+      "Left Biceps femoris caput longus",
+      "Right Biceps femoris caput longus"
+    ]
+  },
+  "events": []
+}

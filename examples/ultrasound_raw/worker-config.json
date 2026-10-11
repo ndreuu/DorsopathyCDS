@@ -1,0 +1,6 @@
+{
+    "ultrasound": {
+      "command": ["/usr/bin/env", "PYTHONPATH=/ABSOLUTE/DorsopathyCDS/src", "/ABSOLUTE/OPTIONAL/ENV/bin/python", "-m", "dorsopathy_workers.ultrasound", "--upstream-root", "/ABSOLUTE/IGNORED/UltraSAM3-7ab334166fee7f87cf47a213d97731ad482dad3f", "--checkpoint", "/ABSOLUTE/IGNORED/UltraSAM3-image.pt", "--device", "cpu", "--threads", "2"],
+      "timeout_seconds": 1800
+    }
+}

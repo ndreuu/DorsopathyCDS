@@ -1,0 +1,17 @@
+{
+  "schema_version": "depth-camera-calibration.v1",
+  "width": 64,
+  "height": 64,
+  "intrinsics": {
+    "fx": 100,
+    "fy": 100,
+    "cx": 31.5,
+    "cy": 31.5
+  },
+  "distortion": {
+    "model": "none",
+    "coefficients": null,
+    "source": "Synthetic pinhole fixture has no lens distortion"
+  },
+  "depth_convention": "axial_z"
+}

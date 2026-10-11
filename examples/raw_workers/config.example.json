@@ -1,0 +1,42 @@
+{
+  "emg.surface": {
+    "command": [
+      "/usr/bin/env",
+      "PYTHONPATH=/absolute/DorsopathyCDS/src",
+      "/trusted/python",
+      "-m",
+      "dorsopathy_workers.emg"
+    ],
+    "timeout_seconds": 120
+  },
+  "thermography": {
+    "command": [
+      "/usr/bin/env",
+      "PYTHONPATH=/absolute/DorsopathyCDS/src",
+      "/trusted/python",
+      "-m",
+      "dorsopathy_workers.thermography"
+    ],
+    "timeout_seconds": 120
+  },
+  "lidar.posture": {
+    "command": [
+      "/usr/bin/env",
+      "PYTHONPATH=/absolute/DorsopathyCDS/src",
+      "/trusted/python",
+      "-m",
+      "dorsopathy_workers.lidar"
+    ],
+    "timeout_seconds": 120
+  },
+  "nociception": {
+    "command": [
+      "/usr/bin/env",
+      "PYTHONPATH=/absolute/DorsopathyCDS/src",
+      "/trusted/python",
+      "-m",
+      "dorsopathy_workers.nociception"
+    ],
+    "timeout_seconds": 120
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "ultrasound-raw.v1",
+  "acquisition_mode": "recorded",
+  "processing_mode": "fresh",
+  "origin": "automatically_measured",
+  "subject_ref": null,
+  "session_ref": null,
+  "protocol_id": "lumbar-static-research-v1",
+  "acquired_at": null,
+  "clock_domain": null,
+  "pose": null,
+  "coordinate_frame": "ultrasound-source-pixels",
+  "axes": ["x-right", "y-down"],
+  "anatomy": {"region": "lumbar_multifidus", "side": "unspecified", "level": null, "numbering_status": "needs_confirmation"},
+  "frame_artifact_id": "REPLACE_AFTER_UPLOAD",
+  "frame_index": null,
+  "structure": "lumbar_multifidus",
+  "plane": "unknown",
+  "calibration": {"status": "unknown", "source": null, "author_id": null, "mm_per_pixel_x": null, "mm_per_pixel_y": null, "region": null}
+}

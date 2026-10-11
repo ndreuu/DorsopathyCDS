@@ -6,6 +6,11 @@ from .api_contracts import opaque_id
 from .contracts import ContractError, loads_json
 
 LABELS = {
+ 'thermal.roi_max_temperature':'Максимальная температура',
+ 'surface.visible_extent':'Размер по оси камеры',
+ 'surface.principal_extent':'Размер по главной оси поверхности',
+ 'ultrasound.muscle.cross_sectional_area':'Площадь маски мышцы',
+ 'ultrasound.muscle.thickness':'Толщина маски мышцы',
  'spine.central_stenosis.grade':'Центральный стеноз: категория модели',
  'spine.disc.herniation.present':'Грыжа: категория модели',
  'spine.canal.cross_sectional_area':'Площадь канала',

@@ -1,0 +1,111 @@
+[
+  {
+    "id": "nice_ng127_cauda_equina_referral",
+    "version": "0.1.0",
+    "title": "Скрининг показаний для срочной оценки синдрома конского хвоста",
+    "clinical_review_status": "requires_clinical_review",
+    "formalization_status": "draft_pending_clinical_validation",
+    "diagnostic_output": "screening_action_only",
+    "population": "adult",
+    "action_citations": [
+      {
+        "doc_id": "nice_ng127",
+        "quote_id": "immediate_referral"
+      }
+    ],
+    "mapping_notes": [
+      "Only patient-reported questionnaire facts are evaluated. This is a referral criterion, not a diagnostic definition or exclusion of cauda equina syndrome.",
+      "Explicit severe pain is a separate answer; the numerical pain score does not set an invented threshold.",
+      "Formula: severe low-back pain AND leg radiation AND (new bladder OR bowel OR sexual disturbance OR perineal numbness). The conjunction scope requires clinician review before clinical use.",
+      "Questionnaire facts are source-bound within one episode. No cross-modality anatomical concordance, diagnostic probability or international regulatory approval is inferred."
+    ],
+    "condition": {
+      "id": "referral_criterion",
+      "all": [
+        {
+          "id": "severe_pain",
+          "fact": "symptoms.low_back_pain.severe",
+          "operator": "eq",
+          "expected": true,
+          "label": "Пациент сообщает сильную боль в пояснице",
+          "citations": [
+            {
+              "doc_id": "nice_ng127",
+              "quote_id": "severe_radiating_pain"
+            }
+          ]
+        },
+        {
+          "id": "leg_radiation",
+          "fact": "symptoms.pain.leg_radiation",
+          "operator": "eq",
+          "expected": true,
+          "label": "Пациент сообщает распространение боли в ногу",
+          "citations": [
+            {
+              "doc_id": "nice_ng127",
+              "quote_id": "severe_radiating_pain"
+            }
+          ]
+        },
+        {
+          "id": "new_neurological_symptom",
+          "any": [
+            {
+              "id": "bladder",
+              "fact": "symptoms.new_bladder_disturbance",
+              "operator": "eq",
+              "expected": true,
+              "label": "Новое нарушение функции мочевого пузыря",
+              "citations": [
+                {
+                  "doc_id": "nice_ng127",
+                  "quote_id": "new_function_disturbance"
+                }
+              ]
+            },
+            {
+              "id": "bowel",
+              "fact": "symptoms.new_bowel_disturbance",
+              "operator": "eq",
+              "expected": true,
+              "label": "Новое нарушение функции кишечника",
+              "citations": [
+                {
+                  "doc_id": "nice_ng127",
+                  "quote_id": "new_function_disturbance"
+                }
+              ]
+            },
+            {
+              "id": "sexual",
+              "fact": "symptoms.new_sexual_disturbance",
+              "operator": "eq",
+              "expected": true,
+              "label": "Новое нарушение сексуальной функции",
+              "citations": [
+                {
+                  "doc_id": "nice_ng127",
+                  "quote_id": "new_function_disturbance"
+                }
+              ]
+            },
+            {
+              "id": "perineal",
+              "fact": "symptoms.new_perineal_numbness",
+              "operator": "eq",
+              "expected": true,
+              "label": "Новое онемение промежности",
+              "citations": [
+                {
+                  "doc_id": "nice_ng127",
+                  "quote_id": "new_perineal_numbness"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

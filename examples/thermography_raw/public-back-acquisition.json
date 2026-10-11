@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "thermography-raw-flir.v1",
+  "jpeg_artifact_id": "bind-on-import",
+  "acquisition_mode": "recorded",
+  "origin": "automatically_measured",
+  "subject_ref": "flir-public-back-2220",
+  "session_ref": "flir-public-back-2220-session",
+  "protocol_id": null,
+  "acquired_at": "2020-10-02T12:54:51.519+00:00",
+  "clock_domain": "flir-camera-clock",
+  "pose": "Posterior torso view in public image; standardized pose not documented",
+  "coordinate_frame": "flir-2220-native-thermal-pixels",
+  "count_byte_order": "little",
+  "calibration": {
+    "status": "unknown",
+    "source": "File-embedded FLIR coefficients support numeric decoding; independent blackbody calibration and physical accuracy are not documented",
+    "author_id": null
+  },
+  "conditions": {
+    "status": "file_settings_only",
+    "source": "Use the original camera file settings; actual emissivity and environmental control are not independently verified",
+    "emissivity": null,
+    "distance_m": null,
+    "reflected_Cel": null,
+    "ambient_Cel": null,
+    "window_Cel": null,
+    "window_transmission": null,
+    "relative_humidity_fraction": null
+  },
+  "source_provenance": {
+    "source_url": "https://github.com/dshatwell23/back-temperature-analysis",
+    "source_revision": "729906f1a5949e316728e730e9820b75d3a36c76",
+    "license_status": "unknown",
+    "license_identifier": null
+  }
+}

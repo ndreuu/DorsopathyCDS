@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "source_kind": "thermography-raw-flir.v1",
+  "jpeg_artifact_id": "bind-on-import",
+  "acquisition_mode": "recorded",
+  "origin": "automatically_measured",
+  "subject_ref": null,
+  "session_ref": null,
+  "protocol_id": null,
+  "acquired_at": null,
+  "clock_domain": null,
+  "pose": null,
+  "coordinate_frame": "native-thermal-pixels",
+  "count_byte_order": "little",
+  "calibration": {"status": "unknown", "source": null, "author_id": null},
+  "conditions": {
+    "status": "file_settings_only",
+    "source": null,
+    "emissivity": null,
+    "distance_m": null,
+    "reflected_Cel": null,
+    "ambient_Cel": null,
+    "window_Cel": null,
+    "window_transmission": null,
+    "relative_humidity_fraction": null
+  },
+  "source_provenance": {"source_url": null, "source_revision": null, "license_status": "unknown", "license_identifier": null}
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "checked_at": "2026-10-11",
+  "provider": {"module_id": "nociception", "module_version": "0.2.0"},
+  "vendor_profile": "medasense-pmd200-summary-four-columns.v1",
+  "documented_field_adapter_implemented": true,
+  "real_vendor_export_serialization_verified": false,
+  "open_continuous_pmd200_vendor_csv_obtained": false,
+  "real_import_gate": "not_completed_real_unchanged_permitted_vendor_export_required",
+  "signal_quality_gate": "not_completed_quality_not_in_documented_four_column_export",
+  "clock_alignment_gate": "not_completed_independent_clock_evidence_required",
+  "clinical_use_gate": "not_completed_no_dorsopathy_inference",
+  "tracked_fixture_origin": "synthetic_demo",
+  "vendor_sdk_included": false,
+  "proprietary_index_recomputed": false,
+  "verified_documentation": [
+    {"url": "https://medasense.com/wp-content/uploads/2025/11/Medasense-PMD-200-User-manual-2.2.1-MK2U-02-708-English-US.pdf", "document": "MK2U-02-708 Revision 2", "page": 55, "verified": "CSV fields Time, NOL index, Heart rate, Annotations; timestamp serialization and quality field not specified"},
+    {"url": "https://www.accessdata.fda.gov/cdrh_docs/reviews/DEN210022.pdf", "document": "DEN210022", "page": 1, "verified": "Indications concern adult general anesthesia as adjunct to clinical judgment; do not establish this software's validation"}
+  ],
+  "data_candidates": [
+    {"url": "https://physionet.org/content/multimodal-surgery-anesthesia/1.0/", "status": "restricted_registered_users_signed_data_use_agreement", "downloaded": false, "fit": "ANI research-derived windows; not a verified PMD-200 vendor export"},
+    {"url": "https://plos.figshare.com/articles/dataset/DataFigure3_/28933933", "status": "previous_local_audit_CC_BY_4_0_seven_checkpoint_rows_T1_to_T7", "fit": "not_continuous_no_source_cadence_quality_or_clock", "converted_to_vendor_profile": false},
+    {"url": "https://doi.org/10.5256/f1000research.15279.d207164", "status": "previous_research_audit_CC0_PMD100_window_aggregates", "fit": "not_PMD200_continuous_vendor_export", "converted_to_vendor_profile": false}
+  ],
+  "account_created_or_terms_accepted": false,
+  "required_next_input": "Unchanged permitted PMD-200 CSV plus verified acquisition metadata, unit/time/missing-token serialization and device review comparison. Separate quality and clock evidence are needed for event response or cross-study alignment."
+}
